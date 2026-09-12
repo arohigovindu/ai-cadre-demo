@@ -10,7 +10,8 @@ st.caption("AI Proposes, GIS Validates, Confidence Prioritizes, and the Surveyor
 
 gdf = analyze_parcels("sample_parcels.geojson")
 
-col1, col2 = st.columns()
+# Fix 1: Pass 2 into st.columns(2)
+col1, col2 = st.columns(2)
 
 with col1:
     st.subheader("🗺️ Web-GIS Map View")
@@ -34,6 +35,7 @@ with col2:
     st.subheader("🔍 Parcel Inspector")
     selected_id = st.selectbox("Select Parcel ID:", gdf['parcel_id'].tolist())
     
+    # Fix 2: Added  to iloc to select row data
     p = gdf[gdf['parcel_id'] == selected_id].iloc
     
     st.metric("Confidence Score", f"{p['confidence']}%")
