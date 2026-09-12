@@ -1,6 +1,8 @@
+
 import html
 import time
 import json
+import math
 import folium
 import geopandas as gpd
 import streamlit as st
@@ -27,6 +29,7 @@ st.set_page_config(
 
 if "map_focus_city" not in st.session_state:
     st.session_state.map_focus_city = False
+
 if "parcel_decisions" not in st.session_state:
     st.session_state.parcel_decisions = {}
 
@@ -65,191 +68,400 @@ st.html(
         --red: #b94a48;
         --amber: #c38a32;
     }
+
     .block-container {
         padding-top: 85px !important;
     }
 
-    .stApp { background: var(--paper); color: var(--ink); }
-    .block-container { padding: 85px 2rem 3rem; max-width: 1550px; }
+    .stApp {
+        background: var(--paper);
+        color: var(--ink);
+    }
 
-    /* Sticky navigation */
-    html { scroll-behavior: smooth; }
+    .block-container {
+        padding: 85px 2rem 3rem;
+        max-width: 1550px;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
     .cadre-nav-wrap {
-        position: sticky; top: 0; z-index: 99999;
-        margin: -0.7rem -2rem 18px; padding: 0 2rem 8px;
+        position: sticky;
+        top: 0;
+        z-index: 99999;
+        margin: -0.7rem -2rem 18px;
+        padding: 0 2rem 8px;
         background: var(--paper);
     }
+
     .cadre-nav {
-        background: var(--green-dark); border-radius: 0 0 16px 16px;
-        padding: 11px 18px; color: white;
-        display:flex; align-items:center; gap:20px;
+        background: var(--green-dark);
+        border-radius: 0 0 16px 16px;
+        padding: 11px 18px;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 20px;
         box-shadow: 0 7px 22px rgba(23,61,45,.16);
-        min-height:58px;
+        min-height: 58px;
     }
-    .cadre-brand-block { display:flex; align-items:center; gap:10px; flex:0 0 auto; }
-    .cadre-logo { width:40px; height:40px; display:flex; align-items:center; justify-content:center; flex:0 0 40px; }
-    .cadre-brand { font-size:21px; font-weight:900; letter-spacing:-.45px; line-height:1; }
-    .cadre-subbrand { font-size:11px; color:#b8cec2; margin-top:4px; letter-spacing:.35px; text-transform:uppercase; }
-    .cadre-nav-links { display:flex; align-items:center; justify-content:center; gap:4px; flex:1; flex-wrap:wrap; }
+
+    .cadre-brand-block {
+        display:flex;
+        align-items:center;
+        gap:10px;
+        flex:0 0 auto;
+    }
+
+    .cadre-logo {
+        width:40px;
+        height:40px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        flex:0 0 40px;
+    }
+
+    .cadre-brand {
+        font-size:27px;
+        font-weight:900;
+        letter-spacing:-.45px;
+        line-height:1;
+    }
+
+    .cadre-subbrand {
+        font-size:14px;
+        color:#b8cec2;
+        margin-top:4px;
+        letter-spacing:.35px;
+        text-transform:uppercase;
+    }
+
+    .cadre-nav-links {
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:4px;
+        flex:1;
+        flex-wrap:wrap;
+    }
+
     .cadre-nav-link {
-        color:#dce9e2; text-decoration:none; font-size:12px; font-weight:800;
-        padding:7px 9px; border-radius:7px; white-space:nowrap;
-        transition:background .15s ease, color .15s ease;
+        color:#dce9e2;
+        text-decoration:none;
+        font-size:15px;
+        font-weight:800;
+        padding:9px 12px;
+        border-radius:7px;
+        white-space:nowrap;
     }
-    .cadre-nav-link:hover { background:#285640; color:#ffffff; }
+
+    .cadre-nav-link:hover {
+        background:#285640;
+        color:#ffffff;
+    }
+
     .cadre-status {
-        display:flex; align-items:center; gap:7px; flex:0 0 auto;
-        color:#d8e9df; font-size:11px; font-weight:800;
-        border-left:1px solid #3b614f; padding-left:13px;
+        display:flex;
+        align-items:center;
+        gap:7px;
+        flex:0 0 auto;
+        color:#d8e9df;
+        font-size:14px;
+        font-weight:800;
+        border-left:1px solid #3b614f;
+        padding-left:13px;
     }
-    .status-dot { width:7px; height:7px; border-radius:50%; background:#7cc58c; box-shadow:0 0 0 3px rgba(124,197,140,.12); }
-    .anchor-target { height:0; scroll-margin-top:86px; }
 
-    /* Hero */
+    .status-dot {
+        width:7px;
+        height:7px;
+        border-radius:50%;
+        background:#7cc58c;
+    }
+
+    .anchor-target {
+        height:0;
+        scroll-margin-top:86px;
+    }
+
     .hero {
-        background: linear-gradient(115deg, #173d2d 0%, #245943 58%, #3c7d78 100%);
-        border-radius:18px; padding:25px 28px; color:white; margin-bottom:18px;
-        box-shadow:0 10px 28px rgba(31,75,56,.14); position:relative; overflow:hidden;
+        background:linear-gradient(115deg,#173d2d 0%,#245943 58%,#3c7d78 100%);
+        border-radius:18px;
+        padding:25px 28px;
+        color:white;
+        margin-bottom:18px;
+        box-shadow:0 10px 28px rgba(31,75,56,.14);
+        position:relative;
+        overflow:hidden;
     }
-    .hero:after { content:""; position:absolute; width:220px; height:220px; right:-60px; top:-90px; border:1px solid rgba(255,255,255,.12); border-radius:50%; box-shadow:0 0 0 28px rgba(255,255,255,.04), 0 0 0 56px rgba(255,255,255,.025); }
-    .hero-kicker { color:#d8e9c9; font-size:12px; font-weight:850; letter-spacing:1.2px; margin-bottom:6px; }
-    .hero-title { font-size:36px; font-weight:850; margin:0; letter-spacing:-.9px; }
-    .hero-text { color:#d8e8df; max-width:760px; line-height:1.5; margin-top:8px; font-size:16px; }
-    .hero-flow { margin-top:15px; font-size:13px; font-weight:750; color:#f1e7ca; }
 
-    /* Sections */
-    .section-title { font-size:22px; font-weight:850; color:var(--ink); margin-top:20px; margin-bottom:3px; letter-spacing:-.2px; }
-    .section-subtitle { color:var(--muted); font-size:14px; margin-bottom:11px; }
-
-    /* KPI */
-    .kpi-card { background:var(--card); border:1px solid var(--line); border-radius:13px; padding:15px 16px; min-height:94px; box-shadow:0 2px 12px rgba(24,52,41,.035); }
-    .kpi-label { color:#71817b; font-size:12px; font-weight:850; text-transform:uppercase; letter-spacing:.65px; }
-    .kpi-value { color:var(--ink); font-size:30px; font-weight:900; margin-top:4px; }
-    .kpi-note { color:#82908b; font-size:12px; margin-top:1px; }
-
-    /* Cards */
-    .card { background:var(--card); border:1px solid var(--line); border-radius:13px; padding:17px; box-shadow:0 2px 12px rgba(24,52,41,.035); }
-    .card-title { font-size:18px; font-weight:850; color:var(--ink); margin-bottom:4px; }
-    .card-subtitle { font-size:14px; color:#778680; margin-bottom:11px; }
-
-    /* Status */
-    .status-pass,.status-fail,.status-warn { display:inline-block; border-radius:999px; padding:5px 10px; font-size:12px; font-weight:850; }
-    .status-pass { background:#e7f2ea; color:#2d6b49; }
-    .status-fail { background:#f9e9e7; color:#a64340; }
-    .status-warn { background:#fbf1dd; color:#9b6b1d; }
-
-    /* Explainability */
-    .xai-box { background:#f0f5f1; border:1px solid #d7e5db; border-left:3px solid var(--teal); border-radius:10px; padding:13px; color:#40574e; font-size:14px; line-height:1.5; }
-    .xai-title { font-size:12px; font-weight:850; color:#356b62; margin-bottom:3px; text-transform:uppercase; letter-spacing:.6px; }
-
-    /* Signals */
-    .signal { background:#f7f9f7; border:1px solid #e5ebe7; border-radius:9px; padding:9px; margin-bottom:7px; }
-    .signal-label { font-size:11px; color:#7b8984; text-transform:uppercase; font-weight:850; }
-    .signal-value { font-size:17px; color:#234137; font-weight:850; margin-top:2px; }
-
-    /* Workflow */
-    .workflow-card { background:white; border:1px solid var(--line); border-radius:12px; padding:13px; min-height:105px; }
-    .workflow-number { width:28px; height:28px; border-radius:8px; background:#e6f0e9; color:var(--green); display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:900; margin-bottom:8px; }
-    .workflow-name { font-size:15px; font-weight:850; color:#254238; }
-    .workflow-desc { font-size:12px; color:#76847f; margin-top:3px; line-height:1.35; }
-
-    /* Upload */
-    .upload-info { background:#f3f7f3; border:1px dashed #bdd0c3; border-radius:11px; padding:13px 15px; font-size:14px; color:#52675d; line-height:1.45; margin-bottom:10px; }
-    .extraction-status { background:#edf6ef; border:1px solid #cce0d1; border-radius:11px; padding:13px; color:#2d6647; font-size:14px; }
-
-    /* Streamlit controls */
-    div[data-testid="stFileUploader"] { background:white; border:1px solid var(--line); border-radius:12px; padding:10px; }
-    div.stButton > button, div.stDownloadButton > button { border-radius:9px; font-weight:750; border:1px solid #cfdcd4; }
-    div.stButton > button[kind="primary"] { background:#2f6f4e; border-color:#2f6f4e; }
-    div[data-testid="stMetric"] { background:white; border:1px solid var(--line); padding:10px; border-radius:10px; }
-    div[data-testid="stDataFrame"] { border-radius:10px; overflow:hidden; }
-
-    .footer { text-align:center; color:#89958f; font-size:14px; padding:22px 0 5px; }
-    /* Larger overall typography */
-    body, .stApp { font-size:16px !important; }
-    .stMarkdown, .stMarkdown p, .stMarkdown li { font-size:16px !important; line-height:1.55 !important; }
-    div[data-testid="stCaptionContainer"], div[data-testid="stCaptionContainer"] p { font-size:14px !important; }
-    div[data-testid="stWidgetLabel"] p, div[data-testid="stWidgetLabel"] label { font-size:16px !important; }
-    button, [data-testid="stDownloadButton"] button { font-size:15px !important; min-height:44px !important; }
-    input, textarea, [data-baseweb="select"] * { font-size:16px !important; }
-    [data-testid="stDataFrame"] * { font-size:15px !important; }
-    .cadre-brand { font-size:24px; }
-    .cadre-subbrand { font-size:13px; }
-    .cadre-nav-link { font-size:14px; padding:8px 11px; }
-    .cadre-status { font-size:13px; }
-    .hero-kicker { font-size:14px; }
-    .hero-title { font-size:42px; }
-    .hero-text { font-size:18px; }
-    .hero-flow { font-size:15px; }
-    .section-title { font-size:27px; }
-    .section-subtitle { font-size:16px; }
-    .kpi-label { font-size:14px; }
-    .kpi-value { font-size:35px; }
-    .kpi-note { font-size:14px; }
-    .card-title { font-size:21px; }
-    .card-subtitle { font-size:16px; }
-    .status-pass,.status-fail,.status-warn { font-size:13px; }
-    .xai-box { font-size:16px; }
-    .xai-title { font-size:14px; }
-    .signal-label { font-size:13px; }
-    .signal-value { font-size:19px; }
-    .workflow-number { font-size:15px; }
-    .workflow-name { font-size:17px; }
-    .workflow-desc { font-size:14px; }
-    .upload-info, .extraction-status { font-size:18px; }
-    .footer { font-size:16px; }
-
-    /* Extra-large readability pass */
-    .cadre-brand { font-size:27px; }
-    .cadre-subbrand { font-size:14px; }
-    .cadre-nav-link { font-size:15px; padding:9px 12px; }
-    .cadre-status { font-size:14px; }
-    .hero-kicker { font-size:15px; }
-    .hero-title { font-size:46px; }
-    .hero-text { font-size:20px; }
-    .hero-flow { font-size:16px; }
-    .section-title { font-size:30px; }
-    .section-subtitle { font-size:18px; }
-    .kpi-label { font-size:15px; }
-    .kpi-value { font-size:40px; }
-    .kpi-note { font-size:15px; }
-    .card-title { font-size:23px; }
-    .card-subtitle { font-size:18px; }
-    .status-pass,.status-fail,.status-warn { font-size:14px; }
-    .xai-box { font-size:18px; }
-    .xai-title { font-size:15px; }
-    .signal-label { font-size:14px; }
-    .signal-value { font-size:21px; }
-    .workflow-number { font-size:16px; }
-    .workflow-name { font-size:19px; }
-    .workflow-desc { font-size:16px; }
-    .upload-info, .extraction-status { font-size:18px; }
-
-    /* Readable Streamlit controls */
-    div[data-testid="stFileUploader"] label,
-    div[data-testid="stSelectbox"] label,
-    div[data-testid="stSlider"] label {
-        font-size: 16px !important;
-        font-weight: 700 !important;
+    .hero-title {
+        font-size:46px;
+        font-weight:850;
+        margin:0;
+        letter-spacing:-.9px;
     }
-    div[data-testid="stFileUploader"] section,
-    div[data-testid="stFileUploader"] section span,
-    div[data-testid="stFileUploader"] section small {
-        font-size: 16px !important;
-    }
-    div.stButton > button, div.stDownloadButton > button {
-        font-size: 16px !important;
-        min-height: 42px;
-    }
-    div[data-testid="stCaptionContainer"] { font-size: 13px !important; }
 
-    @media (max-width: 900px) {
-        .cadre-nav { gap:10px; padding:10px 12px; }
-        .cadre-nav-links { justify-content:flex-start; overflow-x:auto; flex-wrap:nowrap; }
-        .cadre-status { display:none; }
-        .cadre-brand { font-size:16px; }
-        .cadre-subbrand { display:none; }
-        .hero-title { font-size:25px; }
+    .hero-kicker {
+        color:#d8e9c9;
+        font-size:15px;
+        font-weight:850;
+        letter-spacing:1.2px;
+        margin-bottom:6px;
+    }
+
+    .hero-text {
+        color:#d8e8df;
+        max-width:760px;
+        line-height:1.5;
+        margin-top:8px;
+        font-size:20px;
+    }
+
+    .hero-flow {
+        margin-top:15px;
+        font-size:16px;
+        font-weight:750;
+        color:#f1e7ca;
+    }
+
+    .section-title {
+        font-size:30px;
+        font-weight:850;
+        color:var(--ink);
+        margin-top:20px;
+        margin-bottom:3px;
+    }
+
+    .section-subtitle {
+        color:var(--muted);
+        font-size:18px;
+        margin-bottom:11px;
+    }
+
+    .kpi-card {
+        background:var(--card);
+        border:1px solid var(--line);
+        border-radius:13px;
+        padding:15px 16px;
+        min-height:94px;
+    }
+
+    .kpi-label {
+        color:#71817b;
+        font-size:15px;
+        font-weight:850;
+        text-transform:uppercase;
+        letter-spacing:.65px;
+    }
+
+    .kpi-value {
+        color:var(--ink);
+        font-size:40px;
+        font-weight:900;
+        margin-top:4px;
+    }
+
+    .kpi-note {
+        color:#82908b;
+        font-size:15px;
+        margin-top:1px;
+    }
+
+    .card {
+        background:var(--card);
+        border:1px solid var(--line);
+        border-radius:13px;
+        padding:17px;
+    }
+
+    .card-title {
+        font-size:23px;
+        font-weight:850;
+        color:var(--ink);
+        margin-bottom:4px;
+    }
+
+    .card-subtitle {
+        font-size:18px;
+        color:#778680;
+        margin-bottom:11px;
+    }
+
+    .status-pass,
+    .status-fail,
+    .status-warn {
+        display:inline-block;
+        border-radius:999px;
+        padding:5px 10px;
+        font-size:14px;
+        font-weight:850;
+    }
+
+    .status-pass {
+        background:#e7f2ea;
+        color:#2d6b49;
+    }
+
+    .status-fail {
+        background:#f9e9e7;
+        color:#a64340;
+    }
+
+    .status-warn {
+        background:#fbf1dd;
+        color:#9b6b1d;
+    }
+
+    .xai-box {
+        background:#f0f5f1;
+        border:1px solid #d7e5db;
+        border-left:3px solid var(--teal);
+        border-radius:10px;
+        padding:13px;
+        color:#40574e;
+        font-size:18px;
+        line-height:1.5;
+    }
+
+    .xai-title {
+        font-size:15px;
+        font-weight:850;
+        color:#356b62;
+        margin-bottom:3px;
+        text-transform:uppercase;
+        letter-spacing:.6px;
+    }
+
+    .signal {
+        background:#f7f9f7;
+        border:1px solid #e5ebe7;
+        border-radius:9px;
+        padding:9px;
+        margin-bottom:7px;
+    }
+
+    .signal-label {
+        font-size:14px;
+        color:#7b8984;
+        text-transform:uppercase;
+        font-weight:850;
+    }
+
+    .signal-value {
+        font-size:21px;
+        color:#234137;
+        font-weight:850;
+        margin-top:2px;
+    }
+
+    .workflow-card {
+        background:white;
+        border:1px solid var(--line);
+        border-radius:12px;
+        padding:13px;
+        min-height:105px;
+    }
+
+    .workflow-number {
+        width:28px;
+        height:28px;
+        border-radius:8px;
+        background:#e6f0e9;
+        color:var(--green);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:16px;
+        font-weight:900;
+        margin-bottom:8px;
+    }
+
+    .workflow-name {
+        font-size:19px;
+        font-weight:850;
+        color:#254238;
+    }
+
+    .workflow-desc {
+        font-size:16px;
+        color:#76847f;
+        margin-top:3px;
+        line-height:1.35;
+    }
+
+    .upload-info,
+    .extraction-status {
+        font-size:18px;
+    }
+
+    .footer {
+        text-align:center;
+        color:#89958f;
+        font-size:16px;
+        padding:22px 0 5px;
+    }
+
+    body,
+    .stApp {
+        font-size:16px !important;
+    }
+
+    .stMarkdown,
+    .stMarkdown p,
+    .stMarkdown li {
+        font-size:16px !important;
+        line-height:1.55 !important;
+    }
+
+    div[data-testid="stCaptionContainer"],
+    div[data-testid="stCaptionContainer"] p {
+        font-size:14px !important;
+    }
+
+    div[data-testid="stWidgetLabel"] p,
+    div[data-testid="stWidgetLabel"] label {
+        font-size:16px !important;
+    }
+
+    button,
+    [data-testid="stDownloadButton"] button {
+        font-size:15px !important;
+        min-height:44px !important;
+    }
+
+    input,
+    textarea,
+    [data-baseweb="select"] * {
+        font-size:16px !important;
+    }
+
+    [data-testid="stDataFrame"] * {
+        font-size:15px !important;
+    }
+
+    @media (max-width:900px) {
+        .cadre-nav {
+            gap:10px;
+            padding:10px 12px;
+        }
+
+        .cadre-nav-links {
+            justify-content:flex-start;
+            overflow-x:auto;
+            flex-wrap:nowrap;
+        }
+
+        .cadre-status {
+            display:none;
+        }
+
+        .hero-title {
+            font-size:25px;
+        }
     }
     </style>
     """
@@ -269,6 +481,7 @@ if all_gdf.empty:
 if "region" not in all_gdf.columns:
     all_gdf["region"] = "Demo Survey Area"
 
+
 CITY_CENTERS = {
     "Pune, Maharashtra": (18.5204, 73.8567),
     "Hyderabad, Telangana": (17.3850, 78.4867),
@@ -278,38 +491,60 @@ CITY_CENTERS = {
     "Ludhiana, Punjab": (30.9010, 75.8573),
 }
 
-packet_options = all_gdf["region"].astype(str).drop_duplicates().tolist()
+packet_options = (
+    all_gdf["region"]
+    .astype(str)
+    .drop_duplicates()
+    .tolist()
+)
+
 if st.session_state.selected_packet not in packet_options:
     st.session_state.selected_packet = packet_options[0]
+
 
 # ============================================================
 # SURVEY PACKET SELECTION
 # ============================================================
 
-st.html("""<div class="section-title">Survey Dataset</div>""")
+st.html(
+    """<div class="section-title">Survey Dataset</div>"""
+)
 
 packet_col, packet_info_col = st.columns([1.15, 1])
+
 with packet_col:
     selected_packet = st.selectbox(
         "Choose survey packet",
         packet_options,
-        index=packet_options.index(st.session_state.selected_packet),
+        index=packet_options.index(
+            st.session_state.selected_packet
+        ),
         key="survey_packet_selector",
     )
 
 st.session_state.selected_packet = selected_packet
-gdf = all_gdf[all_gdf["region"].astype(str) == str(selected_packet)].copy()
 
-if st.session_state.selected_parcel not in gdf["parcel_id"].astype(str).tolist():
+gdf = all_gdf[
+    all_gdf["region"].astype(str)
+    == str(selected_packet)
+].copy()
+
+if (
+    st.session_state.selected_parcel
+    not in gdf["parcel_id"].astype(str).tolist()
+):
     st.session_state.selected_parcel = None
 
 with packet_info_col:
     st.html(
-        f"""<div class="upload-info" style="margin-top:28px;">
+        f"""
+        <div class="upload-info" style="margin-top:28px;">
         <b>Active packet:</b> {html.escape(str(selected_packet))}<br>
         {len(gdf)} sample parcel records • GIS-ready demo layer
-        </div>"""
+        </div>
+        """
     )
+
 
 # ============================================================
 # SAFE METRICS
@@ -328,7 +563,9 @@ high_priority = int(
     (gdf["priority"].astype(str) == "HIGH").sum()
 )
 
-avg_confidence = float(gdf["confidence"].mean())
+avg_confidence = float(
+    gdf["confidence"].mean()
+)
 
 
 # ============================================================
@@ -337,145 +574,10 @@ avg_confidence = float(gdf["confidence"].mean())
 
 st.html(
     """
-    <style>
-        /* Full-width fixed website header */
-        .ai-cadre-header {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            width: 100% !important;
-            max-width: none !important;
-            min-width: 0 !important;
-            box-sizing: border-box !important;
-            z-index: 999999 !important;
-            margin: 0 !important;
-            padding: 9px 22px !important;
-            background: #173d2d !important;
-            border-bottom: 1px solid rgba(255,255,255,.10);
-            box-shadow: 0 7px 24px rgba(23,61,45,.22);
-            display: flex !important;
-            align-items: center !important;
-            gap: 18px !important;
-            font-family: Arial, sans-serif;
-            overflow: visible !important;
-        }
-
-        .ai-cadre-brand {
-            display: flex !important;
-            align-items: center !important;
-            gap: 10px !important;
-            flex: 0 0 auto !important;
-            width: 245px !important;
-            min-width: 245px !important;
-            overflow: visible !important;
-        }
-
-        .ai-cadre-logo {
-            width: 42px !important;
-            height: 42px !important;
-            min-width: 42px !important;
-            flex: 0 0 42px !important;
-        }
-
-        .ai-cadre-name {
-            color: #ffffff !important;
-            font-size: 21px !important;
-            font-weight: 900 !important;
-            letter-spacing: -.4px !important;
-            line-height: 1 !important;
-            white-space: nowrap !important;
-        }
-
-        .ai-cadre-tagline {
-            color: #b9cec2 !important;
-            font-size: 7px !important;
-            font-weight: 700 !important;
-            letter-spacing: .2px !important;
-            margin-top: 5px !important;
-            text-transform: uppercase !important;
-            white-space: nowrap !important;
-            max-width: 195px !important;
-            overflow: visible !important;
-        }
-
-        .ai-cadre-nav {
-            display: flex !important;
-            align-items: center !important;
-            justify-content: flex-start !important;
-            gap: 2px !important;
-            flex: 1 1 auto !important;
-            min-width: 0 !important;
-            overflow-x: auto !important;
-            overflow-y: hidden !important;
-            scrollbar-width: none;
-        }
-        .ai-cadre-nav::-webkit-scrollbar { display: none; }
-
-        .ai-cadre-nav a {
-            display: inline-flex !important;
-            align-items: center !important;
-            color: #e2eee7 !important;
-            text-decoration: none !important;
-            font-size: 12px !important;
-            font-weight: 800 !important;
-            padding: 8px 10px !important;
-            border-radius: 8px !important;
-            white-space: nowrap !important;
-            flex: 0 0 auto !important;
-        }
-        .ai-cadre-nav a:hover {
-            background: #285640 !important;
-            color: #ffffff !important;
-        }
-
-        .ai-cadre-online {
-            display: flex !important;
-            align-items: center !important;
-            gap: 7px !important;
-            flex: 0 0 auto !important;
-            color: #dcebe2 !important;
-            font-size: 11px !important;
-            font-weight: 800 !important;
-            border-left: 1px solid #3b614f !important;
-            padding-left: 14px !important;
-            white-space: nowrap !important;
-        }
-
-        .ai-cadre-dot {
-            width: 7px !important;
-            height: 7px !important;
-            min-width: 7px !important;
-            border-radius: 50% !important;
-            background: #7cc58c !important;
-            box-shadow: 0 0 0 3px rgba(124,197,140,.14);
-        }
-
-        .ai-cadre-header-spacer {
-            height: 72px !important;
-            width: 100% !important;
-        }
-
-        @media (max-width: 1050px) {
-            .ai-cadre-header { padding: 9px 14px !important; gap: 10px !important; }
-            .ai-cadre-brand { width: 175px !important; min-width: 175px !important; }
-            .ai-cadre-tagline { display: none !important; }
-            .ai-cadre-online { display: none !important; }
-        }
-
-        @media (max-width: 650px) {
-            .ai-cadre-header { padding: 8px 10px !important; }
-            .ai-cadre-brand { width: 142px !important; min-width: 142px !important; }
-            .ai-cadre-logo { width: 36px !important; height: 36px !important; min-width: 36px !important; flex-basis: 36px !important; }
-            .ai-cadre-name { font-size: 15px !important; }
-            .ai-cadre-header-spacer { height: 60px !important; }
-        }
-    </style>
-
     <div class="ai-cadre-header">
         <div class="ai-cadre-brand">
             <div class="ai-cadre-logo">
-                <svg viewBox="0 0 48 48" width="42" height="42" aria-label="AI-CADRE logo" role="img">
+                <svg viewBox="0 0 48 48" width="42" height="42">
                     <path d="M24 3.5 43 14v20L24 44.5 5 34V14Z" fill="#d8b77a"/>
                     <path d="M24 3.5 43 14 24 24.5 5 14Z" fill="#f1e7ca"/>
                     <path d="M24 24.5 43 14v20L24 44.5Z" fill="#3c7d78"/>
@@ -484,13 +586,16 @@ st.html(
                     <circle cx="24" cy="20" r="3.2" fill="#b86b4b"/>
                 </svg>
             </div>
+
             <div>
                 <div class="ai-cadre-name">AI-CADRE</div>
-                <div class="ai-cadre-tagline">Smarter Cadastre · Stronger Communities</div>
+                <div class="ai-cadre-tagline">
+                    Smarter Cadastre · Stronger Communities
+                </div>
             </div>
         </div>
 
-        <nav class="ai-cadre-nav" aria-label="Main navigation">
+        <nav class="ai-cadre-nav">
             <a href="#dashboard">Dashboard</a>
             <a href="#survey">Survey Input</a>
             <a href="#parcel-map">Parcel Map</a>
@@ -500,12 +605,15 @@ st.html(
         </nav>
 
         <div class="ai-cadre-online">
-            <span class="ai-cadre-dot"></span> SYSTEM ONLINE
+            <span class="ai-cadre-dot"></span>
+            SYSTEM ONLINE
         </div>
     </div>
+
     <div class="ai-cadre-header-spacer"></div>
     """
 )
+
 
 # ============================================================
 # HERO
@@ -518,16 +626,18 @@ st.html(
 st.html(
     """
     <div class="hero">
-        <div class="hero-kicker">SIH26012 • URBAN CADASTRAL MAPPING</div>
+        <div class="hero-kicker">
+            SIH26012 • URBAN CADASTRAL MAPPING
+        </div>
 
         <div class="hero-title">
             From drone imagery to validated parcel layers
         </div>
 
         <div class="hero-text">
-            Turn survey imagery into structured parcel information, run geometry
-            quality checks, review flagged features, and export GIS-ready
-            cadastral data with the surveyor in control.
+            Turn survey imagery into structured parcel information,
+            run geometry quality checks, review flagged features,
+            and export GIS-ready cadastral data with the surveyor in control.
         </div>
 
         <div class="hero-flow">
@@ -558,10 +668,12 @@ st.html(
 upload_col, info_col = st.columns([1.7, 1])
 
 with upload_col:
+
     st.html(
         """
         <div class="upload-info">
-            <b>Image input</b><br>JPG, JPEG or PNG survey imagery.
+            <b>Image input</b><br>
+            JPG, JPEG or PNG survey imagery.
             <br>
             Used as the source layer for feature extraction.
         </div>
@@ -575,25 +687,30 @@ with upload_col:
     )
 
 with info_col:
+
     if uploaded_image is not None:
+
         file_size_kb = uploaded_image.size / 1024
 
         st.html(
             f"""
             <div class="card">
                 <div class="card-title">Survey Image</div>
+
                 <div class="signal">
                     <div class="signal-label">Filename</div>
                     <div class="signal-value">
                         {html.escape(uploaded_image.name)}
                     </div>
                 </div>
+
                 <div class="signal">
                     <div class="signal-label">File Size</div>
                     <div class="signal-value">
                         {file_size_kb:.1f} KB
                     </div>
                 </div>
+
                 <div style="color:#748396;font-size:11px;margin-top:7px;">
                     Ready for processing.
                 </div>
@@ -602,6 +719,7 @@ with info_col:
         )
 
 if uploaded_image is not None:
+
     st.markdown("#### Image Preview")
 
     st.image(
@@ -613,6 +731,7 @@ if uploaded_image is not None:
     extraction_col1, extraction_col2 = st.columns([1, 2])
 
     with extraction_col1:
+
         run_extraction = st.button(
             "Run Extraction",
             type="primary",
@@ -620,12 +739,14 @@ if uploaded_image is not None:
         )
 
     with extraction_col2:
+
         st.caption(
             "Prototype inference mode • Deep-learning segmentation model "
             "can be connected to this pipeline later."
         )
 
     if run_extraction:
+
         st.session_state.drone_image = uploaded_image.name
         st.session_state.extraction_run = True
 
@@ -636,7 +757,11 @@ if uploaded_image is not None:
 
         st.success("Extraction complete.")
 
-if st.session_state.extraction_run and uploaded_image is not None:
+if (
+    st.session_state.extraction_run
+    and uploaded_image is not None
+):
+
     st.html(
         """
         <div class="extraction-status">
@@ -645,135 +770,6 @@ if st.session_state.extraction_run and uploaded_image is not None:
             extraction pipeline is ready for model-based inference.
         </div>
         """
-    )
-
-    # --------------------------------------------------------
-    # EXTRACTION RESULTS
-    # --------------------------------------------------------
-
-    st.html(
-        """
-        <div class="section-title">Extracted Features</div>
-        <div class="section-subtitle">
-            Feature counts from the current survey run.
-        </div>
-        """
-    )
-
-    r1, r2, r3, r4 = st.columns(4)
-
-    with r1:
-        st.html(
-            """
-            <div class="kpi-card">
-                <div class="kpi-label">Parcels</div>
-                <div class="kpi-value">{total_parcels}</div>
-                <div class="kpi-note">Boundary candidates</div>
-            </div>
-            """
-        )
-
-    with r2:
-        st.html(
-            """
-            <div class="kpi-card">
-                <div class="kpi-label">Buildings</div>
-                <div class="kpi-value">{max(1, int(total_parcels * 0.72))}</div>
-                <div class="kpi-note">Footprint candidates</div>
-            </div>
-            """
-        )
-
-    with r3:
-        st.html(
-            """
-            <div class="kpi-card">
-                <div class="kpi-label">Roads / Paths</div>
-                <div class="kpi-value">{max(2, int(total_parcels * 0.28))}</div>
-                <div class="kpi-note">Access candidates</div>
-            </div>
-            """
-        )
-
-    with r4:
-        st.html(
-            """
-            <div class="kpi-card">
-                <div class="kpi-label">Mean confidence</div>
-                <div class="kpi-value">{avg_confidence:.1f}%</div>
-                <div class="kpi-note">Current run</div>
-            </div>
-            """
-        )
-
-    e1, e2 = st.columns(2)
-
-    with e1:
-        first_id = str(gdf.iloc[0]["parcel_id"])
-        first_area = float(gdf.iloc[0].get("area_sqm", gdf.iloc[0].geometry.area))
-
-        st.html(
-            f"""
-            <div class="card">
-                <div class="card-title">Parcel Information</div>
-
-                <div class="signal">
-                    <div class="signal-label">Parcel ID</div>
-                    <div class="signal-value">
-                        {html.escape(first_id)}
-                    </div>
-                </div>
-
-                <div class="signal">
-                    <div class="signal-label">Geometry Area</div>
-                    <div class="signal-value">
-                        {first_area:.2f} m²
-                    </div>
-                </div>
-
-                <div class="signal">
-                    <div class="signal-label">Priority</div>
-                    <div class="signal-value">
-                        {html.escape(str(gdf.iloc[0]["priority"]))}
-                    </div>
-                </div>
-            </div>
-            """
-        )
-
-    with e2:
-        st.html(
-            """
-            <div class="card">
-                <div class="card-title">Extraction Notes</div>
-                <div class="card-subtitle">
-                    Key signals used for review
-                </div>
-
-                <div class="xai-box">
-                    <div class="xai-title">Review focus</div>
-
-                    The system identifies visible spatial patterns from
-                    drone imagery and proposes cadastral features for
-                    downstream GIS validation.
-
-                    <br><br>
-
-                    <b>Primary signals:</b>
-                    boundary contrast, geometric continuity,
-                    connected regions and spatial separation.
-
-                    <br><br>
-
-                    These are <b>preliminary results</b>.
-                    Final acceptance remains with the authorized surveyor.
-                </div>
-            </div>
-            """
-        )
-
-    st.info(
-        "Demo mode: extraction counts are prototype values; parcel review and GIS checks are active."
     )
 
 
@@ -853,17 +849,25 @@ st.html(
     """
     <div class="section-title">Parcel Map</div>
     <div class="section-subtitle">
+        Click a city marker to open that city's parcel group.
         Select a parcel to inspect geometry and review status.
     </div>
     """
 )
 
 map_col, inspector_col = st.columns([1.55, 1])
+
+
 # ============================================================
 # MAP
 # ============================================================
 
 with map_col:
+
+    # --------------------------------------------------------
+    # CONVERT CURRENT PARCELS TO MAP CRS
+    # --------------------------------------------------------
+
     map_gdf = gdf.copy()
 
     try:
@@ -871,27 +875,8 @@ with map_col:
     except Exception:
         pass
 
-    try:
-        center_geom = map_gdf.geometry.union_all()
-    except Exception:
-        try:
-            from shapely.ops import unary_union
-            center_geom = unary_union(map_gdf.geometry)
-        except Exception:
-            center_geom = map_gdf.geometry.iloc[0]
-
-    center = [
-        center_geom.centroid.y,
-        center_geom.centroid.x,
-    ]
-
     # --------------------------------------------------------
-    # MAIN MAP
-    #
-    # Same map size as before.
-    # Initially shows all survey locations.
-    # Clicking a city marker focuses on that city's
-    # actual parcel boundary group.
+    # CREATE MAP
     # --------------------------------------------------------
 
     m = folium.Map(
@@ -900,21 +885,9 @@ with map_col:
         tiles="OpenStreetMap",
         control_scale=True,
     )
-if st.session_state.map_focus_city:
-    selected_bounds = city_bounds.get(selected_packet)
 
-    if selected_bounds:
-        m.fit_bounds(
-            selected_bounds,
-            padding=[25, 25]
-        )
-else:
-    m.fit_bounds(
-        [[lat, lon] for lat, lon in CITY_CENTERS.values()],
-        padding=[30, 30]
-    )
     # --------------------------------------------------------
-    # Calculate actual parcel bounds for every city
+    # CALCULATE ACTUAL PARCEL BOUNDS FOR EVERY CITY
     # --------------------------------------------------------
 
     city_bounds = {}
@@ -929,6 +902,7 @@ else:
             continue
 
         try:
+
             if city_gdf.crs:
                 city_map_gdf = city_gdf.to_crs(
                     epsg=4326
@@ -947,7 +921,7 @@ else:
             pass
 
     # --------------------------------------------------------
-    # ALL INDIAN SURVEY LOCATION MARKERS
+    # CITY MARKERS
     # --------------------------------------------------------
 
     overview_group = folium.FeatureGroup(
@@ -957,37 +931,41 @@ else:
 
     for city_name, (city_lat, city_lon) in CITY_CENTERS.items():
 
-    city_marker = folium.CircleMarker(
-        location=[city_lat, city_lon],
-        radius=9,
-        color="#2563EB",
-        fill=True,
-        fill_color="#2563EB",
-        fill_opacity=0.9,
-        tooltip=f"Open {city_name}",
-    )
-
-    city_marker.add_to(overview_group)
-
-    city_marker.add_child(
-        folium.Popup(
-            f"""
-            <div style="font-family:Arial; font-size:14px;">
-                <b>{city_name}</b><br>
-                Click this location to view parcel boundaries.
-            </div>
-            """,
-            max_width=250,
+        city_marker = folium.CircleMarker(
+            location=[city_lat, city_lon],
+            radius=10,
+            color="#2563EB",
+            weight=3,
+            fill=True,
+            fill_color="#2563EB",
+            fill_opacity=0.95,
+            tooltip=f"Click to open {city_name}",
         )
-    )
+
+        city_marker.add_to(overview_group)
+
+        city_marker.add_child(
+            folium.Popup(
+                f"""
+                <div style="
+                    font-family:Arial;
+                    font-size:14px;
+                    min-width:190px;
+                ">
+                    <b>{city_name}</b>
+                    <br><br>
+                    Click this location to view
+                    the parcel boundaries.
+                </div>
+                """,
+                max_width=250,
+            )
+        )
+
+    overview_group.add_to(m)
+
     # --------------------------------------------------------
-    # INITIAL MAP VIEW
-    #
-    # First load:
-    #     Show all six cities.
-    #
-    # After clicking a city:
-    #     Zoom to that city's actual parcel group.
+    # MAP VIEW
     # --------------------------------------------------------
 
     if st.session_state.map_focus_city:
@@ -1039,10 +1017,6 @@ else:
                 "PENDING",
             )
         )
-
-        # ----------------------------------------------------
-        # Parcel colour
-        # ----------------------------------------------------
 
         if parcel_id == str(
             st.session_state.selected_parcel
@@ -1109,10 +1083,7 @@ else:
 
         feature = {
             "type": "Feature",
-            "geometry": (
-                row["geometry"]
-                .__geo_interface__
-            ),
+            "geometry": row["geometry"].__geo_interface__,
             "properties": {
                 "parcel_id": parcel_id,
             },
@@ -1148,9 +1119,9 @@ else:
 
     legend_html = """
     <div style="
-        position: fixed;
-        bottom: 82px;
-        left: 25px;
+        position:fixed;
+        bottom:82px;
+        left:25px;
         z-index:9999;
         background:white;
         padding:12px 14px;
@@ -1186,60 +1157,15 @@ else:
     # --------------------------------------------------------
 
     map_result = st_folium(
-    m,
-    use_container_width=True,
-    height=620,
-    returned_objects=["last_active_drawing", "last_clicked"],
-)
+        m,
+        use_container_width=True,
+        height=620,
+        returned_objects=[
+            "last_active_drawing",
+            "last_clicked",
+        ],
+    )
 
-clicked = map_result.get("last_active_drawing")
-
-# ---------------------------------------------------------
-# 1. PARCEL CLICK
-# ---------------------------------------------------------
-if clicked:
-    props = clicked.get("properties", {})
-
-    if props.get("parcel_id"):
-        st.session_state.selected_parcel = str(props["parcel_id"])
-        st.rerun()
-
-
-# ---------------------------------------------------------
-# 2. CITY MARKER CLICK
-# ---------------------------------------------------------
-last_clicked = map_result.get("last_clicked")
-
-if last_clicked and not clicked:
-
-    click_lat = last_clicked.get("lat")
-    click_lon = last_clicked.get("lng")
-
-    if click_lat is not None and click_lon is not None:
-
-        nearest_city = None
-        nearest_distance = float("inf")
-
-        for city_name, (city_lat, city_lon) in CITY_CENTERS.items():
-
-            distance = math.sqrt(
-                (click_lat - city_lat) ** 2
-                + (click_lon - city_lon) ** 2
-            )
-
-            if distance < nearest_distance:
-                nearest_distance = distance
-                nearest_city = city_name
-
-        # Only treat the click as a city click if it is
-        # actually close to one of the city markers.
-        if nearest_city and nearest_distance <= 0.18:
-
-            st.session_state.selected_packet = nearest_city
-            st.session_state.map_focus_city = True
-            st.session_state.selected_parcel = None
-
-            st.rerun()
     # --------------------------------------------------------
     # PARCEL CLICK
     # --------------------------------------------------------
@@ -1261,9 +1187,7 @@ if last_clicked and not clicked:
 
         if clicked_id is not None:
 
-            clicked_id = str(
-                clicked_id
-            )
+            clicked_id = str(clicked_id)
 
             if clicked_id in (
                 gdf["parcel_id"]
@@ -1283,10 +1207,15 @@ if last_clicked and not clicked:
 
     # --------------------------------------------------------
     # CITY MARKER CLICK
+    # --------------------------------------------------------
     #
-    # A city marker click does not create an
-    # active drawing, so we can use last_clicked
-    # to detect it.
+    # last_clicked gives the geographic position of the
+    # click. We find the nearest survey city and only accept
+    # it as a city click when it is close to that marker.
+    #
+    # This changes the selected survey packet and reruns
+    # Streamlit, causing that city's actual parcel group
+    # to be loaded and displayed.
     # --------------------------------------------------------
 
     clicked_location = map_result.get(
@@ -1311,38 +1240,33 @@ if last_clicked and not clicked:
             and click_lon is not None
         ):
 
-            # Find nearest survey city
-            nearest_city = min(
-                CITY_CENTERS,
-                key=lambda city: (
-                    (click_lat - CITY_CENTERS[city][0]) ** 2
+            nearest_city = None
+            nearest_distance = float("inf")
+
+            for city_name, (
+                city_lat,
+                city_lon,
+            ) in CITY_CENTERS.items():
+
+                distance = math.sqrt(
+                    (click_lat - city_lat) ** 2
                     +
-                    (click_lon - CITY_CENTERS[city][1]) ** 2
-                ),
-            )
+                    (click_lon - city_lon) ** 2
+                )
 
-            nearest_lat, nearest_lon = (
-                CITY_CENTERS[nearest_city]
-            )
+                if distance < nearest_distance:
 
-            distance = math.sqrt(
-                (click_lat - nearest_lat) ** 2
-                +
-                (click_lon - nearest_lon) ** 2
-            )
+                    nearest_distance = distance
+                    nearest_city = city_name
 
-            # Only interpret a click as a city-marker
-            # click if it is close to the marker.
-            if distance <= 0.18:
+            if (
+                nearest_city
+                and nearest_distance <= 0.18
+            ):
 
-                if (
-                    str(selected_packet)
-                    != str(nearest_city)
-                ):
-
-                    st.session_state.selected_packet = (
-                        nearest_city
-                    )
+                st.session_state.selected_packet = (
+                    nearest_city
+                )
 
                 st.session_state.map_focus_city = True
 
@@ -1350,11 +1274,13 @@ if last_clicked and not clicked:
 
                 st.rerun()
 
+
 # ============================================================
 # PARCEL INSPECTOR
 # ============================================================
 
 with inspector_col:
+
     st.html(
         """
         <div class="card-title">Parcel Inspector</div>
@@ -1370,7 +1296,10 @@ with inspector_col:
         .tolist()
     )
 
-    if st.session_state.selected_parcel in parcel_ids:
+    if (
+        st.session_state.selected_parcel
+        in parcel_ids
+    ):
         default_index = parcel_ids.index(
             st.session_state.selected_parcel
         )
@@ -1387,23 +1316,30 @@ with inspector_col:
     st.session_state.selected_parcel = selected_id
 
     selected_rows = gdf[
-        gdf["parcel_id"].astype(str) == str(selected_id)
+        gdf["parcel_id"].astype(str)
+        == str(selected_id)
     ]
 
     if selected_rows.empty:
-        st.warning("Selected parcel could not be found.")
+        st.warning(
+            "Selected parcel could not be found."
+        )
         st.stop()
 
     p = selected_rows.iloc[0]
 
-    confidence = float(p["confidence"])
+    confidence = float(
+        p["confidence"]
+    )
 
     if confidence >= 85:
         confidence_label = "HIGH"
         confidence_class = "status-pass"
+
     elif confidence >= 70:
         confidence_label = "MEDIUM"
         confidence_class = "status-warn"
+
     else:
         confidence_label = "LOW"
         confidence_class = "status-fail"
@@ -1411,6 +1347,7 @@ with inspector_col:
     st.html(
         f"""
         <div class="card">
+
             <div class="card-title">
                 Parcel {html.escape(str(selected_id))}
             </div>
@@ -1445,37 +1382,53 @@ with inspector_col:
                 <span>Confidence</span>
                 <b>{confidence:.1f}%</b>
             </div>
+
         </div>
         """
     )
 
-    # --------------------------------------------------------
-    # AREA
-    # --------------------------------------------------------
-
     if "area_sqm" in p.index:
-        area_value = float(p["area_sqm"])
+        area_value = float(
+            p["area_sqm"]
+        )
+
     elif "area" in p.index:
-        area_value = float(p["area"])
+        area_value = float(
+            p["area"]
+        )
+
     else:
         try:
-            area_value = float(p.geometry.area)
+            area_value = float(
+                p.geometry.area
+            )
         except Exception:
             area_value = 0.0
 
-    topology = str(p["topology_status"])
+    topology = str(
+        p["topology_status"]
+    )
 
     if topology.startswith("PASS"):
+
         topology_badge = (
-            '<span class="status-pass">✓ TOPOLOGY VALID</span>'
+            '<span class="status-pass">'
+            '✓ TOPOLOGY VALID'
+            '</span>'
         )
+
         topology_description = (
             "No significant geometry conflicts detected."
         )
+
     else:
+
         topology_badge = (
-            '<span class="status-fail">⚠ REVIEW REQUIRED</span>'
+            '<span class="status-fail">'
+            '⚠ REVIEW REQUIRED'
+            '</span>'
         )
+
         topology_description = (
             "Geometry requires surveyor review before approval."
         )
@@ -1483,24 +1436,36 @@ with inspector_col:
     st.html(
         f"""
         <div class="card">
-            <div class="card-title">Parcel Information</div>
+
+            <div class="card-title">
+                Parcel Information
+            </div>
 
             <div class="signal">
-                <div class="signal-label">Parcel ID</div>
+                <div class="signal-label">
+                    Parcel ID
+                </div>
+
                 <div class="signal-value">
                     {html.escape(str(p["parcel_id"]))}
                 </div>
             </div>
 
             <div class="signal">
-                <div class="signal-label">Geometry Area</div>
+                <div class="signal-label">
+                    Geometry Area
+                </div>
+
                 <div class="signal-value">
                     {area_value:.2f} m²
                 </div>
             </div>
 
             <div class="signal">
-                <div class="signal-label">Priority</div>
+                <div class="signal-label">
+                    Priority
+                </div>
+
                 <div class="signal-value">
                     {html.escape(str(p["priority"]))}
                 </div>
@@ -1517,13 +1482,10 @@ with inspector_col:
             ">
                 {topology_description}
             </div>
+
         </div>
         """
     )
-
-    # --------------------------------------------------------
-    # AI FEATURE SIGNALS
-    # --------------------------------------------------------
 
     compactness = (
         float(p["compactness"])
@@ -1551,7 +1513,10 @@ with inspector_col:
 
     st.html(
         """
-        <div class="card-title">Feature Signals</div>
+        <div class="card-title">
+            Feature Signals
+        </div>
+
         <div class="card-subtitle">
             Geometry checks behind the parcel score
         </div>
@@ -1561,46 +1526,64 @@ with inspector_col:
     s1, s2 = st.columns(2)
 
     with s1:
+
         st.html(
             f"""
             <div class="signal">
-                <div class="signal-label">Compactness</div>
+
+                <div class="signal-label">
+                    Compactness
+                </div>
+
                 <div class="signal-value">
                     {compactness:.3f}
                 </div>
+
             </div>
 
             <div class="signal">
-                <div class="signal-label">Vertices</div>
+
+                <div class="signal-label">
+                    Vertices
+                </div>
+
                 <div class="signal-value">
                     {vertex_count}
                 </div>
+
             </div>
             """
         )
 
     with s2:
+
         st.html(
             f"""
             <div class="signal">
-                <div class="signal-label">Overlap Area</div>
+
+                <div class="signal-label">
+                    Overlap Area
+                </div>
+
                 <div class="signal-value">
                     {overlap_area:.2f} m²
                 </div>
+
             </div>
 
             <div class="signal">
-                <div class="signal-label">Area Pattern</div>
+
+                <div class="signal-label">
+                    Area Pattern
+                </div>
+
                 <div class="signal-value">
                     {html.escape(area_anomaly)}
                 </div>
+
             </div>
             """
         )
-
-    # --------------------------------------------------------
-    # XAI
-    # --------------------------------------------------------
 
     reason = html.escape(
         str(p["xai_reason"])
@@ -1609,6 +1592,7 @@ with inspector_col:
     st.html(
         f"""
         <div class="xai-box">
+
             <div class="xai-title">
                 Why it was flagged
             </div>
@@ -1618,18 +1602,18 @@ with inspector_col:
             <br><br>
 
             <b>Human-in-the-loop:</b>
-            The parcel is a preliminary result. Final validation remains with the authorized surveyor.
+            The parcel is a preliminary result.
+            Final validation remains with the authorized surveyor.
+
         </div>
         """
     )
 
-    # --------------------------------------------------------
-    # SURVEYOR DECISION
-    # --------------------------------------------------------
-
     st.html(
         """
-        <div class="card-title">👷 Surveyor Decision</div>
+        <div class="card-title">
+            👷 Surveyor Decision
+        </div>
         """
     )
 
@@ -1637,62 +1621,82 @@ with inspector_col:
     b3, b4 = st.columns(2)
 
     with b1:
+
         if st.button(
             "✓ Accept",
             use_container_width=True,
             key=f"accept_{selected_id}",
         ):
+
             st.session_state.parcel_decisions[
                 selected_id
             ] = "ACCEPTED"
+
             st.rerun()
 
     with b2:
+
         if st.button(
             "✎ Edit Required",
             use_container_width=True,
             key=f"edit_{selected_id}",
         ):
+
             st.session_state.parcel_decisions[
                 selected_id
             ] = "EDIT REQUIRED"
+
             st.rerun()
 
     with b3:
+
         if st.button(
             "✕ Reject",
             use_container_width=True,
             key=f"reject_{selected_id}",
         ):
+
             st.session_state.parcel_decisions[
                 selected_id
             ] = "REJECTED"
+
             st.rerun()
 
     with b4:
+
         if st.button(
             "⚑ Field GT",
             use_container_width=True,
             key=f"field_{selected_id}",
         ):
+
             st.session_state.parcel_decisions[
                 selected_id
             ] = "FIELD VERIFICATION"
+
             st.rerun()
 
-    current_decision = st.session_state.parcel_decisions.get(
-        selected_id,
-        "PENDING",
+    current_decision = (
+        st.session_state.parcel_decisions.get(
+            selected_id,
+            "PENDING",
+        )
     )
 
     if current_decision == "ACCEPTED":
         st.success("Parcel accepted.")
+
     elif current_decision == "EDIT REQUIRED":
         st.info("Parcel marked for editing.")
+
     elif current_decision == "REJECTED":
         st.error("Parcel rejected.")
+
     elif current_decision == "FIELD VERIFICATION":
-        st.warning("Parcel queued for field verification.")
+        st.warning(
+            "Parcel queued for field verification."
+        )
+
     else:
         st.info("Awaiting survey decision.")
 
@@ -1707,7 +1711,10 @@ st.html(
 
 st.html(
     """
-    <div class="section-title">GIS Quality Control</div>
+    <div class="section-title">
+        GIS Quality Control
+    </div>
+
     <div class="section-subtitle">
         Geometry checks before approval.
     </div>
@@ -1730,53 +1737,94 @@ sliver_count = (
     else 0
 )
 
-current_ids = set(gdf["parcel_id"].astype(str))
+current_ids = set(
+    gdf["parcel_id"].astype(str)
+)
+
 field_checks = sum(
     1
-    for pid, value in st.session_state.parcel_decisions.items()
-    if str(pid) in current_ids and value == "FIELD VERIFICATION"
+    for pid, value
+    in st.session_state.parcel_decisions.items()
+    if str(pid) in current_ids
+    and value == "FIELD VERIFICATION"
 )
 
 with q1:
+
     st.html(
         f"""
         <div class="kpi-card">
-            <div class="kpi-label">Valid geometry</div>
-            <div class="kpi-value">{valid_geometry}/{total_parcels}</div>
-            <div class="kpi-note">Validity check</div>
+            <div class="kpi-label">
+                Valid geometry
+            </div>
+
+            <div class="kpi-value">
+                {valid_geometry}/{total_parcels}
+            </div>
+
+            <div class="kpi-note">
+                Validity check
+            </div>
         </div>
         """
     )
 
 with q2:
+
     st.html(
         f"""
         <div class="kpi-card">
-            <div class="kpi-label">Overlap flags</div>
-            <div class="kpi-value">{overlap_count}</div>
-            <div class="kpi-note">Potential conflicts</div>
+            <div class="kpi-label">
+                Overlap flags
+            </div>
+
+            <div class="kpi-value">
+                {overlap_count}
+            </div>
+
+            <div class="kpi-note">
+                Potential conflicts
+            </div>
         </div>
         """
     )
 
 with q3:
+
     st.html(
         f"""
         <div class="kpi-card">
-            <div class="kpi-label">Sliver flags</div>
-            <div class="kpi-value">{sliver_count}</div>
-            <div class="kpi-note">Very small shapes</div>
+            <div class="kpi-label">
+                Sliver flags
+            </div>
+
+            <div class="kpi-value">
+                {sliver_count}
+            </div>
+
+            <div class="kpi-note">
+                Very small shapes
+            </div>
         </div>
         """
     )
 
 with q4:
+
     st.html(
         f"""
         <div class="kpi-card">
-            <div class="kpi-label">Field Checks</div>
-            <div class="kpi-value">{field_checks}</div>
-            <div class="kpi-note">Ground checks</div>
+            <div class="kpi-label">
+                Field Checks
+            </div>
+
+            <div class="kpi-value">
+                {field_checks}
+            </div>
+
+            <div class="kpi-note">
+                Ground checks
+            </div>
         </div>
         """
     )
@@ -1792,7 +1840,10 @@ st.html(
 
 st.html(
     """
-    <div class="section-title">Field Verification Queue</div>
+    <div class="section-title">
+        Field Verification Queue
+    </div>
+
     <div class="section-subtitle">
         Parcels that need on-site verification.
     </div>
@@ -1802,34 +1853,49 @@ st.html(
 field_rows = []
 
 for _, row in gdf.iterrows():
-    pid = str(row["parcel_id"])
 
-    decision = st.session_state.parcel_decisions.get(
-        pid,
-        "PENDING",
+    pid = str(
+        row["parcel_id"]
+    )
+
+    decision = (
+        st.session_state.parcel_decisions.get(
+            pid,
+            "PENDING",
+        )
     )
 
     if (
         str(row["priority"]) == "HIGH"
         or decision == "FIELD VERIFICATION"
     ):
+
         field_rows.append(
             {
                 "Parcel": pid,
-                "Confidence": f'{float(row["confidence"]):.1f}%',
-                "Priority": str(row["priority"]),
-                "Topology": str(row["topology_status"]),
+                "Confidence": (
+                    f'{float(row["confidence"]):.1f}%'
+                ),
+                "Priority": str(
+                    row["priority"]
+                ),
+                "Topology": str(
+                    row["topology_status"]
+                ),
                 "Decision": decision,
             }
         )
 
 if field_rows:
+
     st.dataframe(
         field_rows,
         use_container_width=True,
         hide_index=True,
     )
+
 else:
+
     st.success(
         "No parcels currently require field verification."
     )
@@ -1841,20 +1907,47 @@ else:
 
 st.html(
     """
-    <div class="section-title">📋 Surveyor Decision Summary</div>
+    <div class="section-title">
+        📋 Surveyor Decision Summary
+    </div>
+
     <div class="section-subtitle">
         Current review status.
     </div>
     """
 )
 
-accepted = sum(1 for pid, x in st.session_state.parcel_decisions.items() if str(pid) in current_ids and x == "ACCEPTED")
+accepted = sum(
+    1
+    for pid, x
+    in st.session_state.parcel_decisions.items()
+    if str(pid) in current_ids
+    and x == "ACCEPTED"
+)
 
-edited = sum(1 for pid, x in st.session_state.parcel_decisions.items() if str(pid) in current_ids and x == "EDIT REQUIRED")
+edited = sum(
+    1
+    for pid, x
+    in st.session_state.parcel_decisions.items()
+    if str(pid) in current_ids
+    and x == "EDIT REQUIRED"
+)
 
-rejected = sum(1 for pid, x in st.session_state.parcel_decisions.items() if str(pid) in current_ids and x == "REJECTED")
+rejected = sum(
+    1
+    for pid, x
+    in st.session_state.parcel_decisions.items()
+    if str(pid) in current_ids
+    and x == "REJECTED"
+)
 
-field_verification = sum(1 for pid, x in st.session_state.parcel_decisions.items() if str(pid) in current_ids and x == "FIELD VERIFICATION")
+field_verification = sum(
+    1
+    for pid, x
+    in st.session_state.parcel_decisions.items()
+    if str(pid) in current_ids
+    and x == "FIELD VERIFICATION"
+)
 
 pending = total_parcels - (
     accepted
@@ -1875,7 +1968,10 @@ with d3:
     st.metric("Rejected", rejected)
 
 with d4:
-    st.metric("Pending", max(0, pending))
+    st.metric(
+        "Pending",
+        max(0, pending)
+    )
 
 
 # ============================================================
@@ -1884,7 +1980,10 @@ with d4:
 
 st.html(
     """
-    <div class="section-title">⚙️ Survey Workflow</div>
+    <div class="section-title">
+        ⚙️ Survey Workflow
+    </div>
+
     <div class="section-subtitle">
         From imagery to GIS-ready parcel data.
     </div>
@@ -1894,48 +1993,27 @@ st.html(
 w1, w2, w3, w4, w5, w6 = st.columns(6)
 
 workflow = [
-    (
-        "1",
-        "Data",
-        "Survey imagery + GIS",
-    ),
-    (
-        "2",
-        "AI Extraction",
-        "Detect features",
-    ),
-    (
-        "3",
-        "Parcel Proposal",
-        "Create parcel layer",
-    ),
-    (
-        "4",
-        "Topology",
-        "Run geometry checks",
-    ),
-    (
-        "5",
-        "Confidence",
-        "Prioritise review",
-    ),
-    (
-        "6",
-        "Surveyor",
-        "Surveyor decision",
-    ),
+    ("1", "Data", "Survey imagery + GIS"),
+    ("2", "AI Extraction", "Detect features"),
+    ("3", "Parcel Proposal", "Create parcel layer"),
+    ("4", "Topology", "Run geometry checks"),
+    ("5", "Confidence", "Prioritise review"),
+    ("6", "Surveyor", "Surveyor decision"),
 ]
 
 for col, item in zip(
     [w1, w2, w3, w4, w5, w6],
     workflow,
 ):
+
     number, name, desc = item
 
     with col:
+
         st.html(
             f"""
             <div class="workflow-card">
+
                 <div class="workflow-number">
                     {html.escape(number)}
                 </div>
@@ -1947,6 +2025,7 @@ for col, item in zip(
                 <div class="workflow-desc">
                     {html.escape(desc)}
                 </div>
+
             </div>
             """
         )
@@ -1962,7 +2041,10 @@ st.html(
 
 st.html(
     """
-    <div class="section-title">GIS Export</div>
+    <div class="section-title">
+        GIS Export
+    </div>
+
     <div class="section-subtitle">
         Export the parcel layer for GIS use.
     </div>
@@ -1975,7 +2057,8 @@ export_gdf["surveyor_decision"] = (
     export_gdf["parcel_id"]
     .astype(str)
     .map(
-        lambda x: st.session_state.parcel_decisions.get(
+        lambda x:
+        st.session_state.parcel_decisions.get(
             x,
             "PENDING",
         )
@@ -1987,6 +2070,7 @@ geojson_data = export_gdf.to_json()
 ex1, ex2 = st.columns(2)
 
 with ex1:
+
     st.download_button(
         "Download Parcel GeoJSON",
         data=geojson_data,
@@ -1996,12 +2080,17 @@ with ex1:
     )
 
 approved_gdf = export_gdf[
-    export_gdf["surveyor_decision"] == "ACCEPTED"
+    export_gdf["surveyor_decision"]
+    == "ACCEPTED"
 ]
 
 with ex2:
+
     if len(approved_gdf) > 0:
-        approved_geojson = approved_gdf.to_json()
+
+        approved_geojson = (
+            approved_gdf.to_json()
+        )
 
         st.download_button(
             "Download Approved",
@@ -2010,7 +2099,9 @@ with ex2:
             mime="application/geo+json",
             use_container_width=True,
         )
+
     else:
+
         st.button(
             "⬇️ Approved Parcels",
             disabled=True,
@@ -2025,13 +2116,20 @@ with ex2:
 st.html(
     """
     <div class="xai-box">
+
         <div class="xai-title">
             Survey review required
         </div>
 
-        Extracted boundaries and features are <b>preliminary</b>.
-        Geometry checks flag parcels that need attention before export.
-        Final cadastral approval remains with the authorized surveyor.
+        Extracted boundaries and features are
+        <b>preliminary</b>.
+
+        Geometry checks flag parcels that need attention
+        before export.
+
+        Final cadastral approval remains with the
+        authorized surveyor.
+
     </div>
     """
 )
@@ -2044,9 +2142,14 @@ st.html(
 st.html(
     """
     <div class="footer">
-        <b>AI-CADRE</b> • SIH26012 • Urban Cadastral Mapping &amp; Feature Extraction
+
+        <b>AI-CADRE</b> • SIH26012 •
+        Urban Cadastral Mapping &amp; Feature Extraction
+
         <br>
+
         SIH 2026 prototype • Human-in-the-loop survey review
+
     </div>
     """
 )
