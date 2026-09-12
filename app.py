@@ -44,10 +44,7 @@ if "selected_packet" not in st.session_state:
 # ============================================================
 # CUSTOM CSS
 # ============================================================
-/* Keep page content below the fixed navbar */
-.block-container {
-    padding-top: 85px !important;
-}
+
 st.html(
     """
     <style>
@@ -65,6 +62,9 @@ st.html(
         --terracotta: #b86b4b;
         --red: #b94a48;
         --amber: #c38a32;
+    }
+    .block-container {
+        padding-top: 85px !important;
     }
 
     .stApp { background: var(--paper); color: var(--ink); }
