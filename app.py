@@ -906,23 +906,85 @@ with map_col:
     # National overview markers remain visible when the user zooms out.
     # The selected city's parcel polygons remain the detailed survey layer.
     overview_group = folium.FeatureGroup(name="Indian survey locations", show=True)
-    for city_name, (city_lat, city_lon) in CITY_CENTERS.items():
-        active = city_name == str(selected_packet)
-        marker_color = "#2F6F4E" if active else "#3C7D78"
-        folium.CircleMarker(
-            location=[city_lat, city_lon],
-            radius=11 if active else 8,
-            color=marker_color,
-            fill=True,
-            fill_color=marker_color,
-            fill_opacity=0.9,
-            weight=2,
-            tooltip=f"{city_name} • 25 parcels",
-            popup=folium.Popup(
-                f"<b>{html.escape(city_name)}</b><br>25 sample parcel records",
-                max_width=240,
-            ),
-        ).add_to(overview_group)
+for city_name, (city_lat, city_lon) in CITY_CENTERS.items():
+
+    active = city_name == str(selected_packet)
+
+    marker_color = (
+        "#2F6F4E"
+        if active
+        else "#3C7D78"
+    )
+
+    city_marker = folium.CircleMarker(
+        location=[
+            city_lat,
+            city_lon,
+        ],
+        radius=13 if active else 9,
+        color=marker_color,
+        fill=True,
+        fill_color=marker_color,
+        fill_opacity=0.95,
+        weight=3,
+        tooltip=folium.Tooltip(
+            f"<b>{html.escape(city_name)}</b><br>"
+            "Click to zoom into survey area"
+        ),
+        popup=folium.Popup(
+            f"""
+            <div style="
+                font-family:Arial;
+                min-width:180px;
+                text-align:center;
+            ">
+                <b style="font-size:15px;">
+                    {html.escape(city_name)}
+                </b>
+                <br><br>
+                <span style="color:#64748b;">
+                    25 sample parcel records
+                </span>
+                <br><br>
+                <span style="
+                    color:#2F6F4E;
+                    font-weight:700;
+                ">
+                    Click the marker to zoom
+                </span>
+            </div>
+            """,
+            max_width=250,
+        ),
+    )
+
+    city_marker.add_to(
+        overview_group
+    )
+
+    # --------------------------------------------------------
+    # CLICK CITY → ZOOM
+    # --------------------------------------------------------
+
+    city_marker.add_child(
+        folium.Element(
+            f"""
+            <script>
+            setTimeout(function() {{
+                var marker = {city_marker.get_name()};
+                var map = {m.get_name()};
+
+                marker.on('click', function() {{
+                    map.setView(
+                        [{city_lat}, {city_lon}],
+                        16
+                    );
+                }});
+            }}, 100);
+            </script>
+            """
+        )
+    )
     overview_group.add_to(m)
 
     for _, row in map_gdf.iterrows():
