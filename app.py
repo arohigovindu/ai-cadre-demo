@@ -212,13 +212,15 @@ st.html(
     """
     <style>
         .ai-cadre-header {
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 999999;
-            width: 100%;
+            width: 100vw;
             box-sizing: border-box;
-            margin: -0.7rem 0 18px 0;
-            padding: 10px 16px;
+            margin: 0;
+            padding: 10px clamp(16px, 3vw, 42px);
             background: #173d2d;
             border-radius: 0 0 16px 16px;
             box-shadow: 0 8px 24px rgba(23,61,45,.20);
@@ -276,6 +278,10 @@ st.html(
         .ai-cadre-nav a:hover {
             background: #285640;
             color: #ffffff;
+        }
+        .ai-cadre-header-spacer {
+            height: 76px;
+            width: 100%;
         }
         .ai-cadre-online {
             display: flex;
@@ -343,6 +349,7 @@ st.html(
             <span class="ai-cadre-dot"></span> SYSTEM ONLINE
         </div>
     </div>
+    <div class="ai-cadre-header-spacer"></div>
     """
 )
 
