@@ -364,8 +364,8 @@ st.html(
             align-items: center !important;
             gap: 10px !important;
             flex: 0 0 auto !important;
-            width: 205px !important;
-            min-width: 205px !important;
+            width: 245px !important;
+            min-width: 245px !important;
             overflow: visible !important;
         }
 
@@ -389,12 +389,12 @@ st.html(
             color: #b9cec2 !important;
             font-size: 7px !important;
             font-weight: 700 !important;
-            letter-spacing: .25px !important;
+            letter-spacing: .2px !important;
             margin-top: 5px !important;
             text-transform: uppercase !important;
             white-space: nowrap !important;
-            max-width: 155px !important;
-            overflow: hidden !important;
+            max-width: 195px !important;
+            overflow: visible !important;
         }
 
         .ai-cadre-nav {
