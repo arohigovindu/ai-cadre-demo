@@ -467,39 +467,46 @@ with info_col:
 
         file_size_kb = uploaded_image.size / 1024
 
-        st.markdown(
-            f"""
-            <div class="card">
-                <div class="card-title">📄 Source Image</div>
-                <div class="card-subtitle">
-                    Imagery successfully loaded
-                </div>
+        st.html(
+    f"""
+    <div class="card">
+        <div class="card-title">
+            Parcel {html.escape(str(selected_id))}
+        </div>
 
-                <div class="signal">
-                    <div class="signal-label">Filename</div>
-                    <div class="signal-value">
-                        {html.escape(uploaded_image.name)}
-                    </div>
-                </div>
+        <div style="margin:10px 0;">
+            <span class="{confidence_class}">
+                {confidence_label} CONFIDENCE
+            </span>
+        </div>
 
-                <div class="signal">
-                    <div class="signal-label">File Size</div>
-                    <div class="signal-value">
-                        {file_size_kb:.1f} KB
-                    </div>
-                </div>
+        <div style="
+            background:#e8edf2;
+            height:9px;
+            border-radius:10px;
+            overflow:hidden;
+            margin:10px 0;
+        ">
+            <div style="
+                width:{confidence}%;
+                height:100%;
+                background:#1684c5;
+                border-radius:10px;
+            "></div>
+        </div>
 
-                <div class="signal">
-                    <div class="signal-label">Input Type</div>
-                    <div class="signal-value">
-                        Drone / Orthophoto
-                    </div>
-                </div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
+        <div style="
+            display:flex;
+            justify-content:space-between;
+            font-size:12px;
+            color:#657587;
+        ">
+            <span>AI confidence</span>
+            <b>{confidence:.1f}%</b>
+        </div>
+    </div>
+    """
+)
 if uploaded_image is not None:
 
     st.markdown("#### Image Preview")
@@ -627,37 +634,48 @@ if st.session_state.extraction_run and uploaded_image is not None:
 
     with e1:
 
-        st.markdown(
-            """
-            <div class="card">
-                <div class="card-title">🧩 Extracted Feature Classes</div>
-                <div class="card-subtitle">
-                    Proposed semantic classes from drone imagery
-                </div>
+        st.html(
+    f"""
+    <div class="card">
 
-                <div class="signal">
-                    <div class="signal-label">Parcel Boundary</div>
-                    <div class="signal-value">24 candidates</div>
-                </div>
+        <div class="card-title">Parcel Information</div>
 
-                <div class="signal">
-                    <div class="signal-label">Building Footprint</div>
-                    <div class="signal-value">18 candidates</div>
-                </div>
-
-                <div class="signal">
-                    <div class="signal-label">Road / Pathway</div>
-                    <div class="signal-value">7 candidates</div>
-                </div>
-
-                <div class="signal">
-                    <div class="signal-label">Open / Vegetated Land</div>
-                    <div class="signal-value">12 regions</div>
-                </div>
+        <div class="signal">
+            <div class="signal-label">Parcel ID</div>
+            <div class="signal-value">
+                {html.escape(str(p["parcel_id"]))}
             </div>
-            """,
-            unsafe_allow_html=True
-        )
+        </div>
+
+        <div class="signal">
+            <div class="signal-label">Geometry Area</div>
+            <div class="signal-value">
+                {area_value:.2f} m²
+            </div>
+        </div>
+
+        <div class="signal">
+            <div class="signal-label">Priority</div>
+            <div class="signal-value">
+                {html.escape(str(p["priority"]))}
+            </div>
+        </div>
+
+        <div style="margin-top:10px;">
+            {topology_badge}
+        </div>
+
+        <div style="
+            color:#748396;
+            font-size:11px;
+            margin-top:7px;
+        ">
+            {topology_description}
+        </div>
+
+    </div>
+    """
+)
 
     with e2:
 
