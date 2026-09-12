@@ -55,7 +55,7 @@ def calculate_area_anomaly(area, median_area):
 
 
 # ============================================================
-# CONTINUOUS CONFIDENCE SCORE
+# CONFIDENCE SCORE
 # ============================================================
 
 def calculate_confidence(
@@ -66,21 +66,18 @@ def calculate_confidence(
     overlap_area,
 ):
     """
-    Calculate a deterministic parcel-level confidence score.
+    Deterministic prototype confidence score.
 
-    The score is based on:
+    The score uses:
     - geometry validity
-    - compactness / shape regularity
-    - parcel area deviation
-    - overlap with neighbouring parcels
+    - shape regularity
+    - area consistency
+    - overlap
+    - sliver detection
 
-    This is a prototype QC confidence score, not a legal
-    cadastral accuracy certification.
+    This represents automated geometry/QC confidence.
+    It is NOT a legal cadastral accuracy certification.
     """
-
-    # --------------------------------------------------------
-    # Invalid / missing geometry
-    # --------------------------------------------------------
 
     if geometry is None or geometry.is_empty:
         return 40.0
@@ -88,58 +85,58 @@ def calculate_confidence(
     if not geometry.is_valid:
         return 52.0
 
-    # --------------------------------------------------------
-    # Start from a high-quality baseline
-    # --------------------------------------------------------
-
+    # Strong starting score for a clean parcel.
     score = 97.0
 
     # --------------------------------------------------------
-    # 1. Shape quality
-    #
-    # Compactness:
-    # 1.0 = perfect circle
-    # lower = increasingly irregular
+    # Shape regularity
     # --------------------------------------------------------
 
     if compactness < 0.35:
         score -= 15.0
+
     elif compactness < 0.45:
         score -= 10.0
+
     elif compactness < 0.55:
         score -= 6.0
+
     elif compactness < 0.65:
         score -= 3.0
+
     elif compactness < 0.75:
         score -= 1.0
 
     # --------------------------------------------------------
-    # 2. Area consistency
+    # Area consistency
     #
-    # Instead of only saying NORMAL/ANOMALY, use the actual
-    # distance from the median parcel size.
+    # Use continuous deviation rather than only
+    # NORMAL / ANOMALY.
     # --------------------------------------------------------
 
     if median_area > 0 and area > 0:
 
         area_ratio = area / median_area
 
-        # Distance from the expected size.
         deviation = abs(math.log(area_ratio))
 
         if deviation > 1.4:
             score -= 12.0
+
         elif deviation > 1.0:
             score -= 9.0
+
         elif deviation > 0.7:
             score -= 6.0
+
         elif deviation > 0.4:
             score -= 3.0
+
         elif deviation > 0.2:
             score -= 1.0
 
     # --------------------------------------------------------
-    # 3. Overlap
+    # Overlap
     # --------------------------------------------------------
 
     if overlap_area > 0 and area > 0:
@@ -148,52 +145,97 @@ def calculate_confidence(
 
         if overlap_ratio > 0.25:
             score -= 25.0
+
         elif overlap_ratio > 0.15:
             score -= 20.0
+
         elif overlap_ratio > 0.08:
             score -= 14.0
+
         elif overlap_ratio > 0.03:
             score -= 8.0
+
         else:
             score -= 3.0
 
     # --------------------------------------------------------
-    # 4. Very small geometry
+    # Sliver
     # --------------------------------------------------------
 
     if area < 1.0:
         score -= 20.0
 
-    # --------------------------------------------------------
-    # Keep score in a realistic range
-    # --------------------------------------------------------
-
-    score = max(35.0, min(98.0, score))
-
-    return round(score, 1)
+    return round(
+        max(35.0, min(98.0, score)),
+        1,
+    )
 
 
 # ============================================================
-# MAIN PARCEL ANALYSIS
+# MAIN ANALYSIS
 # ============================================================
 
 def analyze_parcels(geojson_path):
 
-    gdf = gpd.read_file(geojson_path)
+    # --------------------------------------------------------
+    # Read original GIS layer
+    # --------------------------------------------------------
 
-    if "parcel_id" not in gdf.columns:
-        gdf["parcel_id"] = [
+    original_gdf = gpd.read_file(geojson_path)
+
+    if original_gdf.empty:
+        return original_gdf
+
+    if "parcel_id" not in original_gdf.columns:
+        original_gdf["parcel_id"] = [
             f"P-{1001 + i}"
-            for i in range(len(gdf))
+            for i in range(len(original_gdf))
         ]
 
-    gdf["parcel_id"] = gdf["parcel_id"].astype(str)
+    original_gdf["parcel_id"] = (
+        original_gdf["parcel_id"].astype(str)
+    )
 
     # --------------------------------------------------------
-    # Area statistics
+    # IMPORTANT:
+    # The source layer is latitude/longitude.
+    #
+    # Reproject to a local UTM zone for all metric
+    # calculations.
     # --------------------------------------------------------
 
-    areas = gdf.geometry.area
+    if original_gdf.crs is None:
+        original_gdf = original_gdf.set_crs(
+            epsg=4326
+        )
+
+    # Use the geographic centroid to determine the
+    # appropriate UTM zone.
+    geographic = original_gdf.to_crs(epsg=4326)
+
+    centroid = geographic.geometry.union_all().centroid
+
+    longitude = centroid.x
+    latitude = centroid.y
+
+    utm_zone = int(
+        (longitude + 180) / 6
+    ) + 1
+
+    if latitude >= 0:
+        metric_epsg = 32600 + utm_zone
+    else:
+        metric_epsg = 32700 + utm_zone
+
+    metric_gdf = original_gdf.to_crs(
+        epsg=metric_epsg
+    )
+
+    # --------------------------------------------------------
+    # Median area in REAL square metres
+    # --------------------------------------------------------
+
+    areas = metric_gdf.geometry.area
 
     median_area = (
         float(areas.median())
@@ -207,13 +249,21 @@ def analyze_parcels(geojson_path):
     # PARCEL-BY-PARCEL ANALYSIS
     # ========================================================
 
-    for idx, row in gdf.iterrows():
+    for idx in metric_gdf.index:
 
-        geometry = row.geometry
-        parcel_id = str(row["parcel_id"])
+        geometry = metric_gdf.loc[idx, "geometry"]
+
+        original_geometry = original_gdf.loc[
+            idx,
+            "geometry",
+        ]
+
+        parcel_id = str(
+            original_gdf.loc[idx, "parcel_id"]
+        )
 
         # ----------------------------------------------------
-        # Basic geometry values
+        # Area
         # ----------------------------------------------------
 
         area = (
@@ -223,9 +273,17 @@ def analyze_parcels(geojson_path):
             else 0.0
         )
 
-        compactness = safe_compactness(geometry)
+        # ----------------------------------------------------
+        # Shape
+        # ----------------------------------------------------
 
-        vertex_count = count_vertices(geometry)
+        compactness = safe_compactness(
+            geometry
+        )
+
+        vertex_count = count_vertices(
+            geometry
+        )
 
         invalid_geometry = (
             geometry is None
@@ -234,19 +292,25 @@ def analyze_parcels(geojson_path):
         )
 
         # ----------------------------------------------------
-        # Calculate overlap with other parcels
+        # Overlap
         # ----------------------------------------------------
 
         overlap_area = 0.0
 
-        if geometry is not None and not geometry.is_empty:
+        if (
+            geometry is not None
+            and not geometry.is_empty
+        ):
 
-            for jdx, other in gdf.iterrows():
+            for jdx in metric_gdf.index:
 
                 if idx == jdx:
                     continue
 
-                other_geom = other.geometry
+                other_geom = metric_gdf.loc[
+                    jdx,
+                    "geometry",
+                ]
 
                 if (
                     other_geom is None
@@ -256,11 +320,15 @@ def analyze_parcels(geojson_path):
 
                 try:
 
-                    if geometry.intersects(other_geom):
+                    if geometry.intersects(
+                        other_geom
+                    ):
 
                         overlap = (
                             geometry
-                            .intersection(other_geom)
+                            .intersection(
+                                other_geom
+                            )
                             .area
                         )
 
@@ -282,7 +350,7 @@ def analyze_parcels(geojson_path):
         )
 
         # ----------------------------------------------------
-        # CONFIDENCE
+        # Confidence
         # ----------------------------------------------------
 
         confidence = calculate_confidence(
@@ -294,22 +362,30 @@ def analyze_parcels(geojson_path):
         )
 
         # ----------------------------------------------------
-        # Explainable issues
+        # Issues
         # ----------------------------------------------------
 
         issues = []
 
         if invalid_geometry:
-            issues.append("invalid geometry")
+            issues.append(
+                "invalid geometry"
+            )
 
         if overlap_area > 0.01:
-            issues.append("overlap detected")
+            issues.append(
+                "overlap detected"
+            )
 
         if area < 1.0:
-            issues.append("sliver geometry")
+            issues.append(
+                "sliver geometry"
+            )
 
         if compactness < 0.55 and area > 0:
-            issues.append("irregular shape")
+            issues.append(
+                "irregular shape"
+            )
 
         if area_anomaly != "NORMAL":
             issues.append(
@@ -322,19 +398,22 @@ def analyze_parcels(geojson_path):
         # ----------------------------------------------------
 
         if confidence < 70:
+
             priority = "HIGH"
             color = "#EF4444"
 
         elif confidence < 85:
+
             priority = "MEDIUM"
             color = "#F59E0B"
 
         else:
+
             priority = "LOW"
             color = "#22C55E"
 
         # ----------------------------------------------------
-        # Explainability text
+        # Explainability
         # ----------------------------------------------------
 
         if issues:
@@ -348,8 +427,9 @@ def analyze_parcels(geojson_path):
         else:
 
             xai_reason = (
-                "Geometry is valid, shows no significant "
-                "overlap, and falls within expected parcel "
+                "Geometry is valid, shows no "
+                "significant overlap, and falls "
+                "within expected parcel "
                 "characteristics."
             )
 
@@ -368,38 +448,57 @@ def analyze_parcels(geojson_path):
         )
 
         # ----------------------------------------------------
-        # Store result
+        # Store original geometry so the map remains
+        # in its original coordinate system.
         # ----------------------------------------------------
 
-        results.append(
-            {
-                "parcel_id": parcel_id,
-                "geometry": geometry,
-                "area_sqm": round(area, 4),
-                "confidence": confidence,
-                "topology_status": topology_status,
-                "xai_reason": xai_reason,
-                "priority": priority,
-                "color": color,
-                "compactness": round(
-                    compactness,
-                    3,
-                ),
-                "vertex_count": vertex_count,
-                "overlap_area": round(
-                    overlap_area,
-                    4,
-                ),
-                "area_anomaly": area_anomaly,
-            }
-        )
+        result = {
+            "parcel_id": parcel_id,
+            "geometry": original_geometry,
+            "area_sqm": round(
+                area,
+                2,
+            ),
+            "confidence": confidence,
+            "topology_status": topology_status,
+            "xai_reason": xai_reason,
+            "priority": priority,
+            "color": color,
+            "compactness": round(
+                compactness,
+                3,
+            ),
+            "vertex_count": vertex_count,
+            "overlap_area": round(
+                overlap_area,
+                2,
+            ),
+            "area_anomaly": area_anomaly,
+        }
 
-    # ========================================================
-    # RETURN GIS RESULT
-    # ========================================================
+        # Preserve any extra source attributes such as:
+        # region, survey_zone, land_use.
+        for column in original_gdf.columns:
+
+            if column == "geometry":
+                continue
+
+            if column not in result:
+                result[column] = (
+                    original_gdf.loc[
+                        idx,
+                        column,
+                    ]
+                )
+
+        results.append(result)
+
+    # --------------------------------------------------------
+    # Return GeoDataFrame in original CRS
+    # --------------------------------------------------------
 
     return gpd.GeoDataFrame(
         results,
         geometry="geometry",
-        crs=gdf.crs,
+        crs=original_gdf.crs,
     )
