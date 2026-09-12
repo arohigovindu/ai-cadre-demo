@@ -986,17 +986,10 @@ with map_col:
             ),
         ).add_to(m)
 
-    folium.map.Marker(
-        center,
-        icon=folium.DivIcon(
-            html=f"""<div style="font-family:Arial;font-size:15px;font-weight:800;color:#173d2d;background:white;padding:7px 11px;border:1px solid #dfe8e3;border-radius:8px;box-shadow:0 2px 7px rgba(0,0,0,.12);">Demo survey area • {html.escape(str(selected_packet))}</div>"""
-        ),
-    ).add_to(m)
-
     legend_html = """
     <div style="
         position: fixed;
-        bottom: 25px;
+        bottom: 82px;
         left: 25px;
         z-index:9999;
         background:white;
