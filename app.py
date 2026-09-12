@@ -891,17 +891,6 @@ with map_col:
     tiles="OpenStreetMap",
     control_scale=True,
 )
-    try:
-        bounds = map_gdf.total_bounds
-        m.fit_bounds(
-            [
-                [bounds[1], bounds[0]],
-                [bounds[3], bounds[2]],
-            ]
-        )
-    except Exception:
-        pass
-
     # National overview markers remain visible when the user zooms out.
     # The selected city's parcel polygons remain the detailed survey layer.
     overview_group = folium.FeatureGroup(name="Indian survey locations", show=True)
