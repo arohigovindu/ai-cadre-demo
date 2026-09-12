@@ -14,8 +14,8 @@ from topology_engine import analyze_parcels
 # ============================================================
 
 st.set_page_config(
-    page_title="AI-CADRE | Cadastral AI Co-Pilot",
-    page_icon="🛰️",
+    page_title="AI-CADRE | Urban Cadastral Mapping",
+    page_icon="🗺️",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
@@ -45,297 +45,96 @@ if "extraction_run" not in st.session_state:
 st.html(
     """
     <style>
-    /* ---------- GLOBAL ---------- */
-    .stApp {
-        background: #f4f7fb;
+    :root {
+        --ink: #17302a;
+        --muted: #6d7e78;
+        --line: #dfe8e3;
+        --paper: #f5f7f4;
+        --card: #ffffff;
+        --green: #2f6f4e;
+        --green-dark: #173d2d;
+        --green-soft: #e9f3ec;
+        --teal: #3c7d78;
+        --sand: #d8b77a;
+        --terracotta: #b86b4b;
+        --red: #b94a48;
+        --amber: #c38a32;
     }
 
-    .block-container {
-        padding-top: 1.2rem;
-        padding-bottom: 3rem;
-        max-width: 1500px;
-    }
+    .stApp { background: var(--paper); color: var(--ink); }
+    .block-container { padding: 0.7rem 2rem 3rem; max-width: 1550px; }
 
-    /* ---------- NAVBAR ---------- */
+    /* Header */
     .cadre-nav {
-        background: #071525;
-        border-radius: 14px;
-        padding: 15px 22px;
-        color: white;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        background: var(--green-dark); border-radius: 0 0 18px 18px;
+        padding: 13px 20px; color: white; margin: -0.7rem -2rem 18px;
+        display:flex; align-items:center; justify-content:space-between;
+        box-shadow: 0 5px 18px rgba(23,61,45,.12);
     }
+    .cadre-brand { font-size:20px; font-weight:850; letter-spacing:-.4px; }
+    .cadre-subbrand { font-size:11px; color:#b8cec2; margin-top:2px; }
+    .cadre-pill { background:#285640; border:1px solid #47755f; padding:6px 11px; border-radius:999px; font-size:10px; font-weight:800; color:#e4f1e9; }
 
-    .cadre-brand {
-        font-size: 23px;
-        font-weight: 800;
-        letter-spacing: -0.4px;
-    }
-
-    .cadre-subbrand {
-        font-size: 12px;
-        color: #a8b6c8;
-        margin-top: 2px;
-    }
-
-    .cadre-pill {
-        background: #102a43;
-        border: 1px solid #23425e;
-        padding: 7px 13px;
-        border-radius: 999px;
-        font-size: 11px;
-        font-weight: 700;
-        color: #8fd3ff;
-    }
-
-    /* ---------- HERO ---------- */
+    /* Hero */
     .hero {
-        background: linear-gradient(135deg, #071525 0%, #0d2740 100%);
-        border-radius: 18px;
-        padding: 30px 32px;
-        color: white;
-        margin-bottom: 22px;
-        box-shadow: 0 8px 30px rgba(7, 21, 37, 0.12);
+        background: linear-gradient(115deg, #173d2d 0%, #245943 58%, #3c7d78 100%);
+        border-radius:18px; padding:25px 28px; color:white; margin-bottom:18px;
+        box-shadow:0 10px 28px rgba(31,75,56,.14); position:relative; overflow:hidden;
     }
+    .hero:after { content:""; position:absolute; width:220px; height:220px; right:-60px; top:-90px; border:1px solid rgba(255,255,255,.12); border-radius:50%; box-shadow:0 0 0 28px rgba(255,255,255,.04), 0 0 0 56px rgba(255,255,255,.025); }
+    .hero-kicker { color:#d8e9c9; font-size:10px; font-weight:850; letter-spacing:1.2px; margin-bottom:6px; }
+    .hero-title { font-size:31px; font-weight:850; margin:0; letter-spacing:-.9px; }
+    .hero-text { color:#d8e8df; max-width:760px; line-height:1.5; margin-top:8px; font-size:13px; }
+    .hero-flow { margin-top:15px; font-size:11px; font-weight:750; color:#f1e7ca; }
 
-    .hero-kicker {
-        color: #61c4ff;
-        font-size: 12px;
-        font-weight: 800;
-        letter-spacing: 1.1px;
-        margin-bottom: 7px;
-    }
+    /* Sections */
+    .section-title { font-size:18px; font-weight:850; color:var(--ink); margin-top:20px; margin-bottom:3px; letter-spacing:-.2px; }
+    .section-subtitle { color:var(--muted); font-size:11px; margin-bottom:11px; }
 
-    .hero-title {
-        font-size: 35px;
-        font-weight: 850;
-        margin: 0;
-        letter-spacing: -1px;
-    }
+    /* KPI */
+    .kpi-card { background:var(--card); border:1px solid var(--line); border-radius:13px; padding:15px 16px; min-height:94px; box-shadow:0 2px 12px rgba(24,52,41,.035); }
+    .kpi-label { color:#71817b; font-size:10px; font-weight:850; text-transform:uppercase; letter-spacing:.65px; }
+    .kpi-value { color:var(--ink); font-size:26px; font-weight:900; margin-top:4px; }
+    .kpi-note { color:#82908b; font-size:10px; margin-top:1px; }
 
-    .hero-text {
-        color: #c5d3e2;
-        max-width: 850px;
-        line-height: 1.55;
-        margin-top: 10px;
-        font-size: 15px;
-    }
+    /* Cards */
+    .card { background:var(--card); border:1px solid var(--line); border-radius:13px; padding:17px; box-shadow:0 2px 12px rgba(24,52,41,.035); }
+    .card-title { font-size:15px; font-weight:850; color:var(--ink); margin-bottom:4px; }
+    .card-subtitle { font-size:11px; color:#778680; margin-bottom:11px; }
 
-    .hero-flow {
-        margin-top: 20px;
-        font-size: 13px;
-        font-weight: 700;
-        color: #e5f5ff;
-    }
+    /* Status */
+    .status-pass,.status-fail,.status-warn { display:inline-block; border-radius:999px; padding:4px 9px; font-size:10px; font-weight:850; }
+    .status-pass { background:#e7f2ea; color:#2d6b49; }
+    .status-fail { background:#f9e9e7; color:#a64340; }
+    .status-warn { background:#fbf1dd; color:#9b6b1d; }
 
-    /* ---------- SECTION HEADERS ---------- */
-    .section-title {
-        font-size: 21px;
-        font-weight: 800;
-        color: #0b1d2e;
-        margin-top: 22px;
-        margin-bottom: 4px;
-    }
+    /* Explainability */
+    .xai-box { background:#f0f5f1; border:1px solid #d7e5db; border-left:3px solid var(--teal); border-radius:10px; padding:12px; color:#40574e; font-size:11px; line-height:1.5; }
+    .xai-title { font-size:10px; font-weight:850; color:#356b62; margin-bottom:3px; text-transform:uppercase; letter-spacing:.6px; }
 
-    .section-subtitle {
-        color: #68788a;
-        font-size: 13px;
-        margin-bottom: 14px;
-    }
+    /* Signals */
+    .signal { background:#f7f9f7; border:1px solid #e5ebe7; border-radius:9px; padding:9px; margin-bottom:7px; }
+    .signal-label { font-size:9px; color:#7b8984; text-transform:uppercase; font-weight:850; }
+    .signal-value { font-size:14px; color:#234137; font-weight:850; margin-top:2px; }
 
-    /* ---------- KPI ---------- */
-    .kpi-card {
-        background: white;
-        border: 1px solid #e3eaf1;
-        border-radius: 14px;
-        padding: 18px;
-        min-height: 105px;
-        box-shadow: 0 3px 15px rgba(10, 35, 60, 0.04);
-    }
+    /* Workflow */
+    .workflow-card { background:white; border:1px solid var(--line); border-radius:12px; padding:13px; min-height:105px; }
+    .workflow-number { width:26px; height:26px; border-radius:8px; background:#e6f0e9; color:var(--green); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:900; margin-bottom:8px; }
+    .workflow-name { font-size:12px; font-weight:850; color:#254238; }
+    .workflow-desc { font-size:10px; color:#76847f; margin-top:3px; line-height:1.35; }
 
-    .kpi-label {
-        color: #728296;
-        font-size: 11px;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: .6px;
-    }
+    /* Upload */
+    .upload-info { background:#f3f7f3; border:1px dashed #bdd0c3; border-radius:11px; padding:12px 14px; font-size:11px; color:#52675d; line-height:1.45; margin-bottom:10px; }
+    .extraction-status { background:#edf6ef; border:1px solid #cce0d1; border-radius:11px; padding:12px; color:#2d6647; font-size:11px; }
 
-    .kpi-value {
-        color: #0b1d2e;
-        font-size: 28px;
-        font-weight: 850;
-        margin-top: 5px;
-    }
+    /* Streamlit controls */
+    div[data-testid="stFileUploader"] { background:white; border:1px solid var(--line); border-radius:12px; padding:10px; }
+    div.stButton > button, div.stDownloadButton > button { border-radius:9px; font-weight:750; border:1px solid #cfdcd4; }
+    div.stButton > button[kind="primary"] { background:#2f6f4e; border-color:#2f6f4e; }
+    div[data-testid="stMetric"] { background:white; border:1px solid var(--line); padding:10px; border-radius:10px; }
+    div[data-testid="stDataFrame"] { border-radius:10px; overflow:hidden; }
 
-    .kpi-note {
-        color: #7c8b9a;
-        font-size: 11px;
-        margin-top: 2px;
-    }
-
-    /* ---------- CARDS ---------- */
-    .card {
-        background: white;
-        border: 1px solid #e3eaf1;
-        border-radius: 14px;
-        padding: 19px;
-        box-shadow: 0 3px 15px rgba(10, 35, 60, 0.04);
-    }
-
-    .card-title {
-        font-size: 16px;
-        font-weight: 800;
-        color: #102538;
-        margin-bottom: 5px;
-    }
-
-    .card-subtitle {
-        font-size: 12px;
-        color: #718096;
-        margin-bottom: 13px;
-    }
-
-    /* ---------- STATUS ---------- */
-    .status-pass {
-        display: inline-block;
-        background: #e8f8ef;
-        color: #15803d;
-        border-radius: 999px;
-        padding: 5px 10px;
-        font-size: 11px;
-        font-weight: 800;
-    }
-
-    .status-fail {
-        display: inline-block;
-        background: #fff0ef;
-        color: #dc2626;
-        border-radius: 999px;
-        padding: 5px 10px;
-        font-size: 11px;
-        font-weight: 800;
-    }
-
-    .status-warn {
-        display: inline-block;
-        background: #fff7e6;
-        color: #b45309;
-        border-radius: 999px;
-        padding: 5px 10px;
-        font-size: 11px;
-        font-weight: 800;
-    }
-
-    /* ---------- XAI ---------- */
-    .xai-box {
-        background: #f1f8ff;
-        border: 1px solid #cce7fb;
-        border-radius: 12px;
-        padding: 14px;
-        color: #21445e;
-        font-size: 13px;
-        line-height: 1.5;
-    }
-
-    .xai-title {
-        font-size: 12px;
-        font-weight: 850;
-        color: #0c527d;
-        margin-bottom: 4px;
-        text-transform: uppercase;
-        letter-spacing: .6px;
-    }
-
-    /* ---------- SIGNALS ---------- */
-    .signal {
-        background: #f7f9fc;
-        border: 1px solid #e7edf3;
-        border-radius: 10px;
-        padding: 10px;
-        margin-bottom: 8px;
-    }
-
-    .signal-label {
-        font-size: 10px;
-        color: #77879a;
-        text-transform: uppercase;
-        font-weight: 800;
-    }
-
-    .signal-value {
-        font-size: 15px;
-        color: #13283c;
-        font-weight: 800;
-        margin-top: 2px;
-    }
-
-    /* ---------- WORKFLOW ---------- */
-    .workflow-card {
-        background: white;
-        border: 1px solid #e1e8ef;
-        border-radius: 13px;
-        padding: 16px;
-        min-height: 115px;
-    }
-
-    .workflow-number {
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        background: #e8f5ff;
-        color: #0877b9;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 12px;
-        font-weight: 850;
-        margin-bottom: 9px;
-    }
-
-    .workflow-name {
-        font-size: 13px;
-        font-weight: 800;
-        color: #162c40;
-    }
-
-    .workflow-desc {
-        font-size: 11px;
-        color: #718096;
-        margin-top: 4px;
-        line-height: 1.4;
-    }
-
-    /* ---------- UPLOAD AREA ---------- */
-    .upload-info {
-        background: #f5faff;
-        border: 1px solid #d7eafa;
-        border-radius: 12px;
-        padding: 13px 15px;
-        font-size: 12px;
-        color: #426078;
-        line-height: 1.5;
-        margin-bottom: 12px;
-    }
-
-    .extraction-status {
-        background: #eefaf3;
-        border: 1px solid #ccebd8;
-        border-radius: 12px;
-        padding: 14px;
-        color: #17633a;
-        font-size: 13px;
-    }
-
-    /* ---------- FOOTER ---------- */
-    .footer {
-        text-align: center;
-        color: #8a98a7;
-        font-size: 11px;
-        padding: 25px 0 5px 0;
-    }
+    .footer { text-align:center; color:#89958f; font-size:10px; padding:22px 0 5px; }
     </style>
     """
 )
@@ -382,7 +181,7 @@ st.html(
         <div>
             <div class="cadre-brand">🛰️ AI-CADRE</div>
             <div class="cadre-subbrand">
-                Cadastral AI Co-Pilot • Urban Parcel Intelligence
+                Urban Cadastral Mapping • Survey Dashboard
             </div>
         </div>
         <div class="cadre-pill">
@@ -403,7 +202,7 @@ st.html(
         <div class="hero-kicker">SIH26012 • URBAN CADASTRAL MAPPING</div>
 
         <div class="hero-title">
-            AI-powered cadastral intelligence
+            Urban parcel mapping, from imagery to review
         </div>
 
         <div class="hero-text">
@@ -413,7 +212,7 @@ st.html(
         </div>
 
         <div class="hero-flow">
-            AI Proposes → GIS Validates → Confidence Prioritizes → Surveyor Approves
+            Capture → Map → Check → Approve
         </div>
     </div>
     """
@@ -426,9 +225,9 @@ st.html(
 
 st.html(
     """
-    <div class="section-title">🛰️ Drone Imagery Input</div>
+    <div class="section-title">Survey Imagery</div>
     <div class="section-subtitle">
-        Upload high-resolution drone imagery to begin the cadastral extraction workflow.
+        Add a drone image to start a survey run.
     </div>
     """
 )
@@ -439,15 +238,15 @@ with upload_col:
     st.html(
         """
         <div class="upload-info">
-            <b>Supported prototype inputs:</b> JPG, JPEG and PNG drone imagery.
+            <b>Image input</b><br>JPG, JPEG or PNG survey imagery.
             <br>
-            The uploaded image becomes the source layer for the AI extraction pipeline.
+            Used as the source layer for feature extraction.
         </div>
         """
     )
 
     uploaded_image = st.file_uploader(
-        "Upload drone imagery",
+        "Choose survey image",
         type=["jpg", "jpeg", "png"],
         key="drone_uploader",
     )
@@ -459,7 +258,7 @@ with info_col:
         st.html(
             f"""
             <div class="card">
-                <div class="card-title">Uploaded Survey Image</div>
+                <div class="card-title">Survey Image</div>
                 <div class="signal">
                     <div class="signal-label">Filename</div>
                     <div class="signal-value">
@@ -473,7 +272,7 @@ with info_col:
                     </div>
                 </div>
                 <div style="color:#748396;font-size:11px;margin-top:7px;">
-                    Ready for prototype extraction.
+                    Ready for processing.
                 </div>
             </div>
             """
@@ -484,7 +283,7 @@ if uploaded_image is not None:
 
     st.image(
         uploaded_image,
-        caption="Uploaded drone imagery",
+        caption="Survey image",
         use_container_width=True,
     )
 
@@ -492,7 +291,7 @@ if uploaded_image is not None:
 
     with extraction_col1:
         run_extraction = st.button(
-            "🚀 Run AI Extraction",
+            "Run Extraction",
             type="primary",
             use_container_width=True,
         )
@@ -508,17 +307,17 @@ if uploaded_image is not None:
         st.session_state.extraction_run = True
 
         with st.spinner(
-            "Processing drone imagery and generating feature proposals..."
+            "Processing imagery and preparing map layers..."
         ):
             time.sleep(1.2)
 
-        st.success("AI extraction pipeline completed successfully.")
+        st.success("Extraction complete.")
 
 if st.session_state.extraction_run and uploaded_image is not None:
     st.html(
         """
         <div class="extraction-status">
-            <b>✓ Extraction complete</b><br>
+            <b>✓ Run complete</b><br>
             The imagery has been ingested and the cadastral feature
             extraction pipeline is ready for model-based inference.
         </div>
@@ -531,9 +330,9 @@ if st.session_state.extraction_run and uploaded_image is not None:
 
     st.html(
         """
-        <div class="section-title">AI Feature Extraction</div>
+        <div class="section-title">Extracted Features</div>
         <div class="section-subtitle">
-            Preliminary feature proposals generated from the uploaded survey imagery.
+            Feature counts from the current survey run.
         </div>
         """
     )
@@ -544,9 +343,9 @@ if st.session_state.extraction_run and uploaded_image is not None:
         st.html(
             """
             <div class="kpi-card">
-                <div class="kpi-label">Parcel Candidates</div>
+                <div class="kpi-label">Parcels</div>
                 <div class="kpi-value">24</div>
-                <div class="kpi-note">Preliminary boundary proposals</div>
+                <div class="kpi-note">Boundary candidates</div>
             </div>
             """
         )
@@ -557,7 +356,7 @@ if st.session_state.extraction_run and uploaded_image is not None:
             <div class="kpi-card">
                 <div class="kpi-label">Buildings</div>
                 <div class="kpi-value">18</div>
-                <div class="kpi-note">Building footprint candidates</div>
+                <div class="kpi-note">Footprint candidates</div>
             </div>
             """
         )
@@ -566,9 +365,9 @@ if st.session_state.extraction_run and uploaded_image is not None:
         st.html(
             """
             <div class="kpi-card">
-                <div class="kpi-label">Road / Pathways</div>
+                <div class="kpi-label">Roads / Paths</div>
                 <div class="kpi-value">7</div>
-                <div class="kpi-note">Access corridor candidates</div>
+                <div class="kpi-note">Access candidates</div>
             </div>
             """
         )
@@ -577,9 +376,9 @@ if st.session_state.extraction_run and uploaded_image is not None:
         st.html(
             """
             <div class="kpi-card">
-                <div class="kpi-label">Mean AI Confidence</div>
+                <div class="kpi-label">Mean confidence</div>
                 <div class="kpi-value">91%</div>
-                <div class="kpi-note">Prototype extraction confidence</div>
+                <div class="kpi-note">Current run</div>
             </div>
             """
         )
@@ -623,13 +422,13 @@ if st.session_state.extraction_run and uploaded_image is not None:
         st.html(
             """
             <div class="card">
-                <div class="card-title">🔍 AI Interpretation</div>
+                <div class="card-title">Extraction Notes</div>
                 <div class="card-subtitle">
-                    Explainable signals used to prioritize generated features
+                    Key signals used for review
                 </div>
 
                 <div class="xai-box">
-                    <div class="xai-title">Why this extraction matters</div>
+                    <div class="xai-title">Review focus</div>
 
                     The system identifies visible spatial patterns from
                     drone imagery and proposes cadastral features for
@@ -643,19 +442,15 @@ if st.session_state.extraction_run and uploaded_image is not None:
 
                     <br><br>
 
-                    These outputs are <b>preliminary proposals</b>.
-                    Final cadastral acceptance remains with the
-                    authorized surveyor.
+                    These are <b>preliminary results</b>.
+                    Final acceptance remains with the authorized surveyor.
                 </div>
             </div>
             """
         )
 
     st.info(
-        "Prototype note: the current dashboard demonstrates the complete "
-        "imagery-ingestion and AI-extraction workflow. The next development "
-        "step is to replace these prototype inference values with an actual "
-        "segmentation/object-detection model."
+        "Demo mode: extraction counts are prototype values; parcel review and GIS checks are active."
     )
 
 
@@ -665,9 +460,9 @@ if st.session_state.extraction_run and uploaded_image is not None:
 
 st.html(
     """
-    <div class="section-title">📊 Cadastral Intelligence Overview</div>
+    <div class="section-title">📊 Survey Overview</div>
     <div class="section-subtitle">
-        Current parcel-level quality and confidence summary
+        Parcel quality and review status
     </div>
     """
 )
@@ -678,9 +473,9 @@ with k1:
     st.html(
         f"""
         <div class="kpi-card">
-            <div class="kpi-label">Total Parcels</div>
+            <div class="kpi-label">Parcels</div>
             <div class="kpi-value">{total_parcels}</div>
-            <div class="kpi-note">Current GIS dataset</div>
+            <div class="kpi-note">Current layer</div>
         </div>
         """
     )
@@ -689,9 +484,9 @@ with k2:
     st.html(
         f"""
         <div class="kpi-card">
-            <div class="kpi-label">Topology Pass</div>
+            <div class="kpi-label">Topology pass</div>
             <div class="kpi-value">{topology_pass}</div>
-            <div class="kpi-note">Geometry checks passed</div>
+            <div class="kpi-note">Geometry checks</div>
         </div>
         """
     )
@@ -700,9 +495,9 @@ with k3:
     st.html(
         f"""
         <div class="kpi-card">
-            <div class="kpi-label">High Priority</div>
+            <div class="kpi-label">Review needed</div>
             <div class="kpi-value">{high_priority}</div>
-            <div class="kpi-note">Requires closer review</div>
+            <div class="kpi-note">Needs attention</div>
         </div>
         """
     )
@@ -711,9 +506,9 @@ with k4:
     st.html(
         f"""
         <div class="kpi-card">
-            <div class="kpi-label">Average Confidence</div>
+            <div class="kpi-label">Avg. confidence</div>
             <div class="kpi-value">{avg_confidence:.1f}%</div>
-            <div class="kpi-note">AI parcel confidence</div>
+            <div class="kpi-note">Parcel score</div>
         </div>
         """
     )
@@ -725,9 +520,9 @@ with k4:
 
 st.html(
     """
-    <div class="section-title">🗺️ Web-GIS Workspace</div>
+    <div class="section-title">Parcel Map</div>
     <div class="section-subtitle">
-        Inspect proposed cadastral parcels, topology status and AI confidence.
+        Select a parcel to inspect geometry and review status.
     </div>
     """
 )
@@ -764,7 +559,7 @@ with map_col:
     m = folium.Map(
         location=center,
         zoom_start=16,
-        tiles="CartoDB positron",
+        tiles="OpenStreetMap",
         control_scale=True,
     )
 
@@ -790,32 +585,32 @@ with map_col:
         )
 
         if parcel_id == str(st.session_state.selected_parcel):
-            fill_color = "#38BDF8"
+            fill_color = "#3C7D78"
         elif decision == "ACCEPTED":
-            fill_color = "#22C55E"
+            fill_color = "#4F8A61"
         elif decision == "REJECTED":
-            fill_color = "#EF4444"
+            fill_color = "#B94A48"
         elif decision == "FIELD VERIFICATION":
-            fill_color = "#F59E0B"
+            fill_color = "#C38A32"
         elif confidence_value < 70:
-            fill_color = "#EF4444"
+            fill_color = "#B94A48"
         elif confidence_value < 85:
-            fill_color = "#F59E0B"
+            fill_color = "#C38A32"
         else:
-            fill_color = "#22C55E"
+            fill_color = "#4F8A61"
 
         popup_html = f"""
         <div style="font-family:Arial;min-width:190px;">
             <b>Parcel {html.escape(parcel_id)}</b><br><br>
             Confidence: {confidence_value:.1f}%<br>
-            Topology: {html.escape(str(row["topology_status"]))}<br>
+            Geometry: {html.escape(str(row["topology_status"]))}<br>
             Priority: {html.escape(priority)}<br>
             Decision: {html.escape(decision)}
         </div>
         """
 
         tooltip = folium.Tooltip(
-            f"Parcel {parcel_id} • {confidence_value:.1f}% confidence"
+            f"Parcel {parcel_id} • {confidence_value:.1f}%"
         )
 
         feature = {
@@ -830,13 +625,13 @@ with map_col:
             feature,
             style_function=lambda feature, fc=fill_color: {
                 "fillColor": fc,
-                "color": "#183246",
+                "color": "#25483A",
                 "weight": 2,
-                "fillOpacity": 0.55,
+                "fillOpacity": 0.5,
             },
             highlight_function=lambda feature: {
                 "weight": 4,
-                "fillOpacity": 0.75,
+                "fillOpacity": 0.72,
             },
             tooltip=tooltip,
             popup=folium.Popup(
@@ -860,10 +655,10 @@ with map_col:
         font-size:11px;
         box-shadow:0 2px 8px rgba(0,0,0,.15);
     ">
-        <b>Parcel Confidence</b><br>
-        <span style="color:#22C55E;">●</span> High<br>
-        <span style="color:#F59E0B;">●</span> Medium<br>
-        <span style="color:#EF4444;">●</span> Low<br>
+        <b>Parcel status</b><br>
+        <span style="color:#22C55E;">●</span> Good<br>
+        <span style="color:#F59E0B;">●</span> Review<br>
+        <span style="color:#EF4444;">●</span> Issue<br>
         <span style="color:#38BDF8;">●</span> Selected
     </div>
     """
@@ -903,9 +698,9 @@ with map_col:
 with inspector_col:
     st.html(
         """
-        <div class="card-title">🔎 Parcel Inspector</div>
+        <div class="card-title">Parcel Inspector</div>
         <div class="card-subtitle">
-            Review AI proposal and make the surveyor decision.
+            Check the parcel and record a decision.
         </div>
         """
     )
@@ -988,7 +783,7 @@ with inspector_col:
                 font-size:12px;
                 color:#657587;
             ">
-                <span>AI confidence</span>
+                <span>Confidence</span>
                 <b>{confidence:.1f}%</b>
             </div>
         </div>
@@ -1097,9 +892,9 @@ with inspector_col:
 
     st.html(
         """
-        <div class="card-title">🧠 AI Feature Signals</div>
+        <div class="card-title">Feature Signals</div>
         <div class="card-subtitle">
-            Geometry indicators supporting the confidence score
+            Geometry checks behind the parcel score
         </div>
         """
     )
@@ -1156,7 +951,7 @@ with inspector_col:
         f"""
         <div class="xai-box">
             <div class="xai-title">
-                Explainable AI Reason
+                Why it was flagged
             </div>
 
             {reason}
@@ -1164,8 +959,7 @@ with inspector_col:
             <br><br>
 
             <b>Human-in-the-loop:</b>
-            AI provides a preliminary cadastral proposal.
-            Final validation remains with the authorized surveyor.
+            The parcel is a preliminary result. Final validation remains with the authorized surveyor.
         </div>
         """
     )
@@ -1233,15 +1027,15 @@ with inspector_col:
     )
 
     if current_decision == "ACCEPTED":
-        st.success("✓ Parcel accepted by surveyor.")
+        st.success("Parcel accepted.")
     elif current_decision == "EDIT REQUIRED":
-        st.info("✎ Parcel marked for geometry editing.")
+        st.info("Parcel marked for editing.")
     elif current_decision == "REJECTED":
-        st.error("✕ Parcel rejected.")
+        st.error("Parcel rejected.")
     elif current_decision == "FIELD VERIFICATION":
-        st.warning("⚑ Parcel queued for field verification.")
+        st.warning("Parcel queued for field verification.")
     else:
-        st.info("No surveyor decision recorded yet.")
+        st.info("Awaiting survey decision.")
 
 
 # ============================================================
@@ -1252,7 +1046,7 @@ st.html(
     """
     <div class="section-title">🧪 GIS Quality Control</div>
     <div class="section-subtitle">
-        Automated geometry checks before cadastral approval.
+        Geometry checks before approval.
     </div>
     """
 )
@@ -1283,9 +1077,9 @@ with q1:
     st.html(
         f"""
         <div class="kpi-card">
-            <div class="kpi-label">Valid Geometry</div>
+            <div class="kpi-label">Valid geometry</div>
             <div class="kpi-value">{valid_geometry}/{total_parcels}</div>
-            <div class="kpi-note">Geometry validity check</div>
+            <div class="kpi-note">Validity check</div>
         </div>
         """
     )
@@ -1294,7 +1088,7 @@ with q2:
     st.html(
         f"""
         <div class="kpi-card">
-            <div class="kpi-label">Overlap Flags</div>
+            <div class="kpi-label">Overlap flags</div>
             <div class="kpi-value">{overlap_count}</div>
             <div class="kpi-note">Potential conflicts</div>
         </div>
@@ -1305,9 +1099,9 @@ with q3:
     st.html(
         f"""
         <div class="kpi-card">
-            <div class="kpi-label">Sliver Flags</div>
+            <div class="kpi-label">Sliver flags</div>
             <div class="kpi-value">{sliver_count}</div>
-            <div class="kpi-note">Very small geometries</div>
+            <div class="kpi-note">Very small shapes</div>
         </div>
         """
     )
@@ -1318,7 +1112,7 @@ with q4:
         <div class="kpi-card">
             <div class="kpi-label">Field Checks</div>
             <div class="kpi-value">{field_checks}</div>
-            <div class="kpi-note">Queued for ground truth</div>
+            <div class="kpi-note">Ground checks</div>
         </div>
         """
     )
@@ -1332,7 +1126,7 @@ st.html(
     """
     <div class="section-title">📍 Field Verification Queue</div>
     <div class="section-subtitle">
-        Prioritized parcels requiring GNSS / ground-truth verification.
+        Parcels that need on-site verification.
     </div>
     """
 )
@@ -1381,7 +1175,7 @@ st.html(
     """
     <div class="section-title">📋 Surveyor Decision Summary</div>
     <div class="section-subtitle">
-        Current human-in-the-loop review status.
+        Current review status.
     </div>
     """
 )
@@ -1438,9 +1232,9 @@ with d4:
 
 st.html(
     """
-    <div class="section-title">⚙️ AI-CADRE Workflow</div>
+    <div class="section-title">⚙️ Survey Workflow</div>
     <div class="section-subtitle">
-        End-to-end cadastral intelligence pipeline.
+        From imagery to GIS-ready parcel data.
     </div>
     """
 )
@@ -1451,32 +1245,32 @@ workflow = [
     (
         "1",
         "Data",
-        "Drone imagery, orthophotos and GIS inputs",
+        "Survey imagery + GIS",
     ),
     (
         "2",
         "AI Extraction",
-        "Identify parcels, buildings and roads",
+        "Detect features",
     ),
     (
         "3",
         "Parcel Proposal",
-        "Generate preliminary parcel polygons",
+        "Create parcel layer",
     ),
     (
         "4",
         "Topology",
-        "Validate geometry and spatial conflicts",
+        "Run geometry checks",
     ),
     (
         "5",
         "Confidence",
-        "Rank proposals using explainable signals",
+        "Prioritise review",
     ),
     (
         "6",
         "Surveyor",
-        "Approve, edit, reject or field-check",
+        "Surveyor decision",
     ),
 ]
 
@@ -1512,9 +1306,9 @@ for col, item in zip(
 
 st.html(
     """
-    <div class="section-title">📦 GIS Export</div>
+    <div class="section-title">GIS Export</div>
     <div class="section-subtitle">
-        Download preliminary cadastral outputs for downstream GIS workflows.
+        Export the parcel layer for GIS use.
     </div>
     """
 )
@@ -1538,7 +1332,7 @@ ex1, ex2 = st.columns(2)
 
 with ex1:
     st.download_button(
-        "⬇️ Download Preliminary GeoJSON",
+        "Download Parcel GeoJSON",
         data=geojson_data,
         file_name="ai_cadre_preliminary_parcels.geojson",
         mime="application/geo+json",
@@ -1554,7 +1348,7 @@ with ex2:
         approved_geojson = approved_gdf.to_json()
 
         st.download_button(
-            "⬇️ Download Approved Parcels",
+            "Download Approved",
             data=approved_geojson,
             file_name="ai_cadre_approved_parcels.geojson",
             mime="application/geo+json",
@@ -1576,18 +1370,12 @@ st.html(
     """
     <div class="xai-box">
         <div class="xai-title">
-            Human-in-the-loop governance
+            Survey review required
         </div>
 
-        AI-CADRE is designed as a <b>decision-support system</b>,
-        not an autonomous cadastral authority.
-
-        AI-generated boundaries and extracted features are preliminary.
-        Automated topology checks identify potential inconsistencies,
-        while confidence scores help surveyors prioritize their review.
-
-        Final cadastral approval remains with the authorized
-        surveying / land-record authority.
+        Extracted boundaries and features are <b>preliminary</b>.
+        Geometry checks flag parcels that need attention before export.
+        Final cadastral approval remains with the authorized surveyor.
     </div>
     """
 )
@@ -1603,7 +1391,7 @@ st.html(
         AI-CADRE • SIH26012 • AI-Based Automated Urban Parcel Mapping
         &amp; Cadastral Feature Extraction System
         <br>
-        Prototype for Smart India Hackathon 2026
+        SIH 2026 prototype
     </div>
     """
 )
