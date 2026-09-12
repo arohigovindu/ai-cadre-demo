@@ -1369,9 +1369,11 @@ overlap_count = int(
     (gdf["overlap_area"] > 0.01).sum()
 )
 
-sliver_count = int(
-    gdf["area_sqm"] < 1.0
-).sum() if "area_sqm" in gdf.columns else 0
+sliver_count = (
+    int((gdf["area_sqm"] < 1.0).sum())
+    if "area_sqm" in gdf.columns
+    else 0
+)
 
 field_checks = sum(
     1
