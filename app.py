@@ -14,8 +14,8 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.subheader("🗺️ Web-GIS Map View")
-    # Centered on sample polygon area (lat 10, lon 10)
-    m = folium.Map(location=[1], zoom_start=5, tiles="OpenStreetMap")
+    # Coordinates set to [latitude, longitude] = [10.0, 10.0]
+    m = folium.Map(location=[10.0, 10.0], zoom_start=14, tiles="OpenStreetMap")
     
     for _, row in gdf.iterrows():
         folium.GeoJson(
@@ -35,7 +35,6 @@ with col2:
     st.subheader("🔍 Parcel Inspector")
     selected_id = st.selectbox("Select Parcel ID:", gdf['parcel_id'].tolist())
     
-    # Corrected row selection with .iloc
     selected_rows = gdf[gdf['parcel_id'] == selected_id]
     p = selected_rows.iloc
     
