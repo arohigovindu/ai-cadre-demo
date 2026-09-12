@@ -206,39 +206,141 @@ avg_confidence = float(gdf["confidence"].mean())
 # NAVBAR
 # ============================================================
 
+# The complete header is kept inside one st.html block so the styling is
+# self-contained and renders reliably in Streamlit.
 st.html(
     """
-    <div class="cadre-nav-wrap">
-        <div class="cadre-nav">
-            <div class="cadre-brand-block">
-                <div class="cadre-logo">
-                    <svg viewBox="0 0 48 48" width="40" height="40" aria-label="AI-CADRE logo" role="img">
-                        <path d="M24 3.5 43 14v20L24 44.5 5 34V14Z" fill="#d8b77a"/>
-                        <path d="M24 3.5 43 14 24 24.5 5 14Z" fill="#f1e7ca"/>
-                        <path d="M24 24.5 43 14v20L24 44.5Z" fill="#3c7d78"/>
-                        <path d="M5 14 24 24.5v20L5 34Z" fill="#2f6f4e"/>
-                        <path d="M24 11.5c-4.7 0-8.5 3.8-8.5 8.5 0 6.2 8.5 14.2 8.5 14.2s8.5-8 8.5-14.2c0-4.7-3.8-8.5-8.5-8.5Z" fill="#fff"/>
-                        <circle cx="24" cy="20" r="3.2" fill="#b86b4b"/>
-                    </svg>
-                </div>
-                <div>
-                    <div class="cadre-brand">AI-CADRE</div>
-                    <div class="cadre-subbrand">Urban Cadastral Mapping</div>
-                </div>
-            </div>
+    <style>
+        .ai-cadre-header {
+            position: sticky;
+            top: 0;
+            z-index: 999999;
+            width: 100%;
+            box-sizing: border-box;
+            margin: -0.7rem 0 18px 0;
+            padding: 10px 16px;
+            background: #173d2d;
+            border-radius: 0 0 16px 16px;
+            box-shadow: 0 8px 24px rgba(23,61,45,.20);
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            font-family: Arial, sans-serif;
+        }
+        .ai-cadre-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 0 0 auto;
+            min-width: 185px;
+        }
+        .ai-cadre-logo {
+            width: 42px;
+            height: 42px;
+            flex: 0 0 42px;
+        }
+        .ai-cadre-name {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: -.4px;
+            line-height: 1;
+        }
+        .ai-cadre-tagline {
+            color: #b9cec2;
+            font-size: 8px;
+            font-weight: 700;
+            letter-spacing: .7px;
+            margin-top: 5px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        .ai-cadre-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            flex: 1;
+            flex-wrap: wrap;
+        }
+        .ai-cadre-nav a {
+            display: inline-block;
+            color: #e2eee7;
+            text-decoration: none;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 8px 10px;
+            border-radius: 8px;
+            white-space: nowrap;
+        }
+        .ai-cadre-nav a:hover {
+            background: #285640;
+            color: #ffffff;
+        }
+        .ai-cadre-online {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #dcebe2;
+            font-size: 9px;
+            font-weight: 800;
+            border-left: 1px solid #3b614f;
+            padding-left: 14px;
+            white-space: nowrap;
+        }
+        .ai-cadre-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #7cc58c;
+            box-shadow: 0 0 0 3px rgba(124,197,140,.14);
+        }
+        @media (max-width: 900px) {
+            .ai-cadre-header {
+                gap: 9px;
+                padding: 9px 10px;
+            }
+            .ai-cadre-brand { min-width: auto; }
+            .ai-cadre-tagline { display: none; }
+            .ai-cadre-name { font-size: 16px; }
+            .ai-cadre-nav {
+                justify-content: flex-start;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+            }
+            .ai-cadre-online { display: none; }
+        }
+    </style>
 
-            <div class="cadre-nav-links">
-                <a class="cadre-nav-link" href="#dashboard">Dashboard</a>
-                <a class="cadre-nav-link" href="#survey">Survey Input</a>
-                <a class="cadre-nav-link" href="#parcel-map">Parcel Map</a>
-                <a class="cadre-nav-link" href="#qc">QC Checks</a>
-                <a class="cadre-nav-link" href="#field">Field Verification</a>
-                <a class="cadre-nav-link" href="#export">Export</a>
+    <div class="ai-cadre-header">
+        <div class="ai-cadre-brand">
+            <div class="ai-cadre-logo">
+                <svg viewBox="0 0 48 48" width="42" height="42" aria-label="AI-CADRE logo" role="img">
+                    <path d="M24 3.5 43 14v20L24 44.5 5 34V14Z" fill="#d8b77a"/>
+                    <path d="M24 3.5 43 14 24 24.5 5 14Z" fill="#f1e7ca"/>
+                    <path d="M24 24.5 43 14v20L24 44.5Z" fill="#3c7d78"/>
+                    <path d="M5 14 24 24.5v20L5 34Z" fill="#2f6f4e"/>
+                    <path d="M24 11.5c-4.7 0-8.5 3.8-8.5 8.5 0 6.2 8.5 14.2 8.5 14.2s8.5-8 8.5-14.2c0-4.7-3.8-8.5-8.5-8.5Z" fill="#fff"/>
+                    <circle cx="24" cy="20" r="3.2" fill="#b86b4b"/>
+                </svg>
             </div>
+            <div>
+                <div class="ai-cadre-name">AI-CADRE</div>
+                <div class="ai-cadre-tagline">Smarter Cadastre · Stronger Communities</div>
+            </div>
+        </div>
 
-            <div class="cadre-status">
-                <span class="status-dot"></span> SYSTEM ONLINE
-            </div>
+        <nav class="ai-cadre-nav" aria-label="Main navigation">
+            <a href="#dashboard">Dashboard</a>
+            <a href="#survey">Survey Input</a>
+            <a href="#parcel-map">Parcel Map</a>
+            <a href="#qc">QC Checks</a>
+            <a href="#field">Field Verification</a>
+            <a href="#export">Export</a>
+        </nav>
+
+        <div class="ai-cadre-online">
+            <span class="ai-cadre-dot"></span> SYSTEM ONLINE
         </div>
     </div>
     """
