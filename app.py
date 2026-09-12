@@ -886,12 +886,11 @@ with map_col:
     ]
 
     m = folium.Map(
-        location=center,
-        zoom_start=17,
-        tiles="OpenStreetMap",
-        control_scale=True,
-    )
-
+    location=[22.5, 79.0],
+    zoom_start=5,
+    tiles="OpenStreetMap",
+    control_scale=True,
+)
     try:
         bounds = map_gdf.total_bounds
         m.fit_bounds(
