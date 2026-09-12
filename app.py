@@ -986,8 +986,6 @@ with map_col:
             ),
         ).add_to(m)
 
-    folium.LayerControl().add_to(m)
-
     folium.map.Marker(
         center,
         icon=folium.DivIcon(
@@ -1019,8 +1017,6 @@ with map_col:
     m.get_root().html.add_child(
         folium.Element(legend_html)
     )
-
-    folium.LayerControl(collapsed=False, position="topright").add_to(m)
 
     map_result = st_folium(
         m,
