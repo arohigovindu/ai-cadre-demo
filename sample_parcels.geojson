@@ -1,103 +1,5453 @@
 {
-"type": "FeatureCollection",
-"name": "sample_parcels",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-"features": [
-{ "type": "Feature", "properties": { "parcel_id": "PN-1001", "region": "Pune, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 73.8554775, 18.5194175 ], [ 73.8563355, 18.5194175 ], [ 73.8563355, 18.5200871 ], [ 73.8554775, 18.5200871 ], [ 73.8554775, 18.5194175 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PN-1002", "region": "Pune, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 73.8562925, 18.5194175 ], [ 73.857072500000015, 18.5194175 ], [ 73.857072500000015, 18.5200375 ], [ 73.8562925, 18.5200375 ], [ 73.8562925, 18.5194175 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PN-1003", "region": "Pune, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 73.857107500000012, 18.5194175 ], [ 73.857887500000018, 18.5194175 ], [ 73.857887500000018, 18.5200375 ], [ 73.857107500000012, 18.5200375 ], [ 73.857107500000012, 18.5194175 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PN-1004", "region": "Pune, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 73.8579225, 18.5194175 ], [ 73.8587025, 18.5194175 ], [ 73.8587025, 18.5200375 ], [ 73.8579225, 18.5200375 ], [ 73.8579225, 18.5194175 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PN-1005", "region": "Pune, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 73.8554775, 18.5200725 ], [ 73.856257500000012, 18.5200725 ], [ 73.856257500000012, 18.5205189 ], [ 73.8560391, 18.5206925 ], [ 73.8554775, 18.5206925 ], [ 73.8554775, 18.5200725 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PN-1006", "region": "Pune, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 73.8562925, 18.5200725 ], [ 73.857072500000015, 18.5200725 ], [ 73.857072500000015, 18.5206925 ], [ 73.8562925, 18.5206925 ], [ 73.8562925, 18.5200725 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PN-1007", "region": "Pune, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 73.857107500000012, 18.5200725 ], [ 73.857887500000018, 18.5200725 ], [ 73.857887500000018, 18.5206925 ], [ 73.857107500000012, 18.5206925 ], [ 73.857107500000012, 18.5200725 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PN-1008", "region": "Pune, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 73.8579225, 18.5200725 ], [ 73.8587025, 18.5200725 ], [ 73.8587025, 18.5206925 ], [ 73.8579225, 18.5206925 ], [ 73.8579225, 18.5200725 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PN-1009", "region": "Pune, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 73.8554775, 18.5207275 ], [ 73.856257500000012, 18.5207275 ], [ 73.856257500000012, 18.5213475 ], [ 73.8554775, 18.5213475 ], [ 73.8554775, 18.5207275 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PN-1010", "region": "Pune, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 73.8564225, 18.5207275 ], [ 73.8571557, 18.5207275 ], [ 73.8571557, 18.5213475 ], [ 73.8564225, 18.5213475 ], [ 73.8564225, 18.5207275 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PN-1011", "region": "Pune, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 73.857107500000012, 18.5207275 ], [ 73.857887500000018, 18.5207275 ], [ 73.857887500000018, 18.521209612 ], [ 73.85766910000001, 18.5213971 ], [ 73.857107500000012, 18.5213971 ], [ 73.857107500000012, 18.5207275 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PN-1012", "region": "Pune, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 73.8579225, 18.5207275 ], [ 73.8587805, 18.5207275 ], [ 73.8587805, 18.5213475 ], [ 73.8579225, 18.5213475 ], [ 73.8579225, 18.5207275 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PN-1013", "region": "Pune, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 73.8554775, 18.5213825 ], [ 73.856257500000012, 18.5213825 ], [ 73.856257500000012, 18.5220521 ], [ 73.8554775, 18.5220521 ], [ 73.8554775, 18.5213825 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PN-1014", "region": "Pune, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 73.8562925, 18.5213825 ], [ 73.857072500000015, 18.5213825 ], [ 73.857072500000015, 18.5220025 ], [ 73.8562925, 18.5220025 ], [ 73.8562925, 18.5213825 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PN-1015", "region": "Pune, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 73.857107500000012, 18.5213825 ], [ 73.8579655, 18.5213825 ], [ 73.8579655, 18.5220025 ], [ 73.857107500000012, 18.5220025 ], [ 73.857107500000012, 18.5213825 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PN-1016", "region": "Pune, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 73.8579225, 18.5213825 ], [ 73.8589755, 18.5214325 ], [ 73.8587805, 18.5220025 ], [ 73.8579525, 18.5220955 ], [ 73.8579225, 18.5213825 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "HY-1001", "region": "Hyderabad, Telangana" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 78.4854775, 17.3840175 ], [ 78.4863355, 17.3840175 ], [ 78.4863355, 17.3846871 ], [ 78.4854775, 17.3846871 ], [ 78.4854775, 17.3840175 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "HY-1002", "region": "Hyderabad, Telangana" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 78.4862925, 17.3840175 ], [ 78.487072500000011, 17.3840175 ], [ 78.487072500000011, 17.3846375 ], [ 78.4862925, 17.3846375 ], [ 78.4862925, 17.3840175 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "HY-1003", "region": "Hyderabad, Telangana" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 78.4871075, 17.3840175 ], [ 78.487887500000014, 17.3840175 ], [ 78.487887500000014, 17.3846375 ], [ 78.4871075, 17.3846375 ], [ 78.4871075, 17.3840175 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "HY-1004", "region": "Hyderabad, Telangana" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 78.4879225, 17.3840175 ], [ 78.4887025, 17.3840175 ], [ 78.4887025, 17.3846375 ], [ 78.4879225, 17.3846375 ], [ 78.4879225, 17.3840175 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "HY-1005", "region": "Hyderabad, Telangana" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 78.4854775, 17.3846725 ], [ 78.4862575, 17.3846725 ], [ 78.4862575, 17.3851189 ], [ 78.4860391, 17.3852925 ], [ 78.4854775, 17.3852925 ], [ 78.4854775, 17.3846725 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "HY-1006", "region": "Hyderabad, Telangana" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 78.4862925, 17.3846725 ], [ 78.487072500000011, 17.3846725 ], [ 78.487072500000011, 17.3852925 ], [ 78.4862925, 17.3852925 ], [ 78.4862925, 17.3846725 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "HY-1007", "region": "Hyderabad, Telangana" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 78.4871075, 17.3846725 ], [ 78.487887500000014, 17.3846725 ], [ 78.487887500000014, 17.3852925 ], [ 78.4871075, 17.3852925 ], [ 78.4871075, 17.3846725 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "HY-1008", "region": "Hyderabad, Telangana" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 78.4879225, 17.3846725 ], [ 78.4887025, 17.3846725 ], [ 78.4887025, 17.3852925 ], [ 78.4879225, 17.3852925 ], [ 78.4879225, 17.3846725 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "HY-1009", "region": "Hyderabad, Telangana" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 78.4854775, 17.3853275 ], [ 78.4862575, 17.3853275 ], [ 78.4862575, 17.3859475 ], [ 78.4854775, 17.3859475 ], [ 78.4854775, 17.3853275 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "HY-1010", "region": "Hyderabad, Telangana" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 78.4864225, 17.3853275 ], [ 78.4871557, 17.3853275 ], [ 78.4871557, 17.3859475 ], [ 78.4864225, 17.3859475 ], [ 78.4864225, 17.3853275 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "HY-1011", "region": "Hyderabad, Telangana" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 78.4871075, 17.3853275 ], [ 78.487887500000014, 17.3853275 ], [ 78.487887500000014, 17.385809612 ], [ 78.4876691, 17.3859971 ], [ 78.4871075, 17.3859971 ], [ 78.4871075, 17.3853275 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "HY-1012", "region": "Hyderabad, Telangana" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 78.4879225, 17.3853275 ], [ 78.4887805, 17.3853275 ], [ 78.4887805, 17.3859475 ], [ 78.4879225, 17.3859475 ], [ 78.4879225, 17.3853275 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "HY-1013", "region": "Hyderabad, Telangana" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 78.4854775, 17.3859825 ], [ 78.4862575, 17.3859825 ], [ 78.4862575, 17.3866521 ], [ 78.4854775, 17.3866521 ], [ 78.4854775, 17.3859825 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "HY-1014", "region": "Hyderabad, Telangana" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 78.4862925, 17.3859825 ], [ 78.487072500000011, 17.3859825 ], [ 78.487072500000011, 17.3866025 ], [ 78.4862925, 17.3866025 ], [ 78.4862925, 17.3859825 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "HY-1015", "region": "Hyderabad, Telangana" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 78.4871075, 17.3859825 ], [ 78.4879655, 17.3859825 ], [ 78.4879655, 17.3866025 ], [ 78.4871075, 17.3866025 ], [ 78.4871075, 17.3859825 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "HY-1016", "region": "Hyderabad, Telangana" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 78.4879225, 17.3859825 ], [ 78.4889755, 17.3860325 ], [ 78.4887805, 17.3866025 ], [ 78.4879525, 17.3866955 ], [ 78.4879225, 17.3859825 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "BL-1001", "region": "Bengaluru, Karnataka" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 77.5933775, 12.9706175 ], [ 77.5942355, 12.9706175 ], [ 77.5942355, 12.9712871 ], [ 77.5933775, 12.9712871 ], [ 77.5933775, 12.9706175 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "BL-1002", "region": "Bengaluru, Karnataka" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 77.5941925, 12.9706175 ], [ 77.594972500000011, 12.9706175 ], [ 77.594972500000011, 12.9712375 ], [ 77.5941925, 12.9712375 ], [ 77.5941925, 12.9706175 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "BL-1003", "region": "Bengaluru, Karnataka" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 77.5950075, 12.9706175 ], [ 77.595787500000014, 12.9706175 ], [ 77.595787500000014, 12.9712375 ], [ 77.5950075, 12.9712375 ], [ 77.5950075, 12.9706175 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "BL-1004", "region": "Bengaluru, Karnataka" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 77.5958225, 12.9706175 ], [ 77.5966025, 12.9706175 ], [ 77.5966025, 12.9712375 ], [ 77.5958225, 12.9712375 ], [ 77.5958225, 12.9706175 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "BL-1005", "region": "Bengaluru, Karnataka" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 77.5933775, 12.9712725 ], [ 77.5941575, 12.9712725 ], [ 77.5941575, 12.9717189 ], [ 77.5939391, 12.9718925 ], [ 77.5933775, 12.9718925 ], [ 77.5933775, 12.9712725 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "BL-1006", "region": "Bengaluru, Karnataka" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 77.5941925, 12.9712725 ], [ 77.594972500000011, 12.9712725 ], [ 77.594972500000011, 12.9718925 ], [ 77.5941925, 12.9718925 ], [ 77.5941925, 12.9712725 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "BL-1007", "region": "Bengaluru, Karnataka" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 77.5950075, 12.9712725 ], [ 77.595787500000014, 12.9712725 ], [ 77.595787500000014, 12.9718925 ], [ 77.5950075, 12.9718925 ], [ 77.5950075, 12.9712725 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "BL-1008", "region": "Bengaluru, Karnataka" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 77.5958225, 12.9712725 ], [ 77.5966025, 12.9712725 ], [ 77.5966025, 12.9718925 ], [ 77.5958225, 12.9718925 ], [ 77.5958225, 12.9712725 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "BL-1009", "region": "Bengaluru, Karnataka" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 77.5933775, 12.9719275 ], [ 77.5941575, 12.9719275 ], [ 77.5941575, 12.9725475 ], [ 77.5933775, 12.9725475 ], [ 77.5933775, 12.9719275 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "BL-1010", "region": "Bengaluru, Karnataka" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 77.5943225, 12.9719275 ], [ 77.5950557, 12.9719275 ], [ 77.5950557, 12.9725475 ], [ 77.5943225, 12.9725475 ], [ 77.5943225, 12.9719275 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "BL-1011", "region": "Bengaluru, Karnataka" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 77.5950075, 12.9719275 ], [ 77.595787500000014, 12.9719275 ], [ 77.595787500000014, 12.972409612 ], [ 77.5955691, 12.9725971 ], [ 77.5950075, 12.9725971 ], [ 77.5950075, 12.9719275 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "BL-1012", "region": "Bengaluru, Karnataka" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 77.5958225, 12.9719275 ], [ 77.5966805, 12.9719275 ], [ 77.5966805, 12.9725475 ], [ 77.5958225, 12.9725475 ], [ 77.5958225, 12.9719275 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "BL-1013", "region": "Bengaluru, Karnataka" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 77.5933775, 12.9725825 ], [ 77.5941575, 12.9725825 ], [ 77.5941575, 12.9732521 ], [ 77.5933775, 12.9732521 ], [ 77.5933775, 12.9725825 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "BL-1014", "region": "Bengaluru, Karnataka" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 77.5941925, 12.9725825 ], [ 77.594972500000011, 12.9725825 ], [ 77.594972500000011, 12.9732025 ], [ 77.5941925, 12.9732025 ], [ 77.5941925, 12.9725825 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "BL-1015", "region": "Bengaluru, Karnataka" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 77.5950075, 12.9725825 ], [ 77.5958655, 12.9725825 ], [ 77.5958655, 12.9732025 ], [ 77.5950075, 12.9732025 ], [ 77.5950075, 12.9725825 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "BL-1016", "region": "Bengaluru, Karnataka" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 77.5958225, 12.9725825 ], [ 77.5968755, 12.9726325 ], [ 77.5966805, 12.9732025 ], [ 77.5958525, 12.9732955 ], [ 77.5958225, 12.9725825 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "NE-1001", "region": "Guwahati, Assam (Northeast)" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 91.7349775, 26.1435175 ], [ 91.7358355, 26.1435175 ], [ 91.7358355, 26.1441871 ], [ 91.7349775, 26.1441871 ], [ 91.7349775, 26.1435175 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "NE-1002", "region": "Guwahati, Assam (Northeast)" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 91.7357925, 26.1435175 ], [ 91.7365725, 26.1435175 ], [ 91.7365725, 26.1441375 ], [ 91.7357925, 26.1441375 ], [ 91.7357925, 26.1435175 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "NE-1003", "region": "Guwahati, Assam (Northeast)" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 91.7366075, 26.1435175 ], [ 91.737387500000011, 26.1435175 ], [ 91.737387500000011, 26.1441375 ], [ 91.7366075, 26.1441375 ], [ 91.7366075, 26.1435175 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "NE-1004", "region": "Guwahati, Assam (Northeast)" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 91.7374225, 26.1435175 ], [ 91.7382025, 26.1435175 ], [ 91.7382025, 26.1441375 ], [ 91.7374225, 26.1441375 ], [ 91.7374225, 26.1435175 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "NE-1005", "region": "Guwahati, Assam (Northeast)" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 91.7349775, 26.1441725 ], [ 91.7357575, 26.1441725 ], [ 91.7357575, 26.1446189 ], [ 91.7355391, 26.1447925 ], [ 91.7349775, 26.1447925 ], [ 91.7349775, 26.1441725 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "NE-1006", "region": "Guwahati, Assam (Northeast)" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 91.7357925, 26.1441725 ], [ 91.7365725, 26.1441725 ], [ 91.7365725, 26.1447925 ], [ 91.7357925, 26.1447925 ], [ 91.7357925, 26.1441725 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "NE-1007", "region": "Guwahati, Assam (Northeast)" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 91.7366075, 26.1441725 ], [ 91.737387500000011, 26.1441725 ], [ 91.737387500000011, 26.1447925 ], [ 91.7366075, 26.1447925 ], [ 91.7366075, 26.1441725 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "NE-1008", "region": "Guwahati, Assam (Northeast)" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 91.7374225, 26.1441725 ], [ 91.7382025, 26.1441725 ], [ 91.7382025, 26.1447925 ], [ 91.7374225, 26.1447925 ], [ 91.7374225, 26.1441725 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "NE-1009", "region": "Guwahati, Assam (Northeast)" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 91.7349775, 26.1448275 ], [ 91.7357575, 26.1448275 ], [ 91.7357575, 26.1454475 ], [ 91.7349775, 26.1454475 ], [ 91.7349775, 26.1448275 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "NE-1010", "region": "Guwahati, Assam (Northeast)" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 91.7359225, 26.1448275 ], [ 91.7366557, 26.1448275 ], [ 91.7366557, 26.1454475 ], [ 91.7359225, 26.1454475 ], [ 91.7359225, 26.1448275 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "NE-1011", "region": "Guwahati, Assam (Northeast)" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 91.7366075, 26.1448275 ], [ 91.737387500000011, 26.1448275 ], [ 91.737387500000011, 26.145309612 ], [ 91.7371691, 26.1454971 ], [ 91.7366075, 26.1454971 ], [ 91.7366075, 26.1448275 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "NE-1012", "region": "Guwahati, Assam (Northeast)" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 91.7374225, 26.1448275 ], [ 91.738280499999988, 26.1448275 ], [ 91.738280499999988, 26.1454475 ], [ 91.7374225, 26.1454475 ], [ 91.7374225, 26.1448275 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "NE-1013", "region": "Guwahati, Assam (Northeast)" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 91.7349775, 26.1454825 ], [ 91.7357575, 26.1454825 ], [ 91.7357575, 26.1461521 ], [ 91.7349775, 26.1461521 ], [ 91.7349775, 26.1454825 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "NE-1014", "region": "Guwahati, Assam (Northeast)" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 91.7357925, 26.1454825 ], [ 91.7365725, 26.1454825 ], [ 91.7365725, 26.1461025 ], [ 91.7357925, 26.1461025 ], [ 91.7357925, 26.1454825 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "NE-1015", "region": "Guwahati, Assam (Northeast)" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 91.7366075, 26.1454825 ], [ 91.7374655, 26.1454825 ], [ 91.7374655, 26.1461025 ], [ 91.7366075, 26.1461025 ], [ 91.7366075, 26.1454825 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "NE-1016", "region": "Guwahati, Assam (Northeast)" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 91.7374225, 26.1454825 ], [ 91.7384755, 26.1455325 ], [ 91.738280499999988, 26.1461025 ], [ 91.737452499999989, 26.1461955 ], [ 91.7374225, 26.1454825 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "MU-1001", "region": "Mumbai, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 72.8764775, 19.0750175 ], [ 72.8773355, 19.0750175 ], [ 72.8773355, 19.0756871 ], [ 72.8764775, 19.0756871 ], [ 72.8764775, 19.0750175 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "MU-1002", "region": "Mumbai, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 72.87729250000001, 19.0750175 ], [ 72.878072500000016, 19.0750175 ], [ 72.878072500000016, 19.0756375 ], [ 72.87729250000001, 19.0756375 ], [ 72.87729250000001, 19.0750175 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "MU-1003", "region": "Mumbai, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 72.878107500000013, 19.0750175 ], [ 72.878887500000019, 19.0750175 ], [ 72.878887500000019, 19.0756375 ], [ 72.878107500000013, 19.0756375 ], [ 72.878107500000013, 19.0750175 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "MU-1004", "region": "Mumbai, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 72.8789225, 19.0750175 ], [ 72.8797025, 19.0750175 ], [ 72.8797025, 19.0756375 ], [ 72.8789225, 19.0756375 ], [ 72.8789225, 19.0750175 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "MU-1005", "region": "Mumbai, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 72.8764775, 19.0756725 ], [ 72.877257500000013, 19.0756725 ], [ 72.877257500000013, 19.0761189 ], [ 72.8770391, 19.0762925 ], [ 72.8764775, 19.0762925 ], [ 72.8764775, 19.0756725 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "MU-1006", "region": "Mumbai, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 72.87729250000001, 19.0756725 ], [ 72.878072500000016, 19.0756725 ], [ 72.878072500000016, 19.0762925 ], [ 72.87729250000001, 19.0762925 ], [ 72.87729250000001, 19.0756725 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "MU-1007", "region": "Mumbai, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 72.878107500000013, 19.0756725 ], [ 72.878887500000019, 19.0756725 ], [ 72.878887500000019, 19.0762925 ], [ 72.878107500000013, 19.0762925 ], [ 72.878107500000013, 19.0756725 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "MU-1008", "region": "Mumbai, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 72.8789225, 19.0756725 ], [ 72.8797025, 19.0756725 ], [ 72.8797025, 19.0762925 ], [ 72.8789225, 19.0762925 ], [ 72.8789225, 19.0756725 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "MU-1009", "region": "Mumbai, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 72.8764775, 19.0763275 ], [ 72.877257500000013, 19.0763275 ], [ 72.877257500000013, 19.0769475 ], [ 72.8764775, 19.0769475 ], [ 72.8764775, 19.0763275 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "MU-1010", "region": "Mumbai, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 72.8774225, 19.0763275 ], [ 72.8781557, 19.0763275 ], [ 72.8781557, 19.0769475 ], [ 72.8774225, 19.0769475 ], [ 72.8774225, 19.0763275 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "MU-1011", "region": "Mumbai, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 72.878107500000013, 19.0763275 ], [ 72.878887500000019, 19.0763275 ], [ 72.878887500000019, 19.076809612 ], [ 72.87866910000001, 19.0769971 ], [ 72.878107500000013, 19.0769971 ], [ 72.878107500000013, 19.0763275 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "MU-1012", "region": "Mumbai, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 72.8789225, 19.0763275 ], [ 72.8797805, 19.0763275 ], [ 72.8797805, 19.0769475 ], [ 72.8789225, 19.0769475 ], [ 72.8789225, 19.0763275 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "MU-1013", "region": "Mumbai, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 72.8764775, 19.0769825 ], [ 72.877257500000013, 19.0769825 ], [ 72.877257500000013, 19.0776521 ], [ 72.8764775, 19.0776521 ], [ 72.8764775, 19.0769825 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "MU-1014", "region": "Mumbai, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 72.87729250000001, 19.0769825 ], [ 72.878072500000016, 19.0769825 ], [ 72.878072500000016, 19.0776025 ], [ 72.87729250000001, 19.0776025 ], [ 72.87729250000001, 19.0769825 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "MU-1015", "region": "Mumbai, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 72.878107500000013, 19.0769825 ], [ 72.8789655, 19.0769825 ], [ 72.8789655, 19.0776025 ], [ 72.878107500000013, 19.0776025 ], [ 72.878107500000013, 19.0769825 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "MU-1016", "region": "Mumbai, Maharashtra" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 72.8789225, 19.0769825 ], [ 72.8799755, 19.0770325 ], [ 72.8797805, 19.0776025 ], [ 72.8789525, 19.0776955 ], [ 72.8789225, 19.0769825 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PB-1001", "region": "Ludhiana, Punjab" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 75.8560775, 30.9000175 ], [ 75.8569355, 30.9000175 ], [ 75.8569355, 30.9006871 ], [ 75.8560775, 30.9006871 ], [ 75.8560775, 30.9000175 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PB-1002", "region": "Ludhiana, Punjab" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 75.8568925, 30.9000175 ], [ 75.8576725, 30.9000175 ], [ 75.8576725, 30.9006375 ], [ 75.8568925, 30.9006375 ], [ 75.8568925, 30.9000175 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PB-1003", "region": "Ludhiana, Punjab" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 75.8577075, 30.9000175 ], [ 75.85848750000001, 30.9000175 ], [ 75.85848750000001, 30.9006375 ], [ 75.8577075, 30.9006375 ], [ 75.8577075, 30.9000175 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PB-1004", "region": "Ludhiana, Punjab" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 75.8585225, 30.9000175 ], [ 75.8593025, 30.9000175 ], [ 75.8593025, 30.9006375 ], [ 75.8585225, 30.9006375 ], [ 75.8585225, 30.9000175 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PB-1005", "region": "Ludhiana, Punjab" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 75.8560775, 30.9006725 ], [ 75.8568575, 30.9006725 ], [ 75.8568575, 30.9011189 ], [ 75.8566391, 30.9012925 ], [ 75.8560775, 30.9012925 ], [ 75.8560775, 30.9006725 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PB-1006", "region": "Ludhiana, Punjab" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 75.8568925, 30.9006725 ], [ 75.8576725, 30.9006725 ], [ 75.8576725, 30.9012925 ], [ 75.8568925, 30.9012925 ], [ 75.8568925, 30.9006725 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PB-1007", "region": "Ludhiana, Punjab" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 75.8577075, 30.9006725 ], [ 75.85848750000001, 30.9006725 ], [ 75.85848750000001, 30.9012925 ], [ 75.8577075, 30.9012925 ], [ 75.8577075, 30.9006725 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PB-1008", "region": "Ludhiana, Punjab" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 75.8585225, 30.9006725 ], [ 75.8593025, 30.9006725 ], [ 75.8593025, 30.9012925 ], [ 75.8585225, 30.9012925 ], [ 75.8585225, 30.9006725 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PB-1009", "region": "Ludhiana, Punjab" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 75.8560775, 30.9013275 ], [ 75.8568575, 30.9013275 ], [ 75.8568575, 30.9019475 ], [ 75.8560775, 30.9019475 ], [ 75.8560775, 30.9013275 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PB-1010", "region": "Ludhiana, Punjab" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 75.8570225, 30.9013275 ], [ 75.8577557, 30.9013275 ], [ 75.8577557, 30.9019475 ], [ 75.8570225, 30.9019475 ], [ 75.8570225, 30.9013275 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PB-1011", "region": "Ludhiana, Punjab" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 75.8577075, 30.9013275 ], [ 75.85848750000001, 30.9013275 ], [ 75.85848750000001, 30.901809612 ], [ 75.8582691, 30.9019971 ], [ 75.8577075, 30.9019971 ], [ 75.8577075, 30.9013275 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PB-1012", "region": "Ludhiana, Punjab" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 75.8585225, 30.9013275 ], [ 75.859380499999986, 30.9013275 ], [ 75.859380499999986, 30.9019475 ], [ 75.8585225, 30.9019475 ], [ 75.8585225, 30.9013275 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PB-1013", "region": "Ludhiana, Punjab" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 75.8560775, 30.9019825 ], [ 75.8568575, 30.9019825 ], [ 75.8568575, 30.9026521 ], [ 75.8560775, 30.9026521 ], [ 75.8560775, 30.9019825 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PB-1014", "region": "Ludhiana, Punjab" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 75.8568925, 30.9019825 ], [ 75.8576725, 30.9019825 ], [ 75.8576725, 30.9026025 ], [ 75.8568925, 30.9026025 ], [ 75.8568925, 30.9019825 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PB-1015", "region": "Ludhiana, Punjab" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 75.8577075, 30.9019825 ], [ 75.8585655, 30.9019825 ], [ 75.8585655, 30.9026025 ], [ 75.8577075, 30.9026025 ], [ 75.8577075, 30.9019825 ] ] ] } },
-{ "type": "Feature", "properties": { "parcel_id": "PB-1016", "region": "Ludhiana, Punjab" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 75.8585225, 30.9019825 ], [ 75.8595755, 30.9020325 ], [ 75.859380499999986, 30.9026025 ], [ 75.858552499999988, 30.9026955 ], [ 75.8585225, 30.9019825 ] ] ] } }
-]
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PN-1001",
+        "region": "Pune, Maharashtra",
+        "survey_zone": "PN-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.85340431870814,
+              18.517775
+            ],
+            [
+              73.85441042429292,
+              18.517775
+            ],
+            [
+              73.85441042429292,
+              18.5185688
+            ],
+            [
+              73.85340431870814,
+              18.5185688
+            ],
+            [
+              73.85340431870814,
+              18.517775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PN-1002",
+        "region": "Pune, Maharashtra",
+        "survey_zone": "PN-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.85472259122488,
+              18.517775
+            ],
+            [
+              73.85567174743694,
+              18.517775
+            ],
+            [
+              73.85567174743694,
+              18.518531
+            ],
+            [
+              73.85472259122488,
+              18.518531
+            ],
+            [
+              73.85472259122488,
+              18.517775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PN-1003",
+        "region": "Pune, Maharashtra",
+        "survey_zone": "PN-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.85604086374163,
+              18.517775
+            ],
+            [
+              73.85699001995368,
+              18.517775
+            ],
+            [
+              73.85699001995368,
+              18.518531
+            ],
+            [
+              73.85604086374163,
+              18.518531
+            ],
+            [
+              73.85604086374163,
+              18.517775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PN-1004",
+        "region": "Pune, Maharashtra",
+        "survey_zone": "PN-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.85735913625837,
+              18.517775
+            ],
+            [
+              73.85830829247043,
+              18.517775
+            ],
+            [
+              73.85830829247043,
+              18.518531
+            ],
+            [
+              73.85735913625837,
+              18.518531
+            ],
+            [
+              73.85735913625837,
+              18.517775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PN-1005",
+        "region": "Pune, Maharashtra",
+        "survey_zone": "PN-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.85867740877511,
+              18.517775
+            ],
+            [
+              73.85968351435989,
+              18.517775
+            ],
+            [
+              73.85968351435989,
+              18.518531
+            ],
+            [
+              73.85867740877511,
+              18.518531
+            ],
+            [
+              73.85867740877511,
+              18.517775
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PN-1006",
+        "region": "Pune, Maharashtra",
+        "survey_zone": "PN-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.85340431870814,
+              18.518825
+            ],
+            [
+              73.8543534749202,
+              18.518825
+            ],
+            [
+              73.8543534749202,
+              18.519581
+            ],
+            [
+              73.85340431870814,
+              18.519581
+            ],
+            [
+              73.85340431870814,
+              18.518825
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PN-1007",
+        "region": "Pune, Maharashtra",
+        "survey_zone": "PN-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.85472259122488,
+              18.518825
+            ],
+            [
+              73.85567174743694,
+              18.518825
+            ],
+            [
+              73.85567174743694,
+              18.519581
+            ],
+            [
+              73.85519716933092,
+              18.519444919999998
+            ],
+            [
+              73.85472259122488,
+              18.519581
+            ],
+            [
+              73.85472259122488,
+              18.518825
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PN-1008",
+        "region": "Pune, Maharashtra",
+        "survey_zone": "PN-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.85604086374163,
+              18.518825
+            ],
+            [
+              73.85699001995368,
+              18.518825
+            ],
+            [
+              73.85699001995368,
+              18.519581
+            ],
+            [
+              73.85604086374163,
+              18.519581
+            ],
+            [
+              73.85604086374163,
+              18.518825
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PN-1009",
+        "region": "Pune, Maharashtra",
+        "survey_zone": "PN-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.85735913625837,
+              18.518825
+            ],
+            [
+              73.85836524184315,
+              18.518825
+            ],
+            [
+              73.85836524184315,
+              18.5196188
+            ],
+            [
+              73.85735913625837,
+              18.5196188
+            ],
+            [
+              73.85735913625837,
+              18.518825
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PN-1010",
+        "region": "Pune, Maharashtra",
+        "survey_zone": "PN-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.85867740877511,
+              18.518825
+            ],
+            [
+              73.8595980903008,
+              18.518825
+            ],
+            [
+              73.8595980903008,
+              18.519581
+            ],
+            [
+              73.85867740877511,
+              18.519581
+            ],
+            [
+              73.85867740877511,
+              18.518825
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PN-1011",
+        "region": "Pune, Maharashtra",
+        "survey_zone": "PN-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.85340431870814,
+              18.519875
+            ],
+            [
+              73.8543534749202,
+              18.519875
+            ],
+            [
+              73.8543534749202,
+              18.520630999999998
+            ],
+            [
+              73.85340431870814,
+              18.520630999999998
+            ],
+            [
+              73.85340431870814,
+              18.519875
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PN-1012",
+        "region": "Pune, Maharashtra",
+        "survey_zone": "PN-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.85472259122488,
+              18.519875
+            ],
+            [
+              73.85567174743694,
+              18.519875
+            ],
+            [
+              73.85567174743694,
+              18.5206688
+            ],
+            [
+              73.85472259122488,
+              18.5206688
+            ],
+            [
+              73.85472259122488,
+              18.519875
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PN-1013",
+        "region": "Pune, Maharashtra",
+        "survey_zone": "PN-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.85604086374163,
+              18.519875
+            ],
+            [
+              73.85725789292908,
+              18.519875
+            ],
+            [
+              73.85725789292908,
+              18.520630999999998
+            ],
+            [
+              73.85604086374163,
+              18.520630999999998
+            ],
+            [
+              73.85604086374163,
+              18.519875
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PN-1014",
+        "region": "Pune, Maharashtra",
+        "survey_zone": "PN-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.85735913625837,
+              18.519875
+            ],
+            [
+              73.85827981778407,
+              18.519875
+            ],
+            [
+              73.85827981778407,
+              18.520630999999998
+            ],
+            [
+              73.85735913625837,
+              18.520630999999998
+            ],
+            [
+              73.85735913625837,
+              18.519875
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PN-1015",
+        "region": "Pune, Maharashtra",
+        "survey_zone": "PN-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.85867740877511,
+              18.519875
+            ],
+            [
+              73.85962656498717,
+              18.519875
+            ],
+            [
+              73.85962656498717,
+              18.520630999999998
+            ],
+            [
+              73.85867740877511,
+              18.520630999999998
+            ],
+            [
+              73.85867740877511,
+              18.519875
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PN-1016",
+        "region": "Pune, Maharashtra",
+        "survey_zone": "PN-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.85340431870814,
+              18.520925000000002
+            ],
+            [
+              73.8543534749202,
+              18.520925000000002
+            ],
+            [
+              73.8543534749202,
+              18.521681
+            ],
+            [
+              73.85340431870814,
+              18.521681
+            ],
+            [
+              73.85340431870814,
+              18.520925000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PN-1017",
+        "region": "Pune, Maharashtra",
+        "survey_zone": "PN-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.85472259122488,
+              18.520925000000002
+            ],
+            [
+              73.85572869680966,
+              18.520925000000002
+            ],
+            [
+              73.85572869680966,
+              18.521681
+            ],
+            [
+              73.85472259122488,
+              18.521681
+            ],
+            [
+              73.85472259122488,
+              18.520925000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PN-1018",
+        "region": "Pune, Maharashtra",
+        "survey_zone": "PN-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.85604086374163,
+              18.520925000000002
+            ],
+            [
+              73.85696154526732,
+              18.520925000000002
+            ],
+            [
+              73.85696154526732,
+              18.521681
+            ],
+            [
+              73.85604086374163,
+              18.521681
+            ],
+            [
+              73.85604086374163,
+              18.520925000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PN-1019",
+        "region": "Pune, Maharashtra",
+        "survey_zone": "PN-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.85735913625837,
+              18.520925000000002
+            ],
+            [
+              73.85830829247043,
+              18.520925000000002
+            ],
+            [
+              73.85830829247043,
+              18.521681
+            ],
+            [
+              73.8578337143644,
+              18.52154492
+            ],
+            [
+              73.85735913625837,
+              18.521681
+            ],
+            [
+              73.85735913625837,
+              18.520925000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PN-1020",
+        "region": "Pune, Maharashtra",
+        "survey_zone": "PN-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.85867740877511,
+              18.520925000000002
+            ],
+            [
+              73.85962656498717,
+              18.520925000000002
+            ],
+            [
+              73.85962656498717,
+              18.521718800000002
+            ],
+            [
+              73.85867740877511,
+              18.521718800000002
+            ],
+            [
+              73.85867740877511,
+              18.520925000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PN-1021",
+        "region": "Pune, Maharashtra",
+        "survey_zone": "PN-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.85340431870814,
+              18.521975
+            ],
+            [
+              73.85441042429292,
+              18.521975
+            ],
+            [
+              73.85441042429292,
+              18.522731
+            ],
+            [
+              73.85340431870814,
+              18.522731
+            ],
+            [
+              73.85340431870814,
+              18.521975
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PN-1022",
+        "region": "Pune, Maharashtra",
+        "survey_zone": "PN-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.85472259122488,
+              18.521975
+            ],
+            [
+              73.85487445621881,
+              18.521975
+            ],
+            [
+              73.85487445621881,
+              18.522731
+            ],
+            [
+              73.85472259122488,
+              18.522731
+            ],
+            [
+              73.85472259122488,
+              18.521975
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PN-1023",
+        "region": "Pune, Maharashtra",
+        "survey_zone": "PN-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.85604086374163,
+              18.521975
+            ],
+            [
+              73.85699001995368,
+              18.521975
+            ],
+            [
+              73.85699001995368,
+              18.5227688
+            ],
+            [
+              73.85604086374163,
+              18.5227688
+            ],
+            [
+              73.85604086374163,
+              18.521975
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PN-1024",
+        "region": "Pune, Maharashtra",
+        "survey_zone": "PN-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.85735913625837,
+              18.521975
+            ],
+            [
+              73.85830829247043,
+              18.521975
+            ],
+            [
+              73.85830829247043,
+              18.522731
+            ],
+            [
+              73.85735913625837,
+              18.522731
+            ],
+            [
+              73.85735913625837,
+              18.521975
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PN-1025",
+        "region": "Pune, Maharashtra",
+        "survey_zone": "PN-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.85867740877511,
+              18.521975
+            ],
+            [
+              73.85968351435989,
+              18.521975
+            ],
+            [
+              73.85968351435989,
+              18.522731
+            ],
+            [
+              73.85867740877511,
+              18.522731
+            ],
+            [
+              73.85867740877511,
+              18.521975
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "HY-1001",
+        "region": "Hyderabad, Telangana",
+        "survey_zone": "HY-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.48342541219387,
+              17.382375000000003
+            ],
+            [
+              78.48442507835932,
+              17.382375000000003
+            ],
+            [
+              78.48442507835932,
+              17.383168800000004
+            ],
+            [
+              78.48342541219387,
+              17.383168800000004
+            ],
+            [
+              78.48342541219387,
+              17.382375000000003
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "HY-1002",
+        "region": "Hyderabad, Telangana",
+        "survey_zone": "HY-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.48473524731632,
+              17.382375000000003
+            ],
+            [
+              78.4856783286045,
+              17.382375000000003
+            ],
+            [
+              78.4856783286045,
+              17.383131000000002
+            ],
+            [
+              78.48473524731632,
+              17.383131000000002
+            ],
+            [
+              78.48473524731632,
+              17.382375000000003
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "HY-1003",
+        "region": "Hyderabad, Telangana",
+        "survey_zone": "HY-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.48604508243876,
+              17.382375000000003
+            ],
+            [
+              78.48698816372693,
+              17.382375000000003
+            ],
+            [
+              78.48698816372693,
+              17.383131000000002
+            ],
+            [
+              78.48604508243876,
+              17.383131000000002
+            ],
+            [
+              78.48604508243876,
+              17.382375000000003
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "HY-1004",
+        "region": "Hyderabad, Telangana",
+        "survey_zone": "HY-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.48735491756122,
+              17.382375000000003
+            ],
+            [
+              78.48829799884939,
+              17.382375000000003
+            ],
+            [
+              78.48829799884939,
+              17.383131000000002
+            ],
+            [
+              78.48735491756122,
+              17.383131000000002
+            ],
+            [
+              78.48735491756122,
+              17.382375000000003
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "HY-1005",
+        "region": "Hyderabad, Telangana",
+        "survey_zone": "HY-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.48866475268368,
+              17.382375000000003
+            ],
+            [
+              78.48966441884913,
+              17.382375000000003
+            ],
+            [
+              78.48966441884913,
+              17.383131000000002
+            ],
+            [
+              78.48866475268368,
+              17.383131000000002
+            ],
+            [
+              78.48866475268368,
+              17.382375000000003
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "HY-1006",
+        "region": "Hyderabad, Telangana",
+        "survey_zone": "HY-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.48342541219387,
+              17.383425000000003
+            ],
+            [
+              78.48436849348204,
+              17.383425000000003
+            ],
+            [
+              78.48436849348204,
+              17.384181
+            ],
+            [
+              78.48342541219387,
+              17.384181
+            ],
+            [
+              78.48342541219387,
+              17.383425000000003
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "HY-1007",
+        "region": "Hyderabad, Telangana",
+        "survey_zone": "HY-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.48473524731632,
+              17.383425000000003
+            ],
+            [
+              78.4856783286045,
+              17.383425000000003
+            ],
+            [
+              78.4856783286045,
+              17.384181
+            ],
+            [
+              78.48520678796041,
+              17.38404492
+            ],
+            [
+              78.48473524731632,
+              17.384181
+            ],
+            [
+              78.48473524731632,
+              17.383425000000003
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "HY-1008",
+        "region": "Hyderabad, Telangana",
+        "survey_zone": "HY-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.48604508243876,
+              17.383425000000003
+            ],
+            [
+              78.48698816372693,
+              17.383425000000003
+            ],
+            [
+              78.48698816372693,
+              17.384181
+            ],
+            [
+              78.48604508243876,
+              17.384181
+            ],
+            [
+              78.48604508243876,
+              17.383425000000003
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "HY-1009",
+        "region": "Hyderabad, Telangana",
+        "survey_zone": "HY-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.48735491756122,
+              17.383425000000003
+            ],
+            [
+              78.48835458372668,
+              17.383425000000003
+            ],
+            [
+              78.48835458372668,
+              17.384218800000003
+            ],
+            [
+              78.48735491756122,
+              17.384218800000003
+            ],
+            [
+              78.48735491756122,
+              17.383425000000003
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "HY-1010",
+        "region": "Hyderabad, Telangana",
+        "survey_zone": "HY-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.48866475268368,
+              17.383425000000003
+            ],
+            [
+              78.48957954153319,
+              17.383425000000003
+            ],
+            [
+              78.48957954153319,
+              17.384181
+            ],
+            [
+              78.48866475268368,
+              17.384181
+            ],
+            [
+              78.48866475268368,
+              17.383425000000003
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "HY-1011",
+        "region": "Hyderabad, Telangana",
+        "survey_zone": "HY-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.48342541219387,
+              17.384475000000002
+            ],
+            [
+              78.48436849348204,
+              17.384475000000002
+            ],
+            [
+              78.48436849348204,
+              17.385231
+            ],
+            [
+              78.48342541219387,
+              17.385231
+            ],
+            [
+              78.48342541219387,
+              17.384475000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "HY-1012",
+        "region": "Hyderabad, Telangana",
+        "survey_zone": "HY-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.48473524731632,
+              17.384475000000002
+            ],
+            [
+              78.4856783286045,
+              17.384475000000002
+            ],
+            [
+              78.4856783286045,
+              17.385268800000002
+            ],
+            [
+              78.48473524731632,
+              17.385268800000002
+            ],
+            [
+              78.48473524731632,
+              17.384475000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "HY-1013",
+        "region": "Hyderabad, Telangana",
+        "survey_zone": "HY-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.48604508243876,
+              17.384475000000002
+            ],
+            [
+              78.4872543222238,
+              17.384475000000002
+            ],
+            [
+              78.4872543222238,
+              17.385231
+            ],
+            [
+              78.48604508243876,
+              17.385231
+            ],
+            [
+              78.48604508243876,
+              17.384475000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "HY-1014",
+        "region": "Hyderabad, Telangana",
+        "survey_zone": "HY-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.48735491756122,
+              17.384475000000002
+            ],
+            [
+              78.48826970641073,
+              17.384475000000002
+            ],
+            [
+              78.48826970641073,
+              17.385231
+            ],
+            [
+              78.48735491756122,
+              17.385231
+            ],
+            [
+              78.48735491756122,
+              17.384475000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "HY-1015",
+        "region": "Hyderabad, Telangana",
+        "survey_zone": "HY-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.48866475268368,
+              17.384475000000002
+            ],
+            [
+              78.48960783397185,
+              17.384475000000002
+            ],
+            [
+              78.48960783397185,
+              17.385231
+            ],
+            [
+              78.48866475268368,
+              17.385231
+            ],
+            [
+              78.48866475268368,
+              17.384475000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "HY-1016",
+        "region": "Hyderabad, Telangana",
+        "survey_zone": "HY-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.48342541219387,
+              17.385525000000005
+            ],
+            [
+              78.48436849348204,
+              17.385525000000005
+            ],
+            [
+              78.48436849348204,
+              17.386281000000004
+            ],
+            [
+              78.48342541219387,
+              17.386281000000004
+            ],
+            [
+              78.48342541219387,
+              17.385525000000005
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "HY-1017",
+        "region": "Hyderabad, Telangana",
+        "survey_zone": "HY-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.48473524731632,
+              17.385525000000005
+            ],
+            [
+              78.48573491348178,
+              17.385525000000005
+            ],
+            [
+              78.48573491348178,
+              17.386281000000004
+            ],
+            [
+              78.48473524731632,
+              17.386281000000004
+            ],
+            [
+              78.48473524731632,
+              17.385525000000005
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "HY-1018",
+        "region": "Hyderabad, Telangana",
+        "survey_zone": "HY-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.48604508243876,
+              17.385525000000005
+            ],
+            [
+              78.48695987128828,
+              17.385525000000005
+            ],
+            [
+              78.48695987128828,
+              17.386281000000004
+            ],
+            [
+              78.48604508243876,
+              17.386281000000004
+            ],
+            [
+              78.48604508243876,
+              17.385525000000005
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "HY-1019",
+        "region": "Hyderabad, Telangana",
+        "survey_zone": "HY-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.48735491756122,
+              17.385525000000005
+            ],
+            [
+              78.48829799884939,
+              17.385525000000005
+            ],
+            [
+              78.48829799884939,
+              17.386281000000004
+            ],
+            [
+              78.4878264582053,
+              17.386144920000003
+            ],
+            [
+              78.48735491756122,
+              17.386281000000004
+            ],
+            [
+              78.48735491756122,
+              17.385525000000005
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "HY-1020",
+        "region": "Hyderabad, Telangana",
+        "survey_zone": "HY-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.48866475268368,
+              17.385525000000005
+            ],
+            [
+              78.48960783397185,
+              17.385525000000005
+            ],
+            [
+              78.48960783397185,
+              17.386318800000005
+            ],
+            [
+              78.48866475268368,
+              17.386318800000005
+            ],
+            [
+              78.48866475268368,
+              17.385525000000005
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "HY-1021",
+        "region": "Hyderabad, Telangana",
+        "survey_zone": "HY-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.48342541219387,
+              17.386575000000004
+            ],
+            [
+              78.48442507835932,
+              17.386575000000004
+            ],
+            [
+              78.48442507835932,
+              17.387331000000003
+            ],
+            [
+              78.48342541219387,
+              17.387331000000003
+            ],
+            [
+              78.48342541219387,
+              17.386575000000004
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "HY-1022",
+        "region": "Hyderabad, Telangana",
+        "survey_zone": "HY-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.48473524731632,
+              17.386575000000004
+            ],
+            [
+              78.48488614032243,
+              17.386575000000004
+            ],
+            [
+              78.48488614032243,
+              17.387331000000003
+            ],
+            [
+              78.48473524731632,
+              17.387331000000003
+            ],
+            [
+              78.48473524731632,
+              17.386575000000004
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "HY-1023",
+        "region": "Hyderabad, Telangana",
+        "survey_zone": "HY-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.48604508243876,
+              17.386575000000004
+            ],
+            [
+              78.48698816372693,
+              17.386575000000004
+            ],
+            [
+              78.48698816372693,
+              17.387368800000004
+            ],
+            [
+              78.48604508243876,
+              17.387368800000004
+            ],
+            [
+              78.48604508243876,
+              17.386575000000004
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "HY-1024",
+        "region": "Hyderabad, Telangana",
+        "survey_zone": "HY-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.48735491756122,
+              17.386575000000004
+            ],
+            [
+              78.48829799884939,
+              17.386575000000004
+            ],
+            [
+              78.48829799884939,
+              17.387331000000003
+            ],
+            [
+              78.48735491756122,
+              17.387331000000003
+            ],
+            [
+              78.48735491756122,
+              17.386575000000004
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "HY-1025",
+        "region": "Hyderabad, Telangana",
+        "survey_zone": "HY-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.48866475268368,
+              17.386575000000004
+            ],
+            [
+              78.48966441884913,
+              17.386575000000004
+            ],
+            [
+              78.48966441884913,
+              17.387331000000003
+            ],
+            [
+              78.48866475268368,
+              17.387331000000003
+            ],
+            [
+              78.48866475268368,
+              17.386575000000004
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "BL-1001",
+        "region": "Bengaluru, Karnataka",
+        "survey_zone": "BL-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.59139316624399,
+              12.968975
+            ],
+            [
+              77.59237214845302,
+              12.968975
+            ],
+            [
+              77.59237214845302,
+              12.9697688
+            ],
+            [
+              77.59139316624399,
+              12.9697688
+            ],
+            [
+              77.59139316624399,
+              12.968975
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "BL-1002",
+        "region": "Bengaluru, Karnataka",
+        "survey_zone": "BL-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.5926758997464,
+              12.968975
+            ],
+            [
+              77.59359946786813,
+              12.968975
+            ],
+            [
+              77.59359946786813,
+              12.969731000000001
+            ],
+            [
+              77.5926758997464,
+              12.969731000000001
+            ],
+            [
+              77.5926758997464,
+              12.968975
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "BL-1003",
+        "region": "Bengaluru, Karnataka",
+        "survey_zone": "BL-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.59395863324879,
+              12.968975
+            ],
+            [
+              77.59488220137052,
+              12.968975
+            ],
+            [
+              77.59488220137052,
+              12.969731000000001
+            ],
+            [
+              77.59395863324879,
+              12.969731000000001
+            ],
+            [
+              77.59395863324879,
+              12.968975
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "BL-1004",
+        "region": "Bengaluru, Karnataka",
+        "survey_zone": "BL-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.5952413667512,
+              12.968975
+            ],
+            [
+              77.59616493487293,
+              12.968975
+            ],
+            [
+              77.59616493487293,
+              12.969731000000001
+            ],
+            [
+              77.5952413667512,
+              12.969731000000001
+            ],
+            [
+              77.5952413667512,
+              12.968975
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "BL-1005",
+        "region": "Bengaluru, Karnataka",
+        "survey_zone": "BL-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.5965241002536,
+              12.968975
+            ],
+            [
+              77.59750308246264,
+              12.968975
+            ],
+            [
+              77.59750308246264,
+              12.969731000000001
+            ],
+            [
+              77.5965241002536,
+              12.969731000000001
+            ],
+            [
+              77.5965241002536,
+              12.968975
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "BL-1006",
+        "region": "Bengaluru, Karnataka",
+        "survey_zone": "BL-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.59139316624399,
+              12.970025
+            ],
+            [
+              77.59231673436572,
+              12.970025
+            ],
+            [
+              77.59231673436572,
+              12.970781
+            ],
+            [
+              77.59139316624399,
+              12.970781
+            ],
+            [
+              77.59139316624399,
+              12.970025
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "BL-1007",
+        "region": "Bengaluru, Karnataka",
+        "survey_zone": "BL-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.5926758997464,
+              12.970025
+            ],
+            [
+              77.59359946786813,
+              12.970025
+            ],
+            [
+              77.59359946786813,
+              12.970781
+            ],
+            [
+              77.59313768380727,
+              12.97064492
+            ],
+            [
+              77.5926758997464,
+              12.970781
+            ],
+            [
+              77.5926758997464,
+              12.970025
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "BL-1008",
+        "region": "Bengaluru, Karnataka",
+        "survey_zone": "BL-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.59395863324879,
+              12.970025
+            ],
+            [
+              77.59488220137052,
+              12.970025
+            ],
+            [
+              77.59488220137052,
+              12.970781
+            ],
+            [
+              77.59395863324879,
+              12.970781
+            ],
+            [
+              77.59395863324879,
+              12.970025
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "BL-1009",
+        "region": "Bengaluru, Karnataka",
+        "survey_zone": "BL-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.5952413667512,
+              12.970025
+            ],
+            [
+              77.59622034896023,
+              12.970025
+            ],
+            [
+              77.59622034896023,
+              12.9708188
+            ],
+            [
+              77.5952413667512,
+              12.9708188
+            ],
+            [
+              77.5952413667512,
+              12.970025
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "BL-1010",
+        "region": "Bengaluru, Karnataka",
+        "survey_zone": "BL-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.5965241002536,
+              12.970025
+            ],
+            [
+              77.59741996133168,
+              12.970025
+            ],
+            [
+              77.59741996133168,
+              12.970781
+            ],
+            [
+              77.5965241002536,
+              12.970781
+            ],
+            [
+              77.5965241002536,
+              12.970025
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "BL-1011",
+        "region": "Bengaluru, Karnataka",
+        "survey_zone": "BL-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.59139316624399,
+              12.971075
+            ],
+            [
+              77.59231673436572,
+              12.971075
+            ],
+            [
+              77.59231673436572,
+              12.971831000000002
+            ],
+            [
+              77.59139316624399,
+              12.971831000000002
+            ],
+            [
+              77.59139316624399,
+              12.971075
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "BL-1012",
+        "region": "Bengaluru, Karnataka",
+        "survey_zone": "BL-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.5926758997464,
+              12.971075
+            ],
+            [
+              77.59359946786813,
+              12.971075
+            ],
+            [
+              77.59359946786813,
+              12.971868800000001
+            ],
+            [
+              77.5926758997464,
+              12.971868800000001
+            ],
+            [
+              77.5926758997464,
+              12.971075
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "BL-1013",
+        "region": "Bengaluru, Karnataka",
+        "survey_zone": "BL-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.59395863324879,
+              12.971075
+            ],
+            [
+              77.59514285281821,
+              12.971075
+            ],
+            [
+              77.59514285281821,
+              12.971831000000002
+            ],
+            [
+              77.59395863324879,
+              12.971831000000002
+            ],
+            [
+              77.59395863324879,
+              12.971075
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "BL-1014",
+        "region": "Bengaluru, Karnataka",
+        "survey_zone": "BL-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.5952413667512,
+              12.971075
+            ],
+            [
+              77.59613722782927,
+              12.971075
+            ],
+            [
+              77.59613722782927,
+              12.971831000000002
+            ],
+            [
+              77.5952413667512,
+              12.971831000000002
+            ],
+            [
+              77.5952413667512,
+              12.971075
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "BL-1015",
+        "region": "Bengaluru, Karnataka",
+        "survey_zone": "BL-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.5965241002536,
+              12.971075
+            ],
+            [
+              77.59744766837534,
+              12.971075
+            ],
+            [
+              77.59744766837534,
+              12.971831000000002
+            ],
+            [
+              77.5965241002536,
+              12.971831000000002
+            ],
+            [
+              77.5965241002536,
+              12.971075
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "BL-1016",
+        "region": "Bengaluru, Karnataka",
+        "survey_zone": "BL-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.59139316624399,
+              12.972125
+            ],
+            [
+              77.59231673436572,
+              12.972125
+            ],
+            [
+              77.59231673436572,
+              12.972881000000001
+            ],
+            [
+              77.59139316624399,
+              12.972881000000001
+            ],
+            [
+              77.59139316624399,
+              12.972125
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "BL-1017",
+        "region": "Bengaluru, Karnataka",
+        "survey_zone": "BL-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.5926758997464,
+              12.972125
+            ],
+            [
+              77.59365488195543,
+              12.972125
+            ],
+            [
+              77.59365488195543,
+              12.972881000000001
+            ],
+            [
+              77.5926758997464,
+              12.972881000000001
+            ],
+            [
+              77.5926758997464,
+              12.972125
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "BL-1018",
+        "region": "Bengaluru, Karnataka",
+        "survey_zone": "BL-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.59395863324879,
+              12.972125
+            ],
+            [
+              77.59485449432687,
+              12.972125
+            ],
+            [
+              77.59485449432687,
+              12.972881000000001
+            ],
+            [
+              77.59395863324879,
+              12.972881000000001
+            ],
+            [
+              77.59395863324879,
+              12.972125
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "BL-1019",
+        "region": "Bengaluru, Karnataka",
+        "survey_zone": "BL-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.5952413667512,
+              12.972125
+            ],
+            [
+              77.59616493487293,
+              12.972125
+            ],
+            [
+              77.59616493487293,
+              12.972881000000001
+            ],
+            [
+              77.59570315081206,
+              12.97274492
+            ],
+            [
+              77.5952413667512,
+              12.972881000000001
+            ],
+            [
+              77.5952413667512,
+              12.972125
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "BL-1020",
+        "region": "Bengaluru, Karnataka",
+        "survey_zone": "BL-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.5965241002536,
+              12.972125
+            ],
+            [
+              77.59744766837534,
+              12.972125
+            ],
+            [
+              77.59744766837534,
+              12.9729188
+            ],
+            [
+              77.5965241002536,
+              12.9729188
+            ],
+            [
+              77.5965241002536,
+              12.972125
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "BL-1021",
+        "region": "Bengaluru, Karnataka",
+        "survey_zone": "BL-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.59139316624399,
+              12.973175000000001
+            ],
+            [
+              77.59237214845302,
+              12.973175000000001
+            ],
+            [
+              77.59237214845302,
+              12.973931000000002
+            ],
+            [
+              77.59139316624399,
+              12.973931000000002
+            ],
+            [
+              77.59139316624399,
+              12.973175000000001
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "BL-1022",
+        "region": "Bengaluru, Karnataka",
+        "survey_zone": "BL-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.5926758997464,
+              12.973175000000001
+            ],
+            [
+              77.59282367064587,
+              12.973175000000001
+            ],
+            [
+              77.59282367064587,
+              12.973931000000002
+            ],
+            [
+              77.5926758997464,
+              12.973931000000002
+            ],
+            [
+              77.5926758997464,
+              12.973175000000001
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "BL-1023",
+        "region": "Bengaluru, Karnataka",
+        "survey_zone": "BL-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.59395863324879,
+              12.973175000000001
+            ],
+            [
+              77.59488220137052,
+              12.973175000000001
+            ],
+            [
+              77.59488220137052,
+              12.973968800000002
+            ],
+            [
+              77.59395863324879,
+              12.973968800000002
+            ],
+            [
+              77.59395863324879,
+              12.973175000000001
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "BL-1024",
+        "region": "Bengaluru, Karnataka",
+        "survey_zone": "BL-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.5952413667512,
+              12.973175000000001
+            ],
+            [
+              77.59616493487293,
+              12.973175000000001
+            ],
+            [
+              77.59616493487293,
+              12.973931000000002
+            ],
+            [
+              77.5952413667512,
+              12.973931000000002
+            ],
+            [
+              77.5952413667512,
+              12.973175000000001
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "BL-1025",
+        "region": "Bengaluru, Karnataka",
+        "survey_zone": "BL-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.5965241002536,
+              12.973175000000001
+            ],
+            [
+              77.59750308246264,
+              12.973175000000001
+            ],
+            [
+              77.59750308246264,
+              12.973931000000002
+            ],
+            [
+              77.5965241002536,
+              12.973931000000002
+            ],
+            [
+              77.5965241002536,
+              12.973175000000001
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "NE-1001",
+        "region": "Guwahati, Assam",
+        "survey_zone": "NE-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              91.73271882580961,
+              26.141875000000002
+            ],
+            [
+              91.73378155866645,
+              26.141875000000002
+            ],
+            [
+              91.73378155866645,
+              26.142668800000003
+            ],
+            [
+              91.73271882580961,
+              26.142668800000003
+            ],
+            [
+              91.73271882580961,
+              26.141875000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "NE-1002",
+        "region": "Guwahati, Assam",
+        "survey_zone": "NE-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              91.73411129548576,
+              26.141875000000002
+            ],
+            [
+              91.7351138736526,
+              26.141875000000002
+            ],
+            [
+              91.7351138736526,
+              26.142631
+            ],
+            [
+              91.73411129548576,
+              26.142631
+            ],
+            [
+              91.73411129548576,
+              26.141875000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "NE-1003",
+        "region": "Guwahati, Assam",
+        "survey_zone": "NE-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              91.73550376516192,
+              26.141875000000002
+            ],
+            [
+              91.73650634332876,
+              26.141875000000002
+            ],
+            [
+              91.73650634332876,
+              26.142631
+            ],
+            [
+              91.73550376516192,
+              26.142631
+            ],
+            [
+              91.73550376516192,
+              26.141875000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "NE-1004",
+        "region": "Guwahati, Assam",
+        "survey_zone": "NE-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              91.73689623483807,
+              26.141875000000002
+            ],
+            [
+              91.7378988130049,
+              26.141875000000002
+            ],
+            [
+              91.7378988130049,
+              26.142631
+            ],
+            [
+              91.73689623483807,
+              26.142631
+            ],
+            [
+              91.73689623483807,
+              26.141875000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "NE-1005",
+        "region": "Guwahati, Assam",
+        "survey_zone": "NE-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              91.73828870451422,
+              26.141875000000002
+            ],
+            [
+              91.73935143737106,
+              26.141875000000002
+            ],
+            [
+              91.73935143737106,
+              26.142631
+            ],
+            [
+              91.73828870451422,
+              26.142631
+            ],
+            [
+              91.73828870451422,
+              26.141875000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "NE-1006",
+        "region": "Guwahati, Assam",
+        "survey_zone": "NE-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              91.73271882580961,
+              26.142925
+            ],
+            [
+              91.73372140397645,
+              26.142925
+            ],
+            [
+              91.73372140397645,
+              26.143681
+            ],
+            [
+              91.73271882580961,
+              26.143681
+            ],
+            [
+              91.73271882580961,
+              26.142925
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "NE-1007",
+        "region": "Guwahati, Assam",
+        "survey_zone": "NE-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              91.73411129548576,
+              26.142925
+            ],
+            [
+              91.7351138736526,
+              26.142925
+            ],
+            [
+              91.7351138736526,
+              26.143681
+            ],
+            [
+              91.73461258456918,
+              26.14354492
+            ],
+            [
+              91.73411129548576,
+              26.143681
+            ],
+            [
+              91.73411129548576,
+              26.142925
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "NE-1008",
+        "region": "Guwahati, Assam",
+        "survey_zone": "NE-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              91.73550376516192,
+              26.142925
+            ],
+            [
+              91.73650634332876,
+              26.142925
+            ],
+            [
+              91.73650634332876,
+              26.143681
+            ],
+            [
+              91.73550376516192,
+              26.143681
+            ],
+            [
+              91.73550376516192,
+              26.142925
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "NE-1009",
+        "region": "Guwahati, Assam",
+        "survey_zone": "NE-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              91.73689623483807,
+              26.142925
+            ],
+            [
+              91.73795896769491,
+              26.142925
+            ],
+            [
+              91.73795896769491,
+              26.143718800000002
+            ],
+            [
+              91.73689623483807,
+              26.143718800000002
+            ],
+            [
+              91.73689623483807,
+              26.142925
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "NE-1010",
+        "region": "Guwahati, Assam",
+        "survey_zone": "NE-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              91.73828870451422,
+              26.142925
+            ],
+            [
+              91.73926120533605,
+              26.142925
+            ],
+            [
+              91.73926120533605,
+              26.143681
+            ],
+            [
+              91.73828870451422,
+              26.143681
+            ],
+            [
+              91.73828870451422,
+              26.142925
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "NE-1011",
+        "region": "Guwahati, Assam",
+        "survey_zone": "NE-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              91.73271882580961,
+              26.143975
+            ],
+            [
+              91.73372140397645,
+              26.143975
+            ],
+            [
+              91.73372140397645,
+              26.144731
+            ],
+            [
+              91.73271882580961,
+              26.144731
+            ],
+            [
+              91.73271882580961,
+              26.143975
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "NE-1012",
+        "region": "Guwahati, Assam",
+        "survey_zone": "NE-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              91.73411129548576,
+              26.143975
+            ],
+            [
+              91.7351138736526,
+              26.143975
+            ],
+            [
+              91.7351138736526,
+              26.1447688
+            ],
+            [
+              91.73411129548576,
+              26.1447688
+            ],
+            [
+              91.73411129548576,
+              26.143975
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "NE-1013",
+        "region": "Guwahati, Assam",
+        "survey_zone": "NE-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              91.73550376516192,
+              26.143975
+            ],
+            [
+              91.73678929316695,
+              26.143975
+            ],
+            [
+              91.73678929316695,
+              26.144731
+            ],
+            [
+              91.73550376516192,
+              26.144731
+            ],
+            [
+              91.73550376516192,
+              26.143975
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "NE-1014",
+        "region": "Guwahati, Assam",
+        "survey_zone": "NE-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              91.73689623483807,
+              26.143975
+            ],
+            [
+              91.7378687356599,
+              26.143975
+            ],
+            [
+              91.7378687356599,
+              26.144731
+            ],
+            [
+              91.73689623483807,
+              26.144731
+            ],
+            [
+              91.73689623483807,
+              26.143975
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "NE-1015",
+        "region": "Guwahati, Assam",
+        "survey_zone": "NE-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              91.73828870451422,
+              26.143975
+            ],
+            [
+              91.73929128268105,
+              26.143975
+            ],
+            [
+              91.73929128268105,
+              26.144731
+            ],
+            [
+              91.73828870451422,
+              26.144731
+            ],
+            [
+              91.73828870451422,
+              26.143975
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "NE-1016",
+        "region": "Guwahati, Assam",
+        "survey_zone": "NE-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              91.73271882580961,
+              26.145025000000004
+            ],
+            [
+              91.73372140397645,
+              26.145025000000004
+            ],
+            [
+              91.73372140397645,
+              26.145781000000003
+            ],
+            [
+              91.73271882580961,
+              26.145781000000003
+            ],
+            [
+              91.73271882580961,
+              26.145025000000004
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "NE-1017",
+        "region": "Guwahati, Assam",
+        "survey_zone": "NE-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              91.73411129548576,
+              26.145025000000004
+            ],
+            [
+              91.7351740283426,
+              26.145025000000004
+            ],
+            [
+              91.7351740283426,
+              26.145781000000003
+            ],
+            [
+              91.73411129548576,
+              26.145781000000003
+            ],
+            [
+              91.73411129548576,
+              26.145025000000004
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "NE-1018",
+        "region": "Guwahati, Assam",
+        "survey_zone": "NE-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              91.73550376516192,
+              26.145025000000004
+            ],
+            [
+              91.73647626598375,
+              26.145025000000004
+            ],
+            [
+              91.73647626598375,
+              26.145781000000003
+            ],
+            [
+              91.73550376516192,
+              26.145781000000003
+            ],
+            [
+              91.73550376516192,
+              26.145025000000004
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "NE-1019",
+        "region": "Guwahati, Assam",
+        "survey_zone": "NE-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              91.73689623483807,
+              26.145025000000004
+            ],
+            [
+              91.7378988130049,
+              26.145025000000004
+            ],
+            [
+              91.7378988130049,
+              26.145781000000003
+            ],
+            [
+              91.73739752392149,
+              26.145644920000002
+            ],
+            [
+              91.73689623483807,
+              26.145781000000003
+            ],
+            [
+              91.73689623483807,
+              26.145025000000004
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "NE-1020",
+        "region": "Guwahati, Assam",
+        "survey_zone": "NE-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              91.73828870451422,
+              26.145025000000004
+            ],
+            [
+              91.73929128268105,
+              26.145025000000004
+            ],
+            [
+              91.73929128268105,
+              26.145818800000004
+            ],
+            [
+              91.73828870451422,
+              26.145818800000004
+            ],
+            [
+              91.73828870451422,
+              26.145025000000004
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "NE-1021",
+        "region": "Guwahati, Assam",
+        "survey_zone": "NE-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              91.73271882580961,
+              26.146075000000003
+            ],
+            [
+              91.73378155866645,
+              26.146075000000003
+            ],
+            [
+              91.73378155866645,
+              26.146831000000002
+            ],
+            [
+              91.73271882580961,
+              26.146831000000002
+            ],
+            [
+              91.73271882580961,
+              26.146075000000003
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "NE-1022",
+        "region": "Guwahati, Assam",
+        "survey_zone": "NE-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              91.73411129548576,
+              26.146075000000003
+            ],
+            [
+              91.73427170799245,
+              26.146075000000003
+            ],
+            [
+              91.73427170799245,
+              26.146831000000002
+            ],
+            [
+              91.73411129548576,
+              26.146831000000002
+            ],
+            [
+              91.73411129548576,
+              26.146075000000003
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "NE-1023",
+        "region": "Guwahati, Assam",
+        "survey_zone": "NE-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              91.73550376516192,
+              26.146075000000003
+            ],
+            [
+              91.73650634332876,
+              26.146075000000003
+            ],
+            [
+              91.73650634332876,
+              26.146868800000004
+            ],
+            [
+              91.73550376516192,
+              26.146868800000004
+            ],
+            [
+              91.73550376516192,
+              26.146075000000003
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "NE-1024",
+        "region": "Guwahati, Assam",
+        "survey_zone": "NE-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              91.73689623483807,
+              26.146075000000003
+            ],
+            [
+              91.7378988130049,
+              26.146075000000003
+            ],
+            [
+              91.7378988130049,
+              26.146831000000002
+            ],
+            [
+              91.73689623483807,
+              26.146831000000002
+            ],
+            [
+              91.73689623483807,
+              26.146075000000003
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "NE-1025",
+        "region": "Guwahati, Assam",
+        "survey_zone": "NE-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              91.73828870451422,
+              26.146075000000003
+            ],
+            [
+              91.73935143737106,
+              26.146075000000003
+            ],
+            [
+              91.73935143737106,
+              26.146831000000002
+            ],
+            [
+              91.73828870451422,
+              26.146831000000002
+            ],
+            [
+              91.73828870451422,
+              26.146075000000003
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "MU-1001",
+        "region": "Mumbai, Maharashtra",
+        "survey_zone": "MU-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              72.87439342223819,
+              19.073375000000002
+            ],
+            [
+              72.87540285429732,
+              19.073375000000002
+            ],
+            [
+              72.87540285429732,
+              19.074168800000002
+            ],
+            [
+              72.87439342223819,
+              19.074168800000002
+            ],
+            [
+              72.87439342223819,
+              19.073375000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "MU-1002",
+        "region": "Mumbai, Maharashtra",
+        "survey_zone": "MU-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              72.87571605334291,
+              19.073375000000002
+            ],
+            [
+              72.87666834773832,
+              19.073375000000002
+            ],
+            [
+              72.87666834773832,
+              19.074131
+            ],
+            [
+              72.87571605334291,
+              19.074131
+            ],
+            [
+              72.87571605334291,
+              19.073375000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "MU-1003",
+        "region": "Mumbai, Maharashtra",
+        "survey_zone": "MU-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              72.87703868444764,
+              19.073375000000002
+            ],
+            [
+              72.87799097884304,
+              19.073375000000002
+            ],
+            [
+              72.87799097884304,
+              19.074131
+            ],
+            [
+              72.87703868444764,
+              19.074131
+            ],
+            [
+              72.87703868444764,
+              19.073375000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "MU-1004",
+        "region": "Mumbai, Maharashtra",
+        "survey_zone": "MU-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              72.87836131555237,
+              19.073375000000002
+            ],
+            [
+              72.87931360994777,
+              19.073375000000002
+            ],
+            [
+              72.87931360994777,
+              19.074131
+            ],
+            [
+              72.87836131555237,
+              19.074131
+            ],
+            [
+              72.87836131555237,
+              19.073375000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "MU-1005",
+        "region": "Mumbai, Maharashtra",
+        "survey_zone": "MU-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              72.8796839466571,
+              19.073375000000002
+            ],
+            [
+              72.88069337871623,
+              19.073375000000002
+            ],
+            [
+              72.88069337871623,
+              19.074131
+            ],
+            [
+              72.8796839466571,
+              19.074131
+            ],
+            [
+              72.8796839466571,
+              19.073375000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "MU-1006",
+        "region": "Mumbai, Maharashtra",
+        "survey_zone": "MU-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              72.87439342223819,
+              19.074425
+            ],
+            [
+              72.87534571663359,
+              19.074425
+            ],
+            [
+              72.87534571663359,
+              19.075181
+            ],
+            [
+              72.87439342223819,
+              19.075181
+            ],
+            [
+              72.87439342223819,
+              19.074425
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "MU-1007",
+        "region": "Mumbai, Maharashtra",
+        "survey_zone": "MU-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              72.87571605334291,
+              19.074425
+            ],
+            [
+              72.87666834773832,
+              19.074425
+            ],
+            [
+              72.87666834773832,
+              19.075181
+            ],
+            [
+              72.87619220054061,
+              19.07504492
+            ],
+            [
+              72.87571605334291,
+              19.075181
+            ],
+            [
+              72.87571605334291,
+              19.074425
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "MU-1008",
+        "region": "Mumbai, Maharashtra",
+        "survey_zone": "MU-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              72.87703868444764,
+              19.074425
+            ],
+            [
+              72.87799097884304,
+              19.074425
+            ],
+            [
+              72.87799097884304,
+              19.075181
+            ],
+            [
+              72.87703868444764,
+              19.075181
+            ],
+            [
+              72.87703868444764,
+              19.074425
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "MU-1009",
+        "region": "Mumbai, Maharashtra",
+        "survey_zone": "MU-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              72.87836131555237,
+              19.074425
+            ],
+            [
+              72.8793707476115,
+              19.074425
+            ],
+            [
+              72.8793707476115,
+              19.075218800000002
+            ],
+            [
+              72.87836131555237,
+              19.075218800000002
+            ],
+            [
+              72.87836131555237,
+              19.074425
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "MU-1010",
+        "region": "Mumbai, Maharashtra",
+        "survey_zone": "MU-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              72.8796839466571,
+              19.074425
+            ],
+            [
+              72.88060767222063,
+              19.074425
+            ],
+            [
+              72.88060767222063,
+              19.075181
+            ],
+            [
+              72.8796839466571,
+              19.075181
+            ],
+            [
+              72.8796839466571,
+              19.074425
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "MU-1011",
+        "region": "Mumbai, Maharashtra",
+        "survey_zone": "MU-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              72.87439342223819,
+              19.075475
+            ],
+            [
+              72.87534571663359,
+              19.075475
+            ],
+            [
+              72.87534571663359,
+              19.076231
+            ],
+            [
+              72.87439342223819,
+              19.076231
+            ],
+            [
+              72.87439342223819,
+              19.075475
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "MU-1012",
+        "region": "Mumbai, Maharashtra",
+        "survey_zone": "MU-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              72.87571605334291,
+              19.075475
+            ],
+            [
+              72.87666834773832,
+              19.075475
+            ],
+            [
+              72.87666834773832,
+              19.0762688
+            ],
+            [
+              72.87571605334291,
+              19.0762688
+            ],
+            [
+              72.87571605334291,
+              19.075475
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "MU-1013",
+        "region": "Mumbai, Maharashtra",
+        "survey_zone": "MU-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              72.87703868444764,
+              19.075475
+            ],
+            [
+              72.87825973748353,
+              19.075475
+            ],
+            [
+              72.87825973748353,
+              19.076231
+            ],
+            [
+              72.87703868444764,
+              19.076231
+            ],
+            [
+              72.87703868444764,
+              19.075475
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "MU-1014",
+        "region": "Mumbai, Maharashtra",
+        "survey_zone": "MU-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              72.87836131555237,
+              19.075475
+            ],
+            [
+              72.8792850411159,
+              19.075475
+            ],
+            [
+              72.8792850411159,
+              19.076231
+            ],
+            [
+              72.87836131555237,
+              19.076231
+            ],
+            [
+              72.87836131555237,
+              19.075475
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "MU-1015",
+        "region": "Mumbai, Maharashtra",
+        "survey_zone": "MU-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              72.8796839466571,
+              19.075475
+            ],
+            [
+              72.8806362410525,
+              19.075475
+            ],
+            [
+              72.8806362410525,
+              19.076231
+            ],
+            [
+              72.8796839466571,
+              19.076231
+            ],
+            [
+              72.8796839466571,
+              19.075475
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "MU-1016",
+        "region": "Mumbai, Maharashtra",
+        "survey_zone": "MU-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              72.87439342223819,
+              19.076525000000004
+            ],
+            [
+              72.87534571663359,
+              19.076525000000004
+            ],
+            [
+              72.87534571663359,
+              19.077281000000003
+            ],
+            [
+              72.87439342223819,
+              19.077281000000003
+            ],
+            [
+              72.87439342223819,
+              19.076525000000004
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "MU-1017",
+        "region": "Mumbai, Maharashtra",
+        "survey_zone": "MU-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              72.87571605334291,
+              19.076525000000004
+            ],
+            [
+              72.87672548540205,
+              19.076525000000004
+            ],
+            [
+              72.87672548540205,
+              19.077281000000003
+            ],
+            [
+              72.87571605334291,
+              19.077281000000003
+            ],
+            [
+              72.87571605334291,
+              19.076525000000004
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "MU-1018",
+        "region": "Mumbai, Maharashtra",
+        "survey_zone": "MU-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              72.87703868444764,
+              19.076525000000004
+            ],
+            [
+              72.87796241001118,
+              19.076525000000004
+            ],
+            [
+              72.87796241001118,
+              19.077281000000003
+            ],
+            [
+              72.87703868444764,
+              19.077281000000003
+            ],
+            [
+              72.87703868444764,
+              19.076525000000004
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "MU-1019",
+        "region": "Mumbai, Maharashtra",
+        "survey_zone": "MU-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              72.87836131555237,
+              19.076525000000004
+            ],
+            [
+              72.87931360994777,
+              19.076525000000004
+            ],
+            [
+              72.87931360994777,
+              19.077281000000003
+            ],
+            [
+              72.87883746275007,
+              19.077144920000002
+            ],
+            [
+              72.87836131555237,
+              19.077281000000003
+            ],
+            [
+              72.87836131555237,
+              19.076525000000004
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "MU-1020",
+        "region": "Mumbai, Maharashtra",
+        "survey_zone": "MU-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              72.8796839466571,
+              19.076525000000004
+            ],
+            [
+              72.8806362410525,
+              19.076525000000004
+            ],
+            [
+              72.8806362410525,
+              19.077318800000004
+            ],
+            [
+              72.8796839466571,
+              19.077318800000004
+            ],
+            [
+              72.8796839466571,
+              19.076525000000004
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "MU-1021",
+        "region": "Mumbai, Maharashtra",
+        "survey_zone": "MU-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              72.87439342223819,
+              19.077575000000003
+            ],
+            [
+              72.87540285429732,
+              19.077575000000003
+            ],
+            [
+              72.87540285429732,
+              19.078331000000002
+            ],
+            [
+              72.87439342223819,
+              19.078331000000002
+            ],
+            [
+              72.87439342223819,
+              19.077575000000003
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "MU-1022",
+        "region": "Mumbai, Maharashtra",
+        "survey_zone": "MU-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              72.87571605334291,
+              19.077575000000003
+            ],
+            [
+              72.87586842044618,
+              19.077575000000003
+            ],
+            [
+              72.87586842044618,
+              19.078331000000002
+            ],
+            [
+              72.87571605334291,
+              19.078331000000002
+            ],
+            [
+              72.87571605334291,
+              19.077575000000003
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "MU-1023",
+        "region": "Mumbai, Maharashtra",
+        "survey_zone": "MU-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              72.87703868444764,
+              19.077575000000003
+            ],
+            [
+              72.87799097884304,
+              19.077575000000003
+            ],
+            [
+              72.87799097884304,
+              19.078368800000003
+            ],
+            [
+              72.87703868444764,
+              19.078368800000003
+            ],
+            [
+              72.87703868444764,
+              19.077575000000003
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "MU-1024",
+        "region": "Mumbai, Maharashtra",
+        "survey_zone": "MU-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              72.87836131555237,
+              19.077575000000003
+            ],
+            [
+              72.87931360994777,
+              19.077575000000003
+            ],
+            [
+              72.87931360994777,
+              19.078331000000002
+            ],
+            [
+              72.87836131555237,
+              19.078331000000002
+            ],
+            [
+              72.87836131555237,
+              19.077575000000003
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "MU-1025",
+        "region": "Mumbai, Maharashtra",
+        "survey_zone": "MU-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              72.8796839466571,
+              19.077575000000003
+            ],
+            [
+              72.88069337871623,
+              19.077575000000003
+            ],
+            [
+              72.88069337871623,
+              19.078331000000002
+            ],
+            [
+              72.8796839466571,
+              19.078331000000002
+            ],
+            [
+              72.8796839466571,
+              19.077575000000003
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PB-1001",
+        "region": "Ludhiana, Punjab",
+        "survey_zone": "PB-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              75.85365804631746,
+              30.898375
+            ],
+            [
+              75.85476986193767,
+              30.898375
+            ],
+            [
+              75.85476986193767,
+              30.8991688
+            ],
+            [
+              75.85365804631746,
+              30.8991688
+            ],
+            [
+              75.85365804631746,
+              30.898375
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PB-1002",
+        "region": "Ludhiana, Punjab",
+        "survey_zone": "PB-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              75.85511482779047,
+              30.898375
+            ],
+            [
+              75.85616371045104,
+              30.898375
+            ],
+            [
+              75.85616371045104,
+              30.899131
+            ],
+            [
+              75.85511482779047,
+              30.899131
+            ],
+            [
+              75.85511482779047,
+              30.898375
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PB-1003",
+        "region": "Ludhiana, Punjab",
+        "survey_zone": "PB-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              75.8565716092635,
+              30.898375
+            ],
+            [
+              75.85762049192407,
+              30.898375
+            ],
+            [
+              75.85762049192407,
+              30.899131
+            ],
+            [
+              75.8565716092635,
+              30.899131
+            ],
+            [
+              75.8565716092635,
+              30.898375
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PB-1004",
+        "region": "Ludhiana, Punjab",
+        "survey_zone": "PB-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              75.85802839073651,
+              30.898375
+            ],
+            [
+              75.85907727339708,
+              30.898375
+            ],
+            [
+              75.85907727339708,
+              30.899131
+            ],
+            [
+              75.85802839073651,
+              30.899131
+            ],
+            [
+              75.85802839073651,
+              30.898375
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PB-1005",
+        "region": "Ludhiana, Punjab",
+        "survey_zone": "PB-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              75.85948517220952,
+              30.898375
+            ],
+            [
+              75.86059698782972,
+              30.898375
+            ],
+            [
+              75.86059698782972,
+              30.899131
+            ],
+            [
+              75.85948517220952,
+              30.899131
+            ],
+            [
+              75.85948517220952,
+              30.898375
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PB-1006",
+        "region": "Ludhiana, Punjab",
+        "survey_zone": "PB-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              75.85365804631746,
+              30.899425
+            ],
+            [
+              75.85470692897803,
+              30.899425
+            ],
+            [
+              75.85470692897803,
+              30.900181
+            ],
+            [
+              75.85365804631746,
+              30.900181
+            ],
+            [
+              75.85365804631746,
+              30.899425
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PB-1007",
+        "region": "Ludhiana, Punjab",
+        "survey_zone": "PB-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              75.85511482779047,
+              30.899425
+            ],
+            [
+              75.85616371045104,
+              30.899425
+            ],
+            [
+              75.85616371045104,
+              30.900181
+            ],
+            [
+              75.85563926912076,
+              30.90004492
+            ],
+            [
+              75.85511482779047,
+              30.900181
+            ],
+            [
+              75.85511482779047,
+              30.899425
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PB-1008",
+        "region": "Ludhiana, Punjab",
+        "survey_zone": "PB-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              75.8565716092635,
+              30.899425
+            ],
+            [
+              75.85762049192407,
+              30.899425
+            ],
+            [
+              75.85762049192407,
+              30.900181
+            ],
+            [
+              75.8565716092635,
+              30.900181
+            ],
+            [
+              75.8565716092635,
+              30.899425
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PB-1009",
+        "region": "Ludhiana, Punjab",
+        "survey_zone": "PB-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              75.85802839073651,
+              30.899425
+            ],
+            [
+              75.85914020635671,
+              30.899425
+            ],
+            [
+              75.85914020635671,
+              30.9002188
+            ],
+            [
+              75.85802839073651,
+              30.9002188
+            ],
+            [
+              75.85802839073651,
+              30.899425
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PB-1010",
+        "region": "Ludhiana, Punjab",
+        "survey_zone": "PB-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              75.85948517220952,
+              30.899425
+            ],
+            [
+              75.86050258839028,
+              30.899425
+            ],
+            [
+              75.86050258839028,
+              30.900181
+            ],
+            [
+              75.85948517220952,
+              30.900181
+            ],
+            [
+              75.85948517220952,
+              30.899425
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PB-1011",
+        "region": "Ludhiana, Punjab",
+        "survey_zone": "PB-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              75.85365804631746,
+              30.900475
+            ],
+            [
+              75.85470692897803,
+              30.900475
+            ],
+            [
+              75.85470692897803,
+              30.901231
+            ],
+            [
+              75.85365804631746,
+              30.901231
+            ],
+            [
+              75.85365804631746,
+              30.900475
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PB-1012",
+        "region": "Ludhiana, Punjab",
+        "survey_zone": "PB-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              75.85511482779047,
+              30.900475
+            ],
+            [
+              75.85616371045104,
+              30.900475
+            ],
+            [
+              75.85616371045104,
+              30.9012688
+            ],
+            [
+              75.85511482779047,
+              30.9012688
+            ],
+            [
+              75.85511482779047,
+              30.900475
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PB-1013",
+        "region": "Ludhiana, Punjab",
+        "survey_zone": "PB-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              75.8565716092635,
+              30.900475
+            ],
+            [
+              75.85791650991939,
+              30.900475
+            ],
+            [
+              75.85791650991939,
+              30.901231
+            ],
+            [
+              75.8565716092635,
+              30.901231
+            ],
+            [
+              75.8565716092635,
+              30.900475
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PB-1014",
+        "region": "Ludhiana, Punjab",
+        "survey_zone": "PB-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              75.85802839073651,
+              30.900475
+            ],
+            [
+              75.85904580691727,
+              30.900475
+            ],
+            [
+              75.85904580691727,
+              30.901231
+            ],
+            [
+              75.85802839073651,
+              30.901231
+            ],
+            [
+              75.85802839073651,
+              30.900475
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PB-1015",
+        "region": "Ludhiana, Punjab",
+        "survey_zone": "PB-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              75.85948517220952,
+              30.900475
+            ],
+            [
+              75.86053405487009,
+              30.900475
+            ],
+            [
+              75.86053405487009,
+              30.901231
+            ],
+            [
+              75.85948517220952,
+              30.901231
+            ],
+            [
+              75.85948517220952,
+              30.900475
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PB-1016",
+        "region": "Ludhiana, Punjab",
+        "survey_zone": "PB-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              75.85365804631746,
+              30.901525000000003
+            ],
+            [
+              75.85470692897803,
+              30.901525000000003
+            ],
+            [
+              75.85470692897803,
+              30.902281000000002
+            ],
+            [
+              75.85365804631746,
+              30.902281000000002
+            ],
+            [
+              75.85365804631746,
+              30.901525000000003
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PB-1017",
+        "region": "Ludhiana, Punjab",
+        "survey_zone": "PB-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              75.85511482779047,
+              30.901525000000003
+            ],
+            [
+              75.85622664341068,
+              30.901525000000003
+            ],
+            [
+              75.85622664341068,
+              30.902281000000002
+            ],
+            [
+              75.85511482779047,
+              30.902281000000002
+            ],
+            [
+              75.85511482779047,
+              30.901525000000003
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PB-1018",
+        "region": "Ludhiana, Punjab",
+        "survey_zone": "PB-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              75.8565716092635,
+              30.901525000000003
+            ],
+            [
+              75.85758902544426,
+              30.901525000000003
+            ],
+            [
+              75.85758902544426,
+              30.902281000000002
+            ],
+            [
+              75.8565716092635,
+              30.902281000000002
+            ],
+            [
+              75.8565716092635,
+              30.901525000000003
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PB-1019",
+        "region": "Ludhiana, Punjab",
+        "survey_zone": "PB-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              75.85802839073651,
+              30.901525000000003
+            ],
+            [
+              75.85907727339708,
+              30.901525000000003
+            ],
+            [
+              75.85907727339708,
+              30.902281000000002
+            ],
+            [
+              75.85855283206679,
+              30.90214492
+            ],
+            [
+              75.85802839073651,
+              30.902281000000002
+            ],
+            [
+              75.85802839073651,
+              30.901525000000003
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PB-1020",
+        "region": "Ludhiana, Punjab",
+        "survey_zone": "PB-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              75.85948517220952,
+              30.901525000000003
+            ],
+            [
+              75.86053405487009,
+              30.901525000000003
+            ],
+            [
+              75.86053405487009,
+              30.902318800000003
+            ],
+            [
+              75.85948517220952,
+              30.902318800000003
+            ],
+            [
+              75.85948517220952,
+              30.901525000000003
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PB-1021",
+        "region": "Ludhiana, Punjab",
+        "survey_zone": "PB-ZONE-01",
+        "land_use": "Institutional"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              75.85365804631746,
+              30.902575000000002
+            ],
+            [
+              75.85476986193767,
+              30.902575000000002
+            ],
+            [
+              75.85476986193767,
+              30.903331
+            ],
+            [
+              75.85365804631746,
+              30.903331
+            ],
+            [
+              75.85365804631746,
+              30.902575000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PB-1022",
+        "region": "Ludhiana, Punjab",
+        "survey_zone": "PB-ZONE-01",
+        "land_use": "Residential"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              75.85511482779047,
+              30.902575000000002
+            ],
+            [
+              75.85528264901616,
+              30.902575000000002
+            ],
+            [
+              75.85528264901616,
+              30.903331
+            ],
+            [
+              75.85511482779047,
+              30.903331
+            ],
+            [
+              75.85511482779047,
+              30.902575000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PB-1023",
+        "region": "Ludhiana, Punjab",
+        "survey_zone": "PB-ZONE-01",
+        "land_use": "Mixed Use"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              75.8565716092635,
+              30.902575000000002
+            ],
+            [
+              75.85762049192407,
+              30.902575000000002
+            ],
+            [
+              75.85762049192407,
+              30.903368800000003
+            ],
+            [
+              75.8565716092635,
+              30.903368800000003
+            ],
+            [
+              75.8565716092635,
+              30.902575000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PB-1024",
+        "region": "Ludhiana, Punjab",
+        "survey_zone": "PB-ZONE-01",
+        "land_use": "Vacant"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              75.85802839073651,
+              30.902575000000002
+            ],
+            [
+              75.85907727339708,
+              30.902575000000002
+            ],
+            [
+              75.85907727339708,
+              30.903331
+            ],
+            [
+              75.85802839073651,
+              30.903331
+            ],
+            [
+              75.85802839073651,
+              30.902575000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PB-1025",
+        "region": "Ludhiana, Punjab",
+        "survey_zone": "PB-ZONE-01",
+        "land_use": "Commercial"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              75.85948517220952,
+              30.902575000000002
+            ],
+            [
+              75.86059698782972,
+              30.902575000000002
+            ],
+            [
+              75.86059698782972,
+              30.903331
+            ],
+            [
+              75.85948517220952,
+              30.903331
+            ],
+            [
+              75.85948517220952,
+              30.902575000000002
+            ]
+          ]
+        ]
+      }
+    }
+  ]
 }
