@@ -1599,7 +1599,7 @@ for col, item in zip(
 
     with col:
 
-        st.markdown(
+        st.html(
             f"""
             <div class="workflow-card">
 
@@ -1608,16 +1608,15 @@ for col, item in zip(
                 </div>
 
                 <div class="workflow-name">
-                    {name}
+                    {html.escape(name)}
                 </div>
 
                 <div class="workflow-desc">
-                    {desc}
+                    {html.escape(desc)}
                 </div>
 
             </div>
-            """,
-            unsafe_allow_html=True
+            """
         )
 
 
@@ -1694,7 +1693,7 @@ with ex2:
 
 st.markdown("")
 
-st.markdown(
+st.html(
     """
     <div class="xai-box">
 
@@ -1713,8 +1712,7 @@ st.markdown(
         surveying / land-record authority.
 
     </div>
-    """,
-    unsafe_allow_html=True
+    """
 )
 
 
@@ -1722,7 +1720,7 @@ st.markdown(
 # FOOTER
 # ============================================================
 
-st.markdown(
+st.html(
     """
     <div class="footer">
         AI-CADRE • SIH26012 • AI-Based Automated Urban Parcel Mapping
@@ -1730,6 +1728,5 @@ st.markdown(
         <br>
         Prototype for Smart India Hackathon 2026
     </div>
-    """,
-    unsafe_allow_html=True
+    """
 )
