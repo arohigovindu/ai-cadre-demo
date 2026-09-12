@@ -64,16 +64,38 @@ st.html(
     .stApp { background: var(--paper); color: var(--ink); }
     .block-container { padding: 0.7rem 2rem 3rem; max-width: 1550px; }
 
-    /* Header */
-    .cadre-nav {
-        background: var(--green-dark); border-radius: 0 0 18px 18px;
-        padding: 13px 20px; color: white; margin: -0.7rem -2rem 18px;
-        display:flex; align-items:center; justify-content:space-between;
-        box-shadow: 0 5px 18px rgba(23,61,45,.12);
+    /* Sticky navigation */
+    html { scroll-behavior: smooth; }
+    .cadre-nav-wrap {
+        position: sticky; top: 0; z-index: 99999;
+        margin: -0.7rem -2rem 18px; padding: 0 2rem 8px;
+        background: var(--paper);
     }
-    .cadre-brand { font-size:20px; font-weight:850; letter-spacing:-.4px; }
-    .cadre-subbrand { font-size:11px; color:#b8cec2; margin-top:2px; }
-    .cadre-pill { background:#285640; border:1px solid #47755f; padding:6px 11px; border-radius:999px; font-size:10px; font-weight:800; color:#e4f1e9; }
+    .cadre-nav {
+        background: var(--green-dark); border-radius: 0 0 16px 16px;
+        padding: 11px 18px; color: white;
+        display:flex; align-items:center; gap:20px;
+        box-shadow: 0 7px 22px rgba(23,61,45,.16);
+        min-height:58px;
+    }
+    .cadre-brand-block { display:flex; align-items:center; gap:10px; flex:0 0 auto; }
+    .cadre-logo { width:40px; height:40px; display:flex; align-items:center; justify-content:center; flex:0 0 40px; }
+    .cadre-brand { font-size:18px; font-weight:900; letter-spacing:-.45px; line-height:1; }
+    .cadre-subbrand { font-size:9px; color:#b8cec2; margin-top:4px; letter-spacing:.35px; text-transform:uppercase; }
+    .cadre-nav-links { display:flex; align-items:center; justify-content:center; gap:4px; flex:1; flex-wrap:wrap; }
+    .cadre-nav-link {
+        color:#dce9e2; text-decoration:none; font-size:10px; font-weight:800;
+        padding:7px 9px; border-radius:7px; white-space:nowrap;
+        transition:background .15s ease, color .15s ease;
+    }
+    .cadre-nav-link:hover { background:#285640; color:#ffffff; }
+    .cadre-status {
+        display:flex; align-items:center; gap:7px; flex:0 0 auto;
+        color:#d8e9df; font-size:9px; font-weight:800;
+        border-left:1px solid #3b614f; padding-left:13px;
+    }
+    .status-dot { width:7px; height:7px; border-radius:50%; background:#7cc58c; box-shadow:0 0 0 3px rgba(124,197,140,.12); }
+    .anchor-target { height:0; scroll-margin-top:86px; }
 
     /* Hero */
     .hero {
@@ -135,6 +157,15 @@ st.html(
     div[data-testid="stDataFrame"] { border-radius:10px; overflow:hidden; }
 
     .footer { text-align:center; color:#89958f; font-size:10px; padding:22px 0 5px; }
+
+    @media (max-width: 900px) {
+        .cadre-nav { gap:10px; padding:10px 12px; }
+        .cadre-nav-links { justify-content:flex-start; overflow-x:auto; flex-wrap:nowrap; }
+        .cadre-status { display:none; }
+        .cadre-brand { font-size:16px; }
+        .cadre-subbrand { display:none; }
+        .hero-title { font-size:25px; }
+    }
     </style>
     """
 )
@@ -177,15 +208,37 @@ avg_confidence = float(gdf["confidence"].mean())
 
 st.html(
     """
-    <div class="cadre-nav">
-        <div>
-            <div class="cadre-brand">🛰️ AI-CADRE</div>
-            <div class="cadre-subbrand">
-                Urban Cadastral Mapping • Survey Dashboard
+    <div class="cadre-nav-wrap">
+        <div class="cadre-nav">
+            <div class="cadre-brand-block">
+                <div class="cadre-logo">
+                    <svg viewBox="0 0 48 48" width="40" height="40" aria-label="AI-CADRE logo" role="img">
+                        <path d="M24 3.5 43 14v20L24 44.5 5 34V14Z" fill="#d8b77a"/>
+                        <path d="M24 3.5 43 14 24 24.5 5 14Z" fill="#f1e7ca"/>
+                        <path d="M24 24.5 43 14v20L24 44.5Z" fill="#3c7d78"/>
+                        <path d="M5 14 24 24.5v20L5 34Z" fill="#2f6f4e"/>
+                        <path d="M24 11.5c-4.7 0-8.5 3.8-8.5 8.5 0 6.2 8.5 14.2 8.5 14.2s8.5-8 8.5-14.2c0-4.7-3.8-8.5-8.5-8.5Z" fill="#fff"/>
+                        <circle cx="24" cy="20" r="3.2" fill="#b86b4b"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="cadre-brand">AI-CADRE</div>
+                    <div class="cadre-subbrand">Urban Cadastral Mapping</div>
+                </div>
             </div>
-        </div>
-        <div class="cadre-pill">
-            SIH26012 • PROTOTYPE
+
+            <div class="cadre-nav-links">
+                <a class="cadre-nav-link" href="#dashboard">Dashboard</a>
+                <a class="cadre-nav-link" href="#survey">Survey Input</a>
+                <a class="cadre-nav-link" href="#parcel-map">Parcel Map</a>
+                <a class="cadre-nav-link" href="#qc">QC Checks</a>
+                <a class="cadre-nav-link" href="#field">Field Verification</a>
+                <a class="cadre-nav-link" href="#export">Export</a>
+            </div>
+
+            <div class="cadre-status">
+                <span class="status-dot"></span> SYSTEM ONLINE
+            </div>
         </div>
     </div>
     """
@@ -197,22 +250,26 @@ st.html(
 # ============================================================
 
 st.html(
+    """<div id="dashboard" class="anchor-target"></div>"""
+)
+
+st.html(
     """
     <div class="hero">
         <div class="hero-kicker">SIH26012 • URBAN CADASTRAL MAPPING</div>
 
         <div class="hero-title">
-            Urban parcel mapping, from imagery to review
+            From drone imagery to validated parcel layers
         </div>
 
         <div class="hero-text">
-            Transform drone imagery and geospatial data into preliminary,
-            validated and GIS-ready parcel information — while keeping the
-            authorized surveyor in control of every final decision.
+            Turn survey imagery into structured parcel information, run geometry
+            quality checks, review flagged features, and export GIS-ready
+            cadastral data with the surveyor in control.
         </div>
 
         <div class="hero-flow">
-            Capture → Map → Check → Approve
+            Survey → Extract → Check → Review → Export
         </div>
     </div>
     """
@@ -222,6 +279,10 @@ st.html(
 # ============================================================
 # DRONE IMAGERY INPUT
 # ============================================================
+
+st.html(
+    """<div id="survey" class="anchor-target"></div>"""
+)
 
 st.html(
     """
@@ -459,8 +520,12 @@ if st.session_state.extraction_run and uploaded_image is not None:
 # ============================================================
 
 st.html(
+    """<div id="overview" class="anchor-target"></div>"""
+)
+
+st.html(
     """
-    <div class="section-title">📊 Survey Overview</div>
+    <div class="section-title">Survey Overview</div>
     <div class="section-subtitle">
         Parcel quality and review status
     </div>
@@ -517,6 +582,10 @@ with k4:
 # ============================================================
 # WEB GIS WORKSPACE
 # ============================================================
+
+st.html(
+    """<div id="parcel-map" class="anchor-target"></div>"""
+)
 
 st.html(
     """
@@ -1043,8 +1112,12 @@ with inspector_col:
 # ============================================================
 
 st.html(
+    """<div id="qc" class="anchor-target"></div>"""
+)
+
+st.html(
     """
-    <div class="section-title">🧪 GIS Quality Control</div>
+    <div class="section-title">GIS Quality Control</div>
     <div class="section-subtitle">
         Geometry checks before approval.
     </div>
@@ -1123,8 +1196,12 @@ with q4:
 # ============================================================
 
 st.html(
+    """<div id="field" class="anchor-target"></div>"""
+)
+
+st.html(
     """
-    <div class="section-title">📍 Field Verification Queue</div>
+    <div class="section-title">Field Verification Queue</div>
     <div class="section-subtitle">
         Parcels that need on-site verification.
     </div>
@@ -1305,6 +1382,10 @@ for col, item in zip(
 # ============================================================
 
 st.html(
+    """<div id="export" class="anchor-target"></div>"""
+)
+
+st.html(
     """
     <div class="section-title">GIS Export</div>
     <div class="section-subtitle">
@@ -1388,10 +1469,9 @@ st.html(
 st.html(
     """
     <div class="footer">
-        AI-CADRE • SIH26012 • AI-Based Automated Urban Parcel Mapping
-        &amp; Cadastral Feature Extraction System
+        <b>AI-CADRE</b> • SIH26012 • Urban Cadastral Mapping &amp; Feature Extraction
         <br>
-        SIH 2026 prototype
+        SIH 2026 prototype • Human-in-the-loop survey review
     </div>
     """
 )
