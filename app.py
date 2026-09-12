@@ -36,7 +36,7 @@ with col2:
     selected_id = st.selectbox("Select Parcel ID:", gdf['parcel_id'].tolist())
     
     selected_rows = gdf[gdf['parcel_id'] == selected_id]
-    p = selected_rows.iloc
+    p = selected_rows.iloc[0]
     
     st.metric("Confidence Score", f"{p['confidence']}%")
     st.write(f"**Priority:** {p['priority']}")
