@@ -371,7 +371,7 @@ gdf = analyze_parcels("sample_parcels.geojson")
 # NAVBAR
 # =========================================================
 
-st.markdown("""
+st.html("""
 <div class="navbar">
     <div class="brand">
         🛰️ AI-<span>CADRE</span>
@@ -381,14 +381,14 @@ st.markdown("""
         Cadastral AI Co-Pilot • SIH26012
     </div>
 </div>
-""", unsafe_allow_html=True)
+""")
 
 
 # =========================================================
 # HERO
 # =========================================================
 
-st.markdown("""
+st.html("""
 <div class="hero">
 
     <div class="hero-tag">
@@ -413,7 +413,7 @@ st.markdown("""
     </div>
 
 </div>
-""", unsafe_allow_html=True)
+""")
 
 
 # =========================================================
@@ -446,7 +446,7 @@ avg_confidence = round(
 # SURVEY OVERVIEW
 # =========================================================
 
-st.markdown("""
+st.html("""
 <div class="section-title">
     Survey Overview
 </div>
@@ -454,89 +454,89 @@ st.markdown("""
 <div class="section-subtitle">
     Current cadastral analysis from the loaded survey dataset.
 </div>
-""", unsafe_allow_html=True)
+""")
 
 
 k1, k2, k3, k4 = st.columns(4)
 
 
 with k1:
-    st.markdown(f"""
-<div class="metric-card">
-    <div class="metric-label">
-        PARCELS ANALYZED
-    </div>
+    st.html(f"""
+    <div class="metric-card">
+        <div class="metric-label">
+            PARCELS ANALYZED
+        </div>
 
-    <div class="metric-value">
-        {total_parcels}
-    </div>
+        <div class="metric-value">
+            {total_parcels}
+        </div>
 
-    <div class="metric-description">
-        Detected parcel records
+        <div class="metric-description">
+            Detected parcel records
+        </div>
     </div>
-</div>
-""", unsafe_allow_html=True)
+    """)
 
 
 with k2:
-    st.markdown(f"""
-<div class="metric-card">
-    <div class="metric-label">
-        TOPOLOGY PASS
-    </div>
+    st.html(f"""
+    <div class="metric-card">
+        <div class="metric-label">
+            TOPOLOGY PASS
+        </div>
 
-    <div class="metric-value">
-        {pass_count}
-    </div>
+        <div class="metric-value">
+            {pass_count}
+        </div>
 
-    <div class="metric-description">
-        Valid preliminary geometries
+        <div class="metric-description">
+            Valid preliminary geometries
+        </div>
     </div>
-</div>
-""", unsafe_allow_html=True)
+    """)
 
 
 with k3:
-    st.markdown(f"""
-<div class="metric-card">
-    <div class="metric-label">
-        HIGH PRIORITY
-    </div>
+    st.html(f"""
+    <div class="metric-card">
+        <div class="metric-label">
+            HIGH PRIORITY
+        </div>
 
-    <div class="metric-value">
-        {high_priority}
-    </div>
+        <div class="metric-value">
+            {high_priority}
+        </div>
 
-    <div class="metric-description">
-        Require field attention
+        <div class="metric-description">
+            Require field attention
+        </div>
     </div>
-</div>
-""", unsafe_allow_html=True)
+    """)
 
 
 with k4:
-    st.markdown(f"""
-<div class="metric-card">
-    <div class="metric-label">
-        AVG. CONFIDENCE
-    </div>
+    st.html(f"""
+    <div class="metric-card">
+        <div class="metric-label">
+            AVG. CONFIDENCE
+        </div>
 
-    <div class="metric-value">
-        {avg_confidence}%
-    </div>
+        <div class="metric-value">
+            {avg_confidence}%
+        </div>
 
-    <div class="metric-description">
-        Across analyzed parcels
+        <div class="metric-description">
+            Across analyzed parcels
+        </div>
     </div>
-</div>
-""", unsafe_allow_html=True)
+    """)
 
 
 # =========================================================
 # MAPPING WORKSPACE
 # =========================================================
 
-st.markdown("""
+st.html("""
 <div class="section-title">
     Cadastral Mapping Workspace
 </div>
@@ -544,7 +544,7 @@ st.markdown("""
 <div class="section-subtitle">
     Inspect parcel boundaries, confidence and topology results in one workspace.
 </div>
-""", unsafe_allow_html=True)
+""")
 
 
 map_col, inspector_col = st.columns([2.2, 1])
@@ -556,26 +556,25 @@ map_col, inspector_col = st.columns([2.2, 1])
 
 with map_col:
 
-    st.markdown("""
-<div class="card">
+    st.html("""
+    <div class="card">
 
-    <div class="card-title">
-        🗺️ Web-GIS Map
+        <div class="card-title">
+            🗺️ Web-GIS Map
+        </div>
+
+        <div class="card-subtitle">
+            Preliminary parcel boundaries and topology status
+        </div>
+
     </div>
-
-    <div class="card-subtitle">
-        Preliminary parcel boundaries and topology status
-    </div>
-
-</div>
-""", unsafe_allow_html=True)
+    """)
 
 
-    # Make a copy for web mapping
     map_gdf = gdf.copy()
 
 
-    # Web maps use latitude/longitude
+    # Convert to latitude/longitude for web mapping
     if map_gdf.crs is not None:
 
         try:
@@ -585,19 +584,15 @@ with map_col:
 
 
     # -----------------------------------------------------
-    # Create map
+    # CREATE MAP
     # -----------------------------------------------------
 
     if not map_gdf.empty:
 
         try:
-
             center = map_gdf.geometry.union_all().centroid
-
         except AttributeError:
-
             center = map_gdf.geometry.unary_union.centroid
-
 
         m = folium.Map(
             location=[
@@ -608,8 +603,6 @@ with map_col:
             tiles="CartoDB positron"
         )
 
-
-        # Fit map to parcel extent
         bounds = map_gdf.total_bounds
 
         m.fit_bounds([
@@ -623,7 +616,6 @@ with map_col:
             ]
         ])
 
-
     else:
 
         m = folium.Map(
@@ -634,7 +626,7 @@ with map_col:
 
 
     # -----------------------------------------------------
-    # Add parcels
+    # ADD PARCELS
     # -----------------------------------------------------
 
     for _, row in map_gdf.iterrows():
@@ -666,10 +658,6 @@ with map_col:
         ).add_to(m)
 
 
-    # -----------------------------------------------------
-    # Display map
-    # -----------------------------------------------------
-
     st_folium(
         m,
         use_container_width=True,
@@ -678,42 +666,42 @@ with map_col:
 
 
     # -----------------------------------------------------
-    # Map legend
+    # LEGEND
     # -----------------------------------------------------
 
-    st.markdown("""
-<div class="legend-box">
+    st.html("""
+    <div class="legend-box">
 
-    <div class="legend-title">
-        Parcel Status
+        <div class="legend-title">
+            Parcel Status
+        </div>
+
+        <span class="legend-item">
+            <span
+                class="legend-dot"
+                style="background:#00FF00;">
+            </span>
+            Low Priority
+        </span>
+
+        <span class="legend-item">
+            <span
+                class="legend-dot"
+                style="background:#FFA500;">
+            </span>
+            Medium Priority
+        </span>
+
+        <span class="legend-item">
+            <span
+                class="legend-dot"
+                style="background:#FF0000;">
+            </span>
+            High Priority
+        </span>
+
     </div>
-
-    <span class="legend-item">
-        <span
-            class="legend-dot"
-            style="background:#00FF00;">
-        </span>
-        Low Priority
-    </span>
-
-    <span class="legend-item">
-        <span
-            class="legend-dot"
-            style="background:#FFA500;">
-        </span>
-        Medium Priority
-    </span>
-
-    <span class="legend-item">
-        <span
-            class="legend-dot"
-            style="background:#FF0000;">
-        </span>
-        High Priority
-    </span>
-
-</div>
-""", unsafe_allow_html=True)
+    """)
 
 
 # =========================================================
@@ -722,17 +710,19 @@ with map_col:
 
 with inspector_col:
 
-    st.markdown("""
-<div class="card">
+    st.html("""
+    <div class="card">
 
-    <div class="card-title">
-        🔎 Parcel Inspector
-    </div>
+        <div class="card-title">
+            🔎 Parcel Inspector
+        </div>
 
-    <div class="card-subtitle">
-        Review AI-generated parcel intelligence
+        <div class="card-subtitle">
+            Review AI-generated parcel intelligence
+        </div>
+
     </div>
-""", unsafe_allow_html=True)
+    """)
 
 
     selected_id = st.selectbox(
@@ -746,24 +736,16 @@ with inspector_col:
     ]
 
 
-    # IMPORTANT:
-    # Select the actual row, not the iloc indexer
+    # Select actual row
     p = selected_rows.iloc[0]
 
 
-    st.markdown(
-        f"""
-<div class="parcel-id">
-    {p["parcel_id"]}
-</div>
-""",
-        unsafe_allow_html=True
-    )
+    st.html(f"""
+    <div class="parcel-id">
+        {p["parcel_id"]}
+    </div>
+    """)
 
-
-    # -----------------------------------------------------
-    # Confidence
-    # -----------------------------------------------------
 
     st.metric(
         "Confidence Score",
@@ -771,57 +753,37 @@ with inspector_col:
     )
 
 
-    # -----------------------------------------------------
-    # Priority
-    # -----------------------------------------------------
+    st.html(f"""
+    <div class="info-row">
 
-    st.markdown(
-        f"""
-<div class="info-row">
+        <div class="info-label">
+            VERIFICATION PRIORITY
+        </div>
 
-    <div class="info-label">
-        VERIFICATION PRIORITY
+        <div class="info-value">
+            {p["priority"]}
+        </div>
+
     </div>
+    """)
 
-    <div class="info-value">
-        {p["priority"]}
+
+    st.html(f"""
+    <div class="info-row">
+
+        <div class="info-label">
+            PARCEL AREA
+        </div>
+
+        <div class="info-value">
+            {p["area_sqm"]} sq. units
+        </div>
+
     </div>
-
-</div>
-""",
-        unsafe_allow_html=True
-    )
+    """)
 
 
-    # -----------------------------------------------------
-    # Area
-    # -----------------------------------------------------
-
-    st.markdown(
-        f"""
-<div class="info-row">
-
-    <div class="info-label">
-        PARCEL AREA
-    </div>
-
-    <div class="info-value">
-        {p["area_sqm"]} sq. units
-    </div>
-
-</div>
-""",
-        unsafe_allow_html=True
-    )
-
-
-    # -----------------------------------------------------
-    # Topology status
-    # -----------------------------------------------------
-
-    topology = str(
-        p["topology_status"]
-    )
+    topology = str(p["topology_status"])
 
 
     if topology.startswith("PASS"):
@@ -843,50 +805,36 @@ with inspector_col:
         )
 
 
-    st.markdown(
-        f"""
-<div class="info-row">
+    st.html(f"""
+    <div class="info-row">
 
-    <div class="info-label">
-        TOPOLOGY STATUS
+        <div class="info-label">
+            TOPOLOGY STATUS
+        </div>
+
+        <div style="margin-top:5px;">
+            {status_html}
+        </div>
+
     </div>
+    """)
 
-    <div style="margin-top:5px;">
-        {status_html}
+
+    st.html(f"""
+    <div class="xai-box">
+
+        <b>💡 Why is this parcel flagged?</b>
+
+        <br><br>
+
+        {p["xai_reason"]}
+
     </div>
-
-</div>
-""",
-        unsafe_allow_html=True
-    )
+    """)
 
 
-    # -----------------------------------------------------
-    # Explainable AI
-    # -----------------------------------------------------
+    st.markdown("###")
 
-    st.markdown(
-        f"""
-<div class="xai-box">
-
-    <b>💡 Why is this parcel flagged?</b>
-
-    <br><br>
-
-    {p["xai_reason"]}
-
-</div>
-""",
-        unsafe_allow_html=True
-    )
-
-
-    st.markdown("<br>", unsafe_allow_html=True)
-
-
-    # -----------------------------------------------------
-    # Surveyor Actions
-    # -----------------------------------------------------
 
     st.markdown("**Surveyor Decision**")
 
@@ -945,17 +893,11 @@ with inspector_col:
             )
 
 
-    st.markdown(
-        "</div>",
-        unsafe_allow_html=True
-    )
-
-
 # =========================================================
 # GIS QUALITY CONTROL
 # =========================================================
 
-st.markdown("""
+st.html("""
 <div class="section-title">
     GIS Quality Control
 </div>
@@ -963,7 +905,7 @@ st.markdown("""
 <div class="section-subtitle">
     Automated geometry checks identify parcels that need human attention.
 </div>
-""", unsafe_allow_html=True)
+""")
 
 
 invalid_count = int(
@@ -994,7 +936,6 @@ q1, q2, q3, q4 = st.columns(4)
 
 
 with q1:
-
     st.metric(
         "Valid Geometry",
         pass_count
@@ -1002,7 +943,6 @@ with q1:
 
 
 with q2:
-
     st.metric(
         "Overlaps",
         overlap_count
@@ -1010,7 +950,6 @@ with q2:
 
 
 with q3:
-
     st.metric(
         "Slivers",
         sliver_count
@@ -1018,7 +957,6 @@ with q3:
 
 
 with q4:
-
     st.metric(
         "Invalid Geometry",
         invalid_count
@@ -1029,7 +967,7 @@ with q4:
 # FIELD VERIFICATION QUEUE
 # =========================================================
 
-st.markdown("""
+st.html("""
 <div class="section-title">
     📍 Field Verification Queue
 </div>
@@ -1037,7 +975,7 @@ st.markdown("""
 <div class="section-subtitle">
     High-risk parcels are prioritized for Ground Truth verification.
 </div>
-""", unsafe_allow_html=True)
+""")
 
 
 priority_gdf = gdf[
@@ -1084,7 +1022,7 @@ else:
 # WORKFLOW
 # =========================================================
 
-st.markdown("""
+st.html("""
 <div class="section-title">
     How AI-CADRE Works
 </div>
@@ -1092,54 +1030,19 @@ st.markdown("""
 <div class="section-subtitle">
     A human-in-the-loop workflow for preliminary cadastral mapping.
 </div>
-""", unsafe_allow_html=True)
+""")
 
 
 w1, w2, w3, w4, w5, w6 = st.columns(6)
 
 
 workflow = [
-    (
-        "01",
-        "📡",
-        "Data",
-        "Drone / GIS inputs"
-    ),
-
-    (
-        "02",
-        "🧠",
-        "AI Extraction",
-        "Feature detection"
-    ),
-
-    (
-        "03",
-        "⬡",
-        "Parcel Proposal",
-        "Polygon generation"
-    ),
-
-    (
-        "04",
-        "✓",
-        "Topology",
-        "Geometry validation"
-    ),
-
-    (
-        "05",
-        "📊",
-        "Confidence",
-        "Risk prioritization"
-    ),
-
-    (
-        "06",
-        "👷",
-        "Surveyor",
-        "Review & verify"
-    )
+    ("01", "📡", "Data", "Drone / GIS inputs"),
+    ("02", "🧠", "AI Extraction", "Feature detection"),
+    ("03", "⬡", "Parcel Proposal", "Polygon generation"),
+    ("04", "✓", "Topology", "Geometry validation"),
+    ("05", "📊", "Confidence", "Risk prioritization"),
+    ("06", "👷", "Surveyor", "Review & verify")
 ]
 
 
@@ -1160,40 +1063,36 @@ for col, item in zip(
 
     number, icon, name, desc = item
 
-
     with col:
 
-        st.markdown(
-            f"""
-<div class="workflow-card">
+        st.html(f"""
+        <div class="workflow-card">
 
-    <div class="workflow-number">
-        {number}
-    </div>
+            <div class="workflow-number">
+                {number}
+            </div>
 
-    <div class="workflow-icon">
-        {icon}
-    </div>
+            <div class="workflow-icon">
+                {icon}
+            </div>
 
-    <div class="workflow-name">
-        {name}
-    </div>
+            <div class="workflow-name">
+                {name}
+            </div>
 
-    <div class="workflow-desc">
-        {desc}
-    </div>
+            <div class="workflow-desc">
+                {desc}
+            </div>
 
-</div>
-""",
-            unsafe_allow_html=True
-        )
+        </div>
+        """)
 
 
 # =========================================================
 # GIS OUTPUT
 # =========================================================
 
-st.markdown("""
+st.html("""
 <div class="section-title">
     GIS Output
 </div>
@@ -1201,7 +1100,7 @@ st.markdown("""
 <div class="section-subtitle">
     Export the preliminary cadastral layer for downstream GIS workflows.
 </div>
-""", unsafe_allow_html=True)
+""")
 
 
 st.download_button(
@@ -1213,10 +1112,10 @@ st.download_button(
 
 
 # =========================================================
-# TRUST / DISCLAIMER
+# HUMAN-IN-THE-LOOP
 # =========================================================
 
-st.markdown("""
+st.html("""
 <div class="card" style="margin-top:30px;">
 
     <div class="card-title">
@@ -1234,14 +1133,14 @@ st.markdown("""
     </div>
 
 </div>
-""", unsafe_allow_html=True)
+""")
 
 
 # =========================================================
 # FOOTER
 # =========================================================
 
-st.markdown("""
+st.html("""
 <div class="footer">
 
     <b>AI-CADRE</b>
@@ -1254,4 +1153,4 @@ st.markdown("""
     The surveyor approves.
 
 </div>
-""", unsafe_allow_html=True)
+""")
