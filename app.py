@@ -191,22 +191,49 @@ st.html(
     .workflow-number { font-size:15px; }
     .workflow-name { font-size:17px; }
     .workflow-desc { font-size:14px; }
-    .upload-info, .extraction-status { font-size:16px; }
+    .upload-info, .extraction-status { font-size:18px; }
+    .footer { font-size:16px; }
+
+    /* Extra-large readability pass */
+    .cadre-brand { font-size:27px; }
+    .cadre-subbrand { font-size:14px; }
+    .cadre-nav-link { font-size:15px; padding:9px 12px; }
+    .cadre-status { font-size:14px; }
+    .hero-kicker { font-size:15px; }
+    .hero-title { font-size:46px; }
+    .hero-text { font-size:20px; }
+    .hero-flow { font-size:16px; }
+    .section-title { font-size:30px; }
+    .section-subtitle { font-size:18px; }
+    .kpi-label { font-size:15px; }
+    .kpi-value { font-size:40px; }
+    .kpi-note { font-size:15px; }
+    .card-title { font-size:23px; }
+    .card-subtitle { font-size:18px; }
+    .status-pass,.status-fail,.status-warn { font-size:14px; }
+    .xai-box { font-size:18px; }
+    .xai-title { font-size:15px; }
+    .signal-label { font-size:14px; }
+    .signal-value { font-size:21px; }
+    .workflow-number { font-size:16px; }
+    .workflow-name { font-size:19px; }
+    .workflow-desc { font-size:16px; }
+    .upload-info, .extraction-status { font-size:18px; }
 
     /* Readable Streamlit controls */
     div[data-testid="stFileUploader"] label,
     div[data-testid="stSelectbox"] label,
     div[data-testid="stSlider"] label {
-        font-size: 14px !important;
+        font-size: 16px !important;
         font-weight: 700 !important;
     }
     div[data-testid="stFileUploader"] section,
     div[data-testid="stFileUploader"] section span,
     div[data-testid="stFileUploader"] section small {
-        font-size: 14px !important;
+        font-size: 16px !important;
     }
     div.stButton > button, div.stDownloadButton > button {
-        font-size: 14px !important;
+        font-size: 16px !important;
         min-height: 42px;
     }
     div[data-testid="stCaptionContainer"] { font-size: 13px !important; }
@@ -236,6 +263,15 @@ if all_gdf.empty:
 
 if "region" not in all_gdf.columns:
     all_gdf["region"] = "Demo Survey Area"
+
+CITY_CENTERS = {
+    "Pune, Maharashtra": (18.5204, 73.8567),
+    "Hyderabad, Telangana": (17.3850, 78.4867),
+    "Bengaluru, Karnataka": (12.9716, 77.5946),
+    "Guwahati, Assam": (26.1445, 91.7362),
+    "Mumbai, Maharashtra": (19.0760, 72.8777),
+    "Ludhiana, Punjab": (30.9010, 75.8573),
+}
 
 packet_options = all_gdf["region"].astype(str).drop_duplicates().tolist()
 if st.session_state.selected_packet not in packet_options:
@@ -862,6 +898,28 @@ with map_col:
     except Exception:
         pass
 
+    # National overview markers remain visible when the user zooms out.
+    # The selected city's parcel polygons remain the detailed survey layer.
+    overview_group = folium.FeatureGroup(name="Indian survey locations", show=True)
+    for city_name, (city_lat, city_lon) in CITY_CENTERS.items():
+        active = city_name == str(selected_packet)
+        marker_color = "#2F6F4E" if active else "#3C7D78"
+        folium.CircleMarker(
+            location=[city_lat, city_lon],
+            radius=11 if active else 8,
+            color=marker_color,
+            fill=True,
+            fill_color=marker_color,
+            fill_opacity=0.9,
+            weight=2,
+            tooltip=f"{city_name} • 25 parcels",
+            popup=folium.Popup(
+                f"<b>{html.escape(city_name)}</b><br>25 sample parcel records",
+                max_width=240,
+            ),
+        ).add_to(overview_group)
+    overview_group.add_to(m)
+
     for _, row in map_gdf.iterrows():
         parcel_id = str(row["parcel_id"])
         confidence_value = float(row["confidence"])
@@ -962,10 +1020,12 @@ with map_col:
         folium.Element(legend_html)
     )
 
+    folium.LayerControl(collapsed=False, position="topright").add_to(m)
+
     map_result = st_folium(
         m,
         use_container_width=True,
-        height=590,
+        height=620,
         returned_objects=["last_active_drawing"],
     )
 
