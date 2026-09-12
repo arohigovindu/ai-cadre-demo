@@ -68,7 +68,7 @@ st.html(
     }
 
     .stApp { background: var(--paper); color: var(--ink); }
-    .block-container { padding: 0.7rem 2rem 3rem; max-width: 1550px; }
+    .block-container { padding: 85px 2rem 3rem; max-width: 1550px; }
 
     /* Sticky navigation */
     html { scroll-behavior: smooth; }
@@ -387,12 +387,14 @@ st.html(
 
         .ai-cadre-tagline {
             color: #b9cec2 !important;
-            font-size: 9px !important;
+            font-size: 7px !important;
             font-weight: 700 !important;
-            letter-spacing: .55px !important;
+            letter-spacing: .25px !important;
             margin-top: 5px !important;
             text-transform: uppercase !important;
             white-space: nowrap !important;
+            max-width: 155px !important;
+            overflow: hidden !important;
         }
 
         .ai-cadre-nav {
