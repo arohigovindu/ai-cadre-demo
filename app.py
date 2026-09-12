@@ -37,6 +37,9 @@ if "drone_image" not in st.session_state:
 if "extraction_run" not in st.session_state:
     st.session_state.extraction_run = False
 
+if "selected_packet" not in st.session_state:
+    st.session_state.selected_packet = None
+
 
 # ============================================================
 # CUSTOM CSS
@@ -156,7 +159,39 @@ st.html(
     div[data-testid="stMetric"] { background:white; border:1px solid var(--line); padding:10px; border-radius:10px; }
     div[data-testid="stDataFrame"] { border-radius:10px; overflow:hidden; }
 
-    .footer { text-align:center; color:#89958f; font-size:12px; padding:22px 0 5px; }
+    .footer { text-align:center; color:#89958f; font-size:14px; padding:22px 0 5px; }
+    /* Larger overall typography */
+    body, .stApp { font-size:16px !important; }
+    .stMarkdown, .stMarkdown p, .stMarkdown li { font-size:16px !important; line-height:1.55 !important; }
+    div[data-testid="stCaptionContainer"], div[data-testid="stCaptionContainer"] p { font-size:14px !important; }
+    div[data-testid="stWidgetLabel"] p, div[data-testid="stWidgetLabel"] label { font-size:16px !important; }
+    button, [data-testid="stDownloadButton"] button { font-size:15px !important; min-height:44px !important; }
+    input, textarea, [data-baseweb="select"] * { font-size:16px !important; }
+    [data-testid="stDataFrame"] * { font-size:15px !important; }
+    .cadre-brand { font-size:24px; }
+    .cadre-subbrand { font-size:13px; }
+    .cadre-nav-link { font-size:14px; padding:8px 11px; }
+    .cadre-status { font-size:13px; }
+    .hero-kicker { font-size:14px; }
+    .hero-title { font-size:42px; }
+    .hero-text { font-size:18px; }
+    .hero-flow { font-size:15px; }
+    .section-title { font-size:27px; }
+    .section-subtitle { font-size:16px; }
+    .kpi-label { font-size:14px; }
+    .kpi-value { font-size:35px; }
+    .kpi-note { font-size:14px; }
+    .card-title { font-size:21px; }
+    .card-subtitle { font-size:16px; }
+    .status-pass,.status-fail,.status-warn { font-size:13px; }
+    .xai-box { font-size:16px; }
+    .xai-title { font-size:14px; }
+    .signal-label { font-size:13px; }
+    .signal-value { font-size:19px; }
+    .workflow-number { font-size:15px; }
+    .workflow-name { font-size:17px; }
+    .workflow-desc { font-size:14px; }
+    .upload-info, .extraction-status { font-size:16px; }
 
     /* Readable Streamlit controls */
     div[data-testid="stFileUploader"] label,
@@ -193,12 +228,47 @@ st.html(
 # LOAD PARCEL DATA
 # ============================================================
 
-gdf = analyze_parcels("sample_parcels.geojson")
+all_gdf = analyze_parcels("sample_parcels.geojson")
 
-if gdf.empty:
+if all_gdf.empty:
     st.error("No parcel features were found in sample_parcels.geojson.")
     st.stop()
 
+if "region" not in all_gdf.columns:
+    all_gdf["region"] = "Demo Survey Area"
+
+packet_options = all_gdf["region"].astype(str).drop_duplicates().tolist()
+if st.session_state.selected_packet not in packet_options:
+    st.session_state.selected_packet = packet_options[0]
+
+# ============================================================
+# SURVEY PACKET SELECTION
+# ============================================================
+
+st.html("""<div class="section-title">Survey Dataset</div>""")
+
+packet_col, packet_info_col = st.columns([1.15, 1])
+with packet_col:
+    selected_packet = st.selectbox(
+        "Choose survey packet",
+        packet_options,
+        index=packet_options.index(st.session_state.selected_packet),
+        key="survey_packet_selector",
+    )
+
+st.session_state.selected_packet = selected_packet
+gdf = all_gdf[all_gdf["region"].astype(str) == str(selected_packet)].copy()
+
+if st.session_state.selected_parcel not in gdf["parcel_id"].astype(str).tolist():
+    st.session_state.selected_parcel = None
+
+with packet_info_col:
+    st.html(
+        f"""<div class="upload-info" style="margin-top:28px;">
+        <b>Active packet:</b> {html.escape(str(selected_packet))}<br>
+        {len(gdf)} sample parcel records • GIS-ready demo layer
+        </div>"""
+    )
 
 # ============================================================
 # SAFE METRICS
@@ -554,7 +624,7 @@ if st.session_state.extraction_run and uploaded_image is not None:
             """
             <div class="kpi-card">
                 <div class="kpi-label">Parcels</div>
-                <div class="kpi-value">24</div>
+                <div class="kpi-value">{total_parcels}</div>
                 <div class="kpi-note">Boundary candidates</div>
             </div>
             """
@@ -565,7 +635,7 @@ if st.session_state.extraction_run and uploaded_image is not None:
             """
             <div class="kpi-card">
                 <div class="kpi-label">Buildings</div>
-                <div class="kpi-value">18</div>
+                <div class="kpi-value">{max(1, int(total_parcels * 0.72))}</div>
                 <div class="kpi-note">Footprint candidates</div>
             </div>
             """
@@ -576,7 +646,7 @@ if st.session_state.extraction_run and uploaded_image is not None:
             """
             <div class="kpi-card">
                 <div class="kpi-label">Roads / Paths</div>
-                <div class="kpi-value">7</div>
+                <div class="kpi-value">{max(2, int(total_parcels * 0.28))}</div>
                 <div class="kpi-note">Access candidates</div>
             </div>
             """
@@ -587,7 +657,7 @@ if st.session_state.extraction_run and uploaded_image is not None:
             """
             <div class="kpi-card">
                 <div class="kpi-label">Mean confidence</div>
-                <div class="kpi-value">91%</div>
+                <div class="kpi-value">{avg_confidence:.1f}%</div>
                 <div class="kpi-note">Current run</div>
             </div>
             """
@@ -760,42 +830,6 @@ with map_col:
     except Exception:
         pass
 
-    # The bundled demo GeoJSON is not located in India. For a cleaner SIH demo,
-    # move only the visual demo polygons to a compact urban area in Pune.
-    # If real GIS data is already inside India, it stays at its real location.
-    try:
-        from shapely.affinity import scale as scale_geometry, translate as translate_geometry
-
-        demo_union = map_gdf.geometry.union_all()
-        demo_center = demo_union.centroid
-        cx, cy = float(demo_center.x), float(demo_center.y)
-
-        if not (68.0 <= cx <= 98.0 and 6.0 <= cy <= 36.0):
-            bounds = map_gdf.total_bounds
-            max_dimension = max(
-                float(bounds[2] - bounds[0]),
-                float(bounds[3] - bounds[1]),
-            )
-
-            if max_dimension > 0:
-                scale_factor = 0.025 / max_dimension
-                map_gdf["geometry"] = map_gdf.geometry.apply(
-                    lambda geom: scale_geometry(
-                        geom,
-                        xfact=scale_factor,
-                        yfact=scale_factor,
-                        origin=(cx, cy),
-                    )
-                )
-
-            target_x, target_y = 73.8567, 18.5204
-            dx, dy = target_x - cx, target_y - cy
-            map_gdf["geometry"] = map_gdf.geometry.apply(
-                lambda geom: translate_geometry(geom, xoff=dx, yoff=dy)
-            )
-    except Exception:
-        pass
-
     try:
         center_geom = map_gdf.geometry.union_all()
     except Exception:
@@ -897,9 +931,9 @@ with map_col:
     folium.LayerControl().add_to(m)
 
     folium.map.Marker(
-        [18.5204, 73.8567],
+        center,
         icon=folium.DivIcon(
-            html="""<div style="font-family:Arial;font-size:13px;font-weight:700;color:#173d2d;background:white;padding:6px 9px;border:1px solid #dfe8e3;border-radius:7px;box-shadow:0 2px 7px rgba(0,0,0,.12);">Demo survey area • Pune</div>"""
+            html=f"""<div style="font-family:Arial;font-size:15px;font-weight:800;color:#173d2d;background:white;padding:7px 11px;border:1px solid #dfe8e3;border-radius:8px;box-shadow:0 2px 7px rgba(0,0,0,.12);">Demo survey area • {html.escape(str(selected_packet))}</div>"""
         ),
     ).add_to(m)
 
@@ -1332,10 +1366,11 @@ sliver_count = (
     else 0
 )
 
+current_ids = set(gdf["parcel_id"].astype(str))
 field_checks = sum(
     1
-    for value in st.session_state.parcel_decisions.values()
-    if value == "FIELD VERIFICATION"
+    for pid, value in st.session_state.parcel_decisions.items()
+    if str(pid) in current_ids and value == "FIELD VERIFICATION"
 )
 
 with q1:
@@ -1449,29 +1484,13 @@ st.html(
     """
 )
 
-accepted = sum(
-    1
-    for x in st.session_state.parcel_decisions.values()
-    if x == "ACCEPTED"
-)
+accepted = sum(1 for pid, x in st.session_state.parcel_decisions.items() if str(pid) in current_ids and x == "ACCEPTED")
 
-edited = sum(
-    1
-    for x in st.session_state.parcel_decisions.values()
-    if x == "EDIT REQUIRED"
-)
+edited = sum(1 for pid, x in st.session_state.parcel_decisions.items() if str(pid) in current_ids and x == "EDIT REQUIRED")
 
-rejected = sum(
-    1
-    for x in st.session_state.parcel_decisions.values()
-    if x == "REJECTED"
-)
+rejected = sum(1 for pid, x in st.session_state.parcel_decisions.items() if str(pid) in current_ids and x == "REJECTED")
 
-field_verification = sum(
-    1
-    for x in st.session_state.parcel_decisions.values()
-    if x == "FIELD VERIFICATION"
-)
+field_verification = sum(1 for pid, x in st.session_state.parcel_decisions.items() if str(pid) in current_ids and x == "FIELD VERIFICATION")
 
 pending = total_parcels - (
     accepted
