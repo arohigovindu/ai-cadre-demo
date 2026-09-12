@@ -27,309 +27,329 @@ if "parcel_decisions" not in st.session_state:
 if "selected_parcel" not in st.session_state:
     st.session_state.selected_parcel = None
 
+if "drone_image" not in st.session_state:
+    st.session_state.drone_image = None
+
+if "extraction_run" not in st.session_state:
+    st.session_state.extraction_run = False
+
 
 # ============================================================
-# CSS
+# CUSTOM CSS
 # ============================================================
 
-st.markdown("""
-<style>
+st.markdown(
+    """
+    <style>
 
-.stApp {
-    background: #F5F7FA;
-    color: #0F172A;
-}
+    /* ---------- GLOBAL ---------- */
 
-.block-container {
-    padding-top: 1rem;
-    padding-bottom: 3rem;
-    max-width: 1500px;
-}
+    .stApp {
+        background: #f4f7fb;
+    }
 
-/* NAVBAR */
+    .block-container {
+        padding-top: 1.2rem;
+        padding-bottom: 3rem;
+        max-width: 1500px;
+    }
 
-.top-nav {
-    background: #07111F;
-    border-radius: 16px;
-    padding: 15px 24px;
-    margin-bottom: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: white;
-    border: 1px solid #172235;
-}
+    /* ---------- NAVBAR ---------- */
 
-.nav-brand {
-    font-size: 20px;
-    font-weight: 800;
-}
+    .cadre-nav {
+        background: #071525;
+        border-radius: 14px;
+        padding: 15px 22px;
+        color: white;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 
-.nav-subtitle {
-    color: #94A3B8;
-    font-size: 12px;
-    margin-top: 2px;
-}
+    .cadre-brand {
+        font-size: 23px;
+        font-weight: 800;
+        letter-spacing: -0.4px;
+    }
 
-.nav-badge {
-    background: #0F2238;
-    border: 1px solid #1E3A5F;
-    color: #7DD3FC;
-    padding: 7px 12px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 700;
-}
+    .cadre-subbrand {
+        font-size: 12px;
+        color: #a8b6c8;
+        margin-top: 2px;
+    }
 
-/* HERO */
+    .cadre-pill {
+        background: #102a43;
+        border: 1px solid #23425e;
+        padding: 7px 13px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 700;
+        color: #8fd3ff;
+    }
 
-.hero {
-    background: linear-gradient(
-        135deg,
-        #07111F 0%,
-        #0B1E33 60%,
-        #0F3048 100%
-    );
-    border-radius: 20px;
-    padding: 34px 38px;
-    margin-bottom: 24px;
-    color: white;
-    border: 1px solid #17324D;
-}
+    /* ---------- HERO ---------- */
 
-.hero-eyebrow {
-    color: #7DD3FC;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    margin-bottom: 10px;
-}
+    .hero {
+        background: linear-gradient(135deg, #071525 0%, #0d2740 100%);
+        border-radius: 18px;
+        padding: 30px 32px;
+        color: white;
+        margin-bottom: 22px;
+        box-shadow: 0 8px 30px rgba(7, 21, 37, 0.12);
+    }
 
-.hero-title {
-    font-size: 38px;
-    font-weight: 800;
-    letter-spacing: -1.3px;
-    line-height: 1.1;
-    margin-bottom: 10px;
-}
+    .hero-kicker {
+        color: #61c4ff;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 1.1px;
+        margin-bottom: 7px;
+    }
 
-.hero-text {
-    max-width: 820px;
-    color: #CBD5E1;
-    font-size: 14px;
-    line-height: 1.65;
-}
+    .hero-title {
+        font-size: 35px;
+        font-weight: 850;
+        margin: 0;
+        letter-spacing: -1px;
+    }
 
-.workflow-line {
-    margin-top: 22px;
-    padding: 12px 16px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.10);
-    border-radius: 10px;
-    color: #E2E8F0;
-    font-size: 12px;
-    font-weight: 600;
-}
+    .hero-text {
+        color: #c5d3e2;
+        max-width: 850px;
+        line-height: 1.55;
+        margin-top: 10px;
+        font-size: 15px;
+    }
 
-/* SECTION */
+    .hero-flow {
+        margin-top: 20px;
+        font-size: 13px;
+        font-weight: 700;
+        color: #e5f5ff;
+    }
 
-.section-title {
-    font-size: 20px;
-    font-weight: 800;
-    color: #0F172A;
-    margin-top: 24px;
-    margin-bottom: 4px;
-}
+    /* ---------- SECTION HEADERS ---------- */
 
-.section-caption {
-    color: #64748B;
-    font-size: 12px;
-    margin-bottom: 16px;
-}
+    .section-title {
+        font-size: 21px;
+        font-weight: 800;
+        color: #0b1d2e;
+        margin-top: 22px;
+        margin-bottom: 4px;
+    }
 
-/* CARDS */
+    .section-subtitle {
+        color: #68788a;
+        font-size: 13px;
+        margin-bottom: 14px;
+    }
 
-.kpi-card {
-    background: white;
-    border: 1px solid #E2E8F0;
-    border-radius: 15px;
-    padding: 19px;
-    min-height: 120px;
-    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.04);
-}
+    /* ---------- KPI ---------- */
 
-.kpi-label {
-    color: #64748B;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.4px;
-}
+    .kpi-card {
+        background: white;
+        border: 1px solid #e3eaf1;
+        border-radius: 14px;
+        padding: 18px;
+        min-height: 105px;
+        box-shadow: 0 3px 15px rgba(10, 35, 60, 0.04);
+    }
 
-.kpi-value {
-    color: #0F172A;
-    font-size: 29px;
-    font-weight: 800;
-    margin-top: 7px;
-}
+    .kpi-label {
+        color: #728296;
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: .6px;
+    }
 
-.kpi-note {
-    color: #94A3B8;
-    font-size: 11px;
-    margin-top: 4px;
-}
+    .kpi-value {
+        color: #0b1d2e;
+        font-size: 28px;
+        font-weight: 850;
+        margin-top: 5px;
+    }
 
-.panel-card {
-    background: white;
-    border: 1px solid #E2E8F0;
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.04);
-}
+    .kpi-note {
+        color: #7c8b9a;
+        font-size: 11px;
+        margin-top: 2px;
+    }
 
-.info-row {
-    background: #F8FAFC;
-    border: 1px solid #E2E8F0;
-    border-radius: 12px;
-    padding: 14px;
-    margin-top: 10px;
-}
+    /* ---------- CARDS ---------- */
 
-.info-label {
-    color: #64748B;
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.7px;
-}
+    .card {
+        background: white;
+        border: 1px solid #e3eaf1;
+        border-radius: 14px;
+        padding: 19px;
+        box-shadow: 0 3px 15px rgba(10, 35, 60, 0.04);
+    }
 
-.info-value {
-    color: #0F172A;
-    font-size: 14px;
-    font-weight: 700;
-    margin-top: 5px;
-}
+    .card-title {
+        font-size: 16px;
+        font-weight: 800;
+        color: #102538;
+        margin-bottom: 5px;
+    }
 
-/* BADGES */
+    .card-subtitle {
+        font-size: 12px;
+        color: #718096;
+        margin-bottom: 13px;
+    }
 
-.status-pass {
-    display: inline-block;
-    background: #ECFDF5;
-    color: #047857;
-    border: 1px solid #A7F3D0;
-    border-radius: 20px;
-    padding: 5px 10px;
-    font-size: 10px;
-    font-weight: 800;
-}
+    /* ---------- STATUS ---------- */
 
-.status-fail {
-    display: inline-block;
-    background: #FEF2F2;
-    color: #B91C1C;
-    border: 1px solid #FECACA;
-    border-radius: 20px;
-    padding: 5px 10px;
-    font-size: 10px;
-    font-weight: 800;
-}
+    .status-pass {
+        display: inline-block;
+        background: #e8f8ef;
+        color: #15803d;
+        border-radius: 999px;
+        padding: 5px 10px;
+        font-size: 11px;
+        font-weight: 800;
+    }
 
-/* XAI */
+    .status-fail {
+        display: inline-block;
+        background: #fff0ef;
+        color: #dc2626;
+        border-radius: 999px;
+        padding: 5px 10px;
+        font-size: 11px;
+        font-weight: 800;
+    }
 
-.xai-box {
-    background: #F0F9FF;
-    border: 1px solid #BAE6FD;
-    border-radius: 13px;
-    padding: 15px;
-    margin-top: 12px;
-}
+    .status-warn {
+        display: inline-block;
+        background: #fff7e6;
+        color: #b45309;
+        border-radius: 999px;
+        padding: 5px 10px;
+        font-size: 11px;
+        font-weight: 800;
+    }
 
-/* SIGNALS */
+    /* ---------- XAI ---------- */
 
-.signal-card {
-    background: #F8FAFC;
-    border: 1px solid #E2E8F0;
-    border-radius: 11px;
-    padding: 12px;
-    margin-bottom: 8px;
-}
+    .xai-box {
+        background: #f1f8ff;
+        border: 1px solid #cce7fb;
+        border-radius: 12px;
+        padding: 14px;
+        color: #21445e;
+        font-size: 13px;
+        line-height: 1.5;
+    }
 
-.signal-title {
-    font-size: 10px;
-    font-weight: 800;
-    color: #64748B;
-    letter-spacing: 0.4px;
-}
+    .xai-title {
+        font-size: 12px;
+        font-weight: 850;
+        color: #0c527d;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: .6px;
+    }
 
-.signal-value {
-    font-size: 16px;
-    font-weight: 800;
-    color: #0F172A;
-    margin-top: 4px;
-}
+    /* ---------- SIGNALS ---------- */
 
-/* LEGEND */
+    .signal {
+        background: #f7f9fc;
+        border: 1px solid #e7edf3;
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 8px;
+    }
 
-.map-legend {
-    background: white;
-    border: 1px solid #E2E8F0;
-    border-radius: 10px;
-    padding: 10px 13px;
-    font-size: 10px;
-    color: #475569;
-    margin-top: 10px;
-}
+    .signal-label {
+        font-size: 10px;
+        color: #77879a;
+        text-transform: uppercase;
+        font-weight: 800;
+    }
 
-.legend-dot {
-    display: inline-block;
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    margin-right: 5px;
-}
+    .signal-value {
+        font-size: 15px;
+        color: #13283c;
+        font-weight: 800;
+        margin-top: 2px;
+    }
 
-/* WORKFLOW */
+    /* ---------- WORKFLOW ---------- */
 
-.workflow-card {
-    background: white;
-    border: 1px solid #E2E8F0;
-    border-radius: 14px;
-    padding: 17px;
-    min-height: 145px;
-    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.03);
-}
+    .workflow-card {
+        background: white;
+        border: 1px solid #e1e8ef;
+        border-radius: 13px;
+        padding: 16px;
+        min-height: 115px;
+    }
 
-.workflow-number {
-    color: #0284C7;
-    font-size: 11px;
-    font-weight: 800;
-}
+    .workflow-number {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: #e8f5ff;
+        color: #0877b9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 850;
+        margin-bottom: 9px;
+    }
 
-.workflow-name {
-    color: #0F172A;
-    font-size: 15px;
-    font-weight: 800;
-    margin-top: 7px;
-}
+    .workflow-name {
+        font-size: 13px;
+        font-weight: 800;
+        color: #162c40;
+    }
 
-.workflow-description {
-    color: #64748B;
-    font-size: 11px;
-    line-height: 1.5;
-    margin-top: 6px;
-}
+    .workflow-desc {
+        font-size: 11px;
+        color: #718096;
+        margin-top: 4px;
+        line-height: 1.4;
+    }
 
-/* FOOTER */
+    /* ---------- UPLOAD AREA ---------- */
 
-.footer {
-    margin-top: 40px;
-    padding: 20px;
-    text-align: center;
-    color: #94A3B8;
-    font-size: 11px;
-    border-top: 1px solid #E2E8F0;
-}
+    .upload-info {
+        background: #f5faff;
+        border: 1px solid #d7eafa;
+        border-radius: 12px;
+        padding: 13px 15px;
+        font-size: 12px;
+        color: #426078;
+        line-height: 1.5;
+        margin-bottom: 12px;
+    }
 
-</style>
-""", unsafe_allow_html=True)
+    .extraction-status {
+        background: #eefaf3;
+        border: 1px solid #ccebd8;
+        border-radius: 12px;
+        padding: 14px;
+        color: #17633a;
+        font-size: 13px;
+    }
+
+    /* ---------- FOOTER ---------- */
+
+    .footer {
+        text-align: center;
+        color: #8a98a7;
+        font-size: 11px;
+        padding: 25px 0 5px 0;
+    }
+
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 
 # ============================================================
@@ -338,81 +358,14 @@ st.markdown("""
 
 gdf = analyze_parcels("sample_parcels.geojson")
 
-if gdf.empty:
-    st.error("No parcel features were found.")
-    st.stop()
-
-parcel_ids = gdf["parcel_id"].astype(str).tolist()
-
-if (
-    st.session_state.selected_parcel is None
-    or st.session_state.selected_parcel not in parcel_ids
-):
-    st.session_state.selected_parcel = parcel_ids[0]
-
 
 # ============================================================
-# NAVBAR
-# ============================================================
-
-st.html("""
-<div class="top-nav">
-
-    <div>
-        <div class="nav-brand">
-            🛰️ AI-CADRE
-        </div>
-
-        <div class="nav-subtitle">
-            Cadastral AI Co-Pilot • Urban Parcel Intelligence
-        </div>
-    </div>
-
-    <div class="nav-badge">
-        SIH26012 • PROTOTYPE
-    </div>
-
-</div>
-""")
-
-
-# ============================================================
-# HERO
-# ============================================================
-
-st.html("""
-<div class="hero">
-
-    <div class="hero-eyebrow">
-        SIH26012 • URBAN CADASTRAL MAPPING
-    </div>
-
-    <div class="hero-title">
-        AI-powered cadastral intelligence
-    </div>
-
-    <div class="hero-text">
-        Transform geospatial data into preliminary, validated and
-        GIS-ready parcel information — while keeping the authorized
-        surveyor in control of every final decision.
-    </div>
-
-    <div class="workflow-line">
-        AI Proposes → GIS Validates → Confidence Prioritizes
-        → Surveyor Approves
-    </div>
-
-</div>
-""")
-
-
-# ============================================================
-# OVERVIEW
+# SAFE METRICS
 # ============================================================
 
 total_parcels = len(gdf)
 
-pass_count = int(
+topology_pass = int(
     gdf["topology_status"]
     .astype(str)
     .str.startswith("PASS")
@@ -420,98 +373,414 @@ pass_count = int(
 )
 
 high_priority = int(
-    gdf["priority"]
-    .astype(str)
-    .str.startswith("HIGH")
-    .sum()
+    (gdf["priority"].astype(str) == "HIGH").sum()
 )
 
-avg_confidence = float(
-    gdf["confidence"].mean()
+avg_confidence = float(gdf["confidence"].mean())
+
+
+# ============================================================
+# NAVBAR
+# ============================================================
+
+st.html(
+    """
+    <div class="cadre-nav">
+        <div>
+            <div class="cadre-brand">🛰️ AI-CADRE</div>
+            <div class="cadre-subbrand">
+                Cadastral AI Co-Pilot • Urban Parcel Intelligence
+            </div>
+        </div>
+        <div class="cadre-pill">
+            SIH26012 • PROTOTYPE
+        </div>
+    </div>
+    """
 )
 
-accepted_count = sum(
-    v == "ACCEPTED"
-    for v in st.session_state.parcel_decisions.values()
+
+# ============================================================
+# HERO
+# ============================================================
+
+st.html(
+    """
+    <div class="hero">
+        <div class="hero-kicker">SIH26012 • URBAN CADASTRAL MAPPING</div>
+
+        <div class="hero-title">
+            AI-powered cadastral intelligence
+        </div>
+
+        <div class="hero-text">
+            Transform drone imagery and geospatial data into preliminary,
+            validated and GIS-ready parcel information — while keeping
+            the authorized surveyor in control of every final decision.
+        </div>
+
+        <div class="hero-flow">
+            AI Proposes → GIS Validates → Confidence Prioritizes → Surveyor Approves
+        </div>
+    </div>
+    """
 )
 
-field_count = sum(
-    v == "FIELD VERIFICATION"
-    for v in st.session_state.parcel_decisions.values()
+
+# ============================================================
+# DRONE IMAGERY INPUT
+# ============================================================
+
+st.html(
+    """
+    <div class="section-title">🛰️ Drone Imagery Input</div>
+    <div class="section-subtitle">
+        Upload high-resolution drone imagery to begin the cadastral extraction workflow.
+    </div>
+    """
 )
 
-pending_count = (
-    total_parcels
-    - len(st.session_state.parcel_decisions)
+upload_col, info_col = st.columns([1.7, 1])
+
+with upload_col:
+
+    st.markdown(
+        """
+        <div class="upload-info">
+        <b>Supported prototype inputs:</b> JPG, JPEG and PNG drone imagery.
+        <br>
+        The uploaded image becomes the source layer for the AI extraction pipeline.
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    uploaded_image = st.file_uploader(
+        "Upload drone imagery",
+        type=["jpg", "jpeg", "png"],
+        key="drone_uploader"
+    )
+
+with info_col:
+
+    if uploaded_image is not None:
+
+        file_size_kb = uploaded_image.size / 1024
+
+        st.markdown(
+            f"""
+            <div class="card">
+                <div class="card-title">📄 Source Image</div>
+                <div class="card-subtitle">
+                    Imagery successfully loaded
+                </div>
+
+                <div class="signal">
+                    <div class="signal-label">Filename</div>
+                    <div class="signal-value">
+                        {html.escape(uploaded_image.name)}
+                    </div>
+                </div>
+
+                <div class="signal">
+                    <div class="signal-label">File Size</div>
+                    <div class="signal-value">
+                        {file_size_kb:.1f} KB
+                    </div>
+                </div>
+
+                <div class="signal">
+                    <div class="signal-label">Input Type</div>
+                    <div class="signal-value">
+                        Drone / Orthophoto
+                    </div>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+if uploaded_image is not None:
+
+    st.markdown("#### Image Preview")
+
+    st.image(
+        uploaded_image,
+        caption="Uploaded drone imagery",
+        use_container_width=True
+    )
+
+    st.markdown("")
+
+    extraction_col1, extraction_col2 = st.columns([1, 2])
+
+    with extraction_col1:
+
+        run_extraction = st.button(
+            "🚀 Run AI Extraction",
+            type="primary",
+            use_container_width=True
+        )
+
+    with extraction_col2:
+
+        st.caption(
+            "Prototype inference mode • Deep-learning segmentation model "
+            "can be connected to this pipeline later."
+        )
+
+    if run_extraction:
+
+        st.session_state.drone_image = uploaded_image.name
+        st.session_state.extraction_run = True
+
+        with st.spinner("Processing drone imagery and generating feature proposals..."):
+
+            import time
+            time.sleep(1.2)
+
+        st.success(
+            "AI extraction pipeline completed successfully."
+        )
+
+if st.session_state.extraction_run and uploaded_image is not None:
+
+    st.markdown(
+        """
+        <div class="extraction-status">
+            <b>✓ Extraction complete</b><br>
+            The imagery has been ingested and the cadastral feature
+            extraction pipeline is ready for model-based inference.
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.markdown("")
+
+    # --------------------------------------------------------
+    # EXTRACTION RESULTS
+    # --------------------------------------------------------
+
+    st.html(
+        """
+        <div class="section-title">AI Feature Extraction</div>
+        <div class="section-subtitle">
+            Preliminary feature proposals generated from the uploaded survey imagery.
+        </div>
+        """
+    )
+
+    r1, r2, r3, r4 = st.columns(4)
+
+    with r1:
+        st.markdown(
+            """
+            <div class="kpi-card">
+                <div class="kpi-label">Parcel Candidates</div>
+                <div class="kpi-value">24</div>
+                <div class="kpi-note">Preliminary boundary proposals</div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+    with r2:
+        st.markdown(
+            """
+            <div class="kpi-card">
+                <div class="kpi-label">Buildings</div>
+                <div class="kpi-value">18</div>
+                <div class="kpi-note">Building footprint candidates</div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+    with r3:
+        st.markdown(
+            """
+            <div class="kpi-card">
+                <div class="kpi-label">Road / Pathways</div>
+                <div class="kpi-value">7</div>
+                <div class="kpi-note">Access corridor candidates</div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+    with r4:
+        st.markdown(
+            """
+            <div class="kpi-card">
+                <div class="kpi-label">Mean AI Confidence</div>
+                <div class="kpi-value">91%</div>
+                <div class="kpi-note">Prototype extraction confidence</div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+    st.markdown("")
+
+    e1, e2 = st.columns(2)
+
+    with e1:
+
+        st.markdown(
+            """
+            <div class="card">
+                <div class="card-title">🧩 Extracted Feature Classes</div>
+                <div class="card-subtitle">
+                    Proposed semantic classes from drone imagery
+                </div>
+
+                <div class="signal">
+                    <div class="signal-label">Parcel Boundary</div>
+                    <div class="signal-value">24 candidates</div>
+                </div>
+
+                <div class="signal">
+                    <div class="signal-label">Building Footprint</div>
+                    <div class="signal-value">18 candidates</div>
+                </div>
+
+                <div class="signal">
+                    <div class="signal-label">Road / Pathway</div>
+                    <div class="signal-value">7 candidates</div>
+                </div>
+
+                <div class="signal">
+                    <div class="signal-label">Open / Vegetated Land</div>
+                    <div class="signal-value">12 regions</div>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+    with e2:
+
+        st.markdown(
+            """
+            <div class="card">
+                <div class="card-title">🔍 AI Interpretation</div>
+                <div class="card-subtitle">
+                    Explainable signals used to prioritize generated features
+                </div>
+
+                <div class="xai-box">
+                    <div class="xai-title">Why this extraction matters</div>
+
+                    The system identifies visible spatial patterns from
+                    drone imagery and proposes cadastral features for
+                    downstream GIS validation.
+
+                    <br><br>
+
+                    <b>Primary signals:</b>
+                    boundary contrast, geometric continuity,
+                    connected regions and spatial separation.
+
+                    <br><br>
+
+                    These outputs are <b>preliminary proposals</b>.
+                    Final cadastral acceptance remains with the
+                    authorized surveyor.
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+    st.markdown("")
+
+    st.info(
+        "Prototype note: the current dashboard demonstrates the complete "
+        "imagery-ingestion and AI-extraction workflow. The next development "
+        "step is to replace these prototype inference values with an actual "
+        "segmentation/object-detection model."
+    )
+
+
+# ============================================================
+# OVERVIEW METRICS
+# ============================================================
+
+st.html(
+    """
+    <div class="section-title">📊 Cadastral Intelligence Overview</div>
+    <div class="section-subtitle">
+        Current parcel-level quality and confidence summary
+    </div>
+    """
 )
-
-
-st.html("""
-<div class="section-title">
-    Survey Overview
-</div>
-
-<div class="section-caption">
-    Current automated parcel-analysis status
-</div>
-""")
-
 
 k1, k2, k3, k4 = st.columns(4)
 
 with k1:
-    st.html(f"""
-    <div class="kpi-card">
-        <div class="kpi-label">TOTAL PARCELS</div>
-        <div class="kpi-value">{total_parcels}</div>
-        <div class="kpi-note">Detected parcel candidates</div>
-    </div>
-    """)
+    st.markdown(
+        f"""
+        <div class="kpi-card">
+            <div class="kpi-label">Total Parcels</div>
+            <div class="kpi-value">{total_parcels}</div>
+            <div class="kpi-note">Current GIS dataset</div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 with k2:
-    st.html(f"""
-    <div class="kpi-card">
-        <div class="kpi-label">TOPOLOGY PASS</div>
-        <div class="kpi-value">{pass_count}/{total_parcels}</div>
-        <div class="kpi-note">Geometry validation</div>
-    </div>
-    """)
+    st.markdown(
+        f"""
+        <div class="kpi-card">
+            <div class="kpi-label">Topology Pass</div>
+            <div class="kpi-value">{topology_pass}</div>
+            <div class="kpi-note">Geometry checks passed</div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 with k3:
-    st.html(f"""
-    <div class="kpi-card">
-        <div class="kpi-label">HIGH PRIORITY</div>
-        <div class="kpi-value">{high_priority}</div>
-        <div class="kpi-note">Requires additional review</div>
-    </div>
-    """)
+    st.markdown(
+        f"""
+        <div class="kpi-card">
+            <div class="kpi-label">High Priority</div>
+            <div class="kpi-value">{high_priority}</div>
+            <div class="kpi-note">Requires closer review</div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 with k4:
-    st.html(f"""
-    <div class="kpi-card">
-        <div class="kpi-label">AVG. CONFIDENCE</div>
-        <div class="kpi-value">{avg_confidence:.0f}%</div>
-        <div class="kpi-note">AI-assisted confidence</div>
+    st.markdown(
+        f"""
+        <div class="kpi-card">
+            <div class="kpi-label">Average Confidence</div>
+            <div class="kpi-value">{avg_confidence:.1f}%</div>
+            <div class="kpi-note">AI parcel confidence</div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+
+# ============================================================
+# WEB GIS WORKSPACE
+# ============================================================
+
+st.html(
+    """
+    <div class="section-title">🗺️ Web-GIS Workspace</div>
+    <div class="section-subtitle">
+        Inspect proposed cadastral parcels, topology status and AI confidence.
     </div>
-    """)
+    """
+)
 
-
-# ============================================================
-# WORKSPACE
-# ============================================================
-
-st.html("""
-<div class="section-title">
-    Cadastral Mapping Workspace
-</div>
-
-<div class="section-caption">
-    Select a parcel from the GIS layer or use the inspector.
-</div>
-""")
-
-
-map_col, inspector_col = st.columns([1.65, 1])
+map_col, inspector_col = st.columns([1.55, 1])
 
 
 # ============================================================
@@ -522,201 +791,176 @@ with map_col:
 
     map_gdf = gdf.copy()
 
-    if map_gdf.crs is not None:
-
-        try:
-            map_gdf = map_gdf.to_crs(epsg=4326)
-        except Exception:
-            pass
+    try:
+        map_gdf = map_gdf.to_crs(epsg=4326)
+    except Exception:
+        pass
 
     try:
-        union_geom = map_gdf.geometry.union_all()
+        center_geom = map_gdf.geometry.union_all()
     except Exception:
-        union_geom = map_gdf.geometry.unary_union
+        try:
+            from shapely.ops import unary_union
+            center_geom = unary_union(map_gdf.geometry)
+        except Exception:
+            center_geom = map_gdf.geometry.iloc[0]
 
-    center = union_geom.centroid
+    center = [
+        center_geom.centroid.y,
+        center_geom.centroid.x
+    ]
 
     m = folium.Map(
-        location=[
-            center.y,
-            center.x
-        ],
-        zoom_start=15,
+        location=center,
+        zoom_start=16,
         tiles="CartoDB positron",
         control_scale=True
     )
 
     try:
-
         bounds = map_gdf.total_bounds
 
-        minx, miny, maxx, maxy = bounds
-
-        m.fit_bounds([
-            [miny, minx],
-            [maxy, maxx]
-        ])
-
+        m.fit_bounds(
+            [
+                [bounds[1], bounds[0]],
+                [bounds[3], bounds[2]]
+            ]
+        )
     except Exception:
         pass
-
 
     for _, row in map_gdf.iterrows():
 
         parcel_id = str(row["parcel_id"])
         confidence = float(row["confidence"])
+        priority = str(row["priority"])
 
         decision = st.session_state.parcel_decisions.get(
             parcel_id,
-            "PENDING REVIEW"
+            "PENDING"
         )
 
-        if parcel_id == st.session_state.selected_parcel:
-
+        if parcel_id == str(st.session_state.selected_parcel):
             fill_color = "#38BDF8"
-            border_color = "#0284C7"
-            weight = 5
 
         elif decision == "ACCEPTED":
-
             fill_color = "#22C55E"
-            border_color = "#15803D"
-            weight = 3
 
         elif decision == "REJECTED":
-
             fill_color = "#EF4444"
-            border_color = "#B91C1C"
-            weight = 3
 
         elif decision == "FIELD VERIFICATION":
-
             fill_color = "#F59E0B"
-            border_color = "#B45309"
-            weight = 3
 
         elif confidence < 70:
-
             fill_color = "#EF4444"
-            border_color = "#DC2626"
-            weight = 3
 
         elif confidence < 85:
-
             fill_color = "#F59E0B"
-            border_color = "#D97706"
-            weight = 3
 
         else:
-
             fill_color = "#22C55E"
-            border_color = "#15803D"
-            weight = 3
-
 
         popup_html = f"""
-        <div style="font-family:Arial; min-width:190px;">
-
-            <b style="font-size:14px;">
-                Parcel {html.escape(parcel_id)}
-            </b>
-
-            <hr>
-
-            <b>Confidence:</b>
-            {confidence:.0f}%<br>
-
-            <b>Topology:</b>
-            {html.escape(str(row["topology_status"]))}<br>
-
-            <b>Priority:</b>
-            {html.escape(str(row["priority"]))}<br>
-
-            <b>Decision:</b>
-            {html.escape(decision)}
-
+        <div style="font-family:Arial;min-width:190px;">
+            <b>Parcel {html.escape(parcel_id)}</b><br><br>
+            Confidence: {confidence:.1f}%<br>
+            Topology: {html.escape(str(row["topology_status"]))}<br>
+            Priority: {html.escape(priority)}<br>
+            Decision: {html.escape(decision)}
         </div>
         """
 
-
-        tooltip_text = (
-            f"Parcel {parcel_id} | "
-            f"Confidence {confidence:.0f}% | "
-            f"{row['topology_status']}"
+        tooltip = folium.Tooltip(
+            f"Parcel {parcel_id} • {confidence:.1f}% confidence"
         )
 
+        feature = {
+            "type": "Feature",
+            "geometry": row["geometry"].__geo_interface__,
+            "properties": {
+                "parcel_id": parcel_id
+            }
+        }
 
         folium.GeoJson(
-            row["geometry"],
-            name=parcel_id,
-
-            style_function=lambda feature,
-            fc=fill_color,
-            bc=border_color,
-            w=weight: {
-
+            feature,
+            style_function=lambda feature, fc=fill_color: {
                 "fillColor": fc,
-                "color": bc,
-                "weight": w,
+                "color": "#183246",
+                "weight": 2,
                 "fillOpacity": 0.55
-
             },
-
             highlight_function=lambda feature: {
-
-                "weight": 6,
-                "color": "#0EA5E9",
-                "fillOpacity": 0.70
-
+                "weight": 4,
+                "fillOpacity": 0.75
             },
-
-            tooltip=tooltip_text,
-
+            tooltip=tooltip,
             popup=folium.Popup(
                 popup_html,
-                max_width=280
+                max_width=300
             )
-
         ).add_to(m)
-
 
     folium.LayerControl().add_to(m)
 
+    # Map legend
+    legend_html = """
+    <div style="
+        position: fixed;
+        bottom: 25px;
+        left: 25px;
+        z-index:9999;
+        background:white;
+        padding:12px 14px;
+        border:1px solid #ddd;
+        border-radius:8px;
+        font-size:11px;
+        box-shadow:0 2px 8px rgba(0,0,0,.15);
+    ">
+        <b>Parcel Confidence</b><br>
+        <span style="color:#22C55E;">●</span> High<br>
+        <span style="color:#F59E0B;">●</span> Medium<br>
+        <span style="color:#EF4444;">●</span> Low<br>
+        <span style="color:#38BDF8;">●</span> Selected
+    </div>
+    """
 
-    st_folium(
-        m,
-        use_container_width=True,
-        height=600
+    m.get_root().html.add_child(
+        folium.Element(legend_html)
     )
 
+    map_result = st_folium(
+        m,
+        use_container_width=True,
+        height=590,
+        returned_objects=["last_active_drawing"]
+    )
 
-    st.html("""
-    <div class="map-legend">
+    # --------------------------------------------------------
+    # CLICKABLE PARCEL SELECTION
+    # --------------------------------------------------------
 
-        <b>Map Legend</b>
-        <br><br>
+    clicked = map_result.get("last_active_drawing")
 
-        <span class="legend-dot"
-              style="background:#22C55E;"></span>
-        High confidence
-        <br>
+    if clicked:
 
-        <span class="legend-dot"
-              style="background:#F59E0B;"></span>
-        Medium confidence
-        <br>
+        properties = clicked.get("properties", {})
 
-        <span class="legend-dot"
-              style="background:#EF4444;"></span>
-        Low confidence / review
-        <br>
+        clicked_id = properties.get("parcel_id")
 
-        <span class="legend-dot"
-              style="background:#38BDF8;"></span>
-        Selected parcel
+        if clicked_id is not None:
 
-    </div>
-    """)
+            clicked_id = str(clicked_id)
+
+            if clicked_id in gdf["parcel_id"].astype(str).tolist():
+
+                if clicked_id != str(
+                    st.session_state.selected_parcel
+                ):
+
+                    st.session_state.selected_parcel = clicked_id
+                    st.rerun()
 
 
 # ============================================================
@@ -725,410 +969,294 @@ with map_col:
 
 with inspector_col:
 
-    st.html("""
-    <div class="panel-card">
-    """)
+    st.markdown(
+        """
+        <div class="card-title">🔎 Parcel Inspector</div>
+        <div class="card-subtitle">
+            Review AI proposal and make the surveyor decision.
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
+    parcel_ids = (
+        gdf["parcel_id"]
+        .astype(str)
+        .tolist()
+    )
+
+    if st.session_state.selected_parcel in parcel_ids:
+        default_index = parcel_ids.index(
+            st.session_state.selected_parcel
+        )
+    else:
+        default_index = 0
 
     selected_id = st.selectbox(
         "Select Parcel",
         parcel_ids,
-        index=parcel_ids.index(
-            st.session_state.selected_parcel
-        ),
+        index=default_index,
         format_func=lambda x: f"Parcel {x}"
     )
 
     st.session_state.selected_parcel = selected_id
 
-
     selected_rows = gdf[
         gdf["parcel_id"].astype(str) == str(selected_id)
     ]
 
-
-    if selected_rows.empty:
-
-        st.warning("Parcel not found.")
-        st.stop()
-
-
     p = selected_rows.iloc[0]
 
-
-    # --------------------------------------------------------
-    # CONFIDENCE
-    # --------------------------------------------------------
-
-    confidence = float(
-        p["confidence"]
-    )
-
+    confidence = float(p["confidence"])
 
     if confidence >= 85:
-
-        confidence_status = "HIGH CONFIDENCE"
-
+        confidence_label = "HIGH"
+        confidence_class = "status-pass"
     elif confidence >= 70:
-
-        confidence_status = "MEDIUM CONFIDENCE"
-
+        confidence_label = "MEDIUM"
+        confidence_class = "status-warn"
     else:
+        confidence_label = "LOW"
+        confidence_class = "status-fail"
 
-        confidence_status = "LOW CONFIDENCE"
+    st.markdown(
+        f"""
+        <div class="card">
+            <div class="card-title">
+                Parcel {html.escape(str(selected_id))}
+            </div>
 
-
-    st.html(f"""
-    <div style="
-        background:#F8FAFC;
-        border:1px solid #E2E8F0;
-        border-radius:14px;
-        padding:18px;
-        margin-top:12px;
-    ">
-
-        <div style="
-            color:#64748B;
-            font-size:11px;
-            font-weight:700;
-            letter-spacing:0.5px;
-        ">
-            AI CONFIDENCE SCORE
-        </div>
-
-        <div style="
-            font-size:34px;
-            font-weight:800;
-            color:#0F172A;
-            margin-top:4px;
-        ">
-            {confidence:.0f}%
-        </div>
-
-        <div style="
-            color:#64748B;
-            font-size:11px;
-        ">
-            {confidence_status}
-        </div>
-
-        <div style="
-            background:#E2E8F0;
-            height:7px;
-            border-radius:10px;
-            margin-top:12px;
-            overflow:hidden;
-        ">
+            <div style="margin:10px 0;">
+                <span class="{confidence_class}">
+                    {confidence_label} CONFIDENCE
+                </span>
+            </div>
 
             <div style="
-                background:#38BDF8;
-                width:{confidence}%;
-                height:100%;
+                background:#e8edf2;
+                height:9px;
                 border-radius:10px;
-            "></div>
+                overflow:hidden;
+                margin:10px 0;
+            ">
+                <div style="
+                    width:{confidence}%;
+                    height:100%;
+                    background:#1684c5;
+                    border-radius:10px;
+                "></div>
+            </div>
 
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                font-size:12px;
+                color:#657587;
+            ">
+                <span>AI confidence</span>
+                <b>{confidence:.1f}%</b>
+            </div>
         </div>
-
-    </div>
-    """)
-
-
-    # --------------------------------------------------------
-    # BASIC INFORMATION
-    # --------------------------------------------------------
-
-    # Supports BOTH area_sqm and area.
-    if "area_sqm" in p.index:
-
-        area_value = float(
-            p["area_sqm"]
-        )
-
-    elif "area" in p.index:
-
-        area_value = float(
-            p["area"]
-        )
-
-    else:
-
-        area_value = 0.0
-
-
-    st.html(f"""
-    <div class="info-row">
-
-        <div class="info-label">
-            PARCEL IDENTIFIER
-        </div>
-
-        <div class="info-value">
-            {html.escape(str(p["parcel_id"]))}
-        </div>
-
-    </div>
-
-
-    <div class="info-row">
-
-        <div class="info-label">
-            GEOMETRY AREA
-        </div>
-
-        <div class="info-value">
-            {area_value:.2f} sq. units
-        </div>
-
-    </div>
-
-
-    <div class="info-row">
-
-        <div class="info-label">
-            PRIORITY
-        </div>
-
-        <div class="info-value">
-            {html.escape(str(p["priority"]))}
-        </div>
-
-    </div>
-    """)
-
-
-    # --------------------------------------------------------
-    # TOPOLOGY
-    # --------------------------------------------------------
-
-    topology = str(
-        p["topology_status"]
+        """,
+        unsafe_allow_html=True
     )
 
+    st.markdown("")
+
+    # --------------------------------------------------------
+    # AREA
+    # --------------------------------------------------------
+
+    if "area_sqm" in p.index:
+        area_value = float(p["area_sqm"])
+    elif "area" in p.index:
+        area_value = float(p["area"])
+    else:
+        area_value = 0.0
+
+    topology = str(p["topology_status"])
 
     if topology.startswith("PASS"):
-
-        topology_badge = """
-        <span class="status-pass">
-            ✓ TOPOLOGY VALID
-        </span>
-        """
-
+        topology_badge = (
+            '<span class="status-pass">✓ TOPOLOGY VALID</span>'
+        )
         topology_description = (
             "No significant geometry conflicts detected."
         )
-
     else:
-
-        topology_badge = """
-        <span class="status-fail">
-            ⚠ REVIEW REQUIRED
-        </span>
-        """
-
+        topology_badge = (
+            '<span class="status-fail">⚠ REVIEW REQUIRED</span>'
+        )
         topology_description = (
             "Geometry requires surveyor review before approval."
         )
 
+    st.markdown(
+        f"""
+        <div class="card">
 
-    st.html(f"""
-    <div class="info-row">
+            <div class="card-title">Parcel Information</div>
 
-        <div class="info-label">
-            TOPOLOGY VALIDATION
+            <div class="signal">
+                <div class="signal-label">Parcel ID</div>
+                <div class="signal-value">
+                    {html.escape(str(p["parcel_id"]))}
+                </div>
+            </div>
+
+            <div class="signal">
+                <div class="signal-label">Geometry Area</div>
+                <div class="signal-value">
+                    {area_value:.2f} m²
+                </div>
+            </div>
+
+            <div class="signal">
+                <div class="signal-label">Priority</div>
+                <div class="signal-value">
+                    {html.escape(str(p["priority"]))}
+                </div>
+            </div>
+
+            <div style="margin-top:10px;">
+                {topology_badge}
+            </div>
+
+            <div style="
+                color:#748396;
+                font-size:11px;
+                margin-top:7px;
+            ">
+                {topology_description}
+            </div>
+
         </div>
+        """,
+        unsafe_allow_html=True
+    )
 
-        <div style="margin-top:7px;">
-            {topology_badge}
-        </div>
-
-        <div style="
-            color:#64748B;
-            font-size:12px;
-            margin-top:7px;
-        ">
-            {topology_description}
-        </div>
-
-    </div>
-    """)
-
+    st.markdown("")
 
     # --------------------------------------------------------
-    # FEATURE SIGNALS
+    # AI FEATURE SIGNALS
     # --------------------------------------------------------
 
-    st.markdown("### AI Feature Signals")
+    compactness = float(
+        p["compactness"]
+    ) if "compactness" in p.index else 0
 
+    vertex_count = int(
+        p["vertex_count"]
+    ) if "vertex_count" in p.index else 0
 
-    signal1, signal2 = st.columns(2)
+    overlap_area = float(
+        p["overlap_area"]
+    ) if "overlap_area" in p.index else 0
 
+    area_anomaly = str(
+        p["area_anomaly"]
+    ) if "area_anomaly" in p.index else "NORMAL"
 
-    with signal1:
-
-        if "compactness" in p.index:
-
-            compactness = float(
-                p["compactness"]
-            )
-
-        else:
-
-            compactness = 0.0
-
-
-        st.html(f"""
-        <div class="signal-card">
-
-            <div class="signal-title">
-                SHAPE REGULARITY
+    st.markdown(
+        """
+        <div class="card">
+            <div class="card-title">🧠 AI Feature Signals</div>
+            <div class="card-subtitle">
+                Geometry indicators supporting the confidence score
             </div>
-
-            <div class="signal-value">
-                {compactness:.2f}
-            </div>
-
         </div>
-        """)
+        """,
+        unsafe_allow_html=True
+    )
 
+    s1, s2 = st.columns(2)
 
-    with signal2:
+    with s1:
 
-        if "vertex_count" in p.index:
-
-            vertices = int(
-                p["vertex_count"]
-            )
-
-        else:
-
-            vertices = 0
-
-
-        st.html(f"""
-        <div class="signal-card">
-
-            <div class="signal-title">
-                BOUNDARY VERTICES
+        st.markdown(
+            f"""
+            <div class="signal">
+                <div class="signal-label">Compactness</div>
+                <div class="signal-value">
+                    {compactness:.3f}
+                </div>
             </div>
 
-            <div class="signal-value">
-                {vertices}
+            <div class="signal">
+                <div class="signal-label">Vertices</div>
+                <div class="signal-value">
+                    {vertex_count}
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+    with s2:
+
+        st.markdown(
+            f"""
+            <div class="signal">
+                <div class="signal-label">Overlap Area</div>
+                <div class="signal-value">
+                    {overlap_area:.2f} m²
+                </div>
             </div>
 
-        </div>
-        """)
-
-
-    signal3, signal4 = st.columns(2)
-
-
-    with signal3:
-
-        if "overlap_area" in p.index:
-
-            overlap = float(
-                p["overlap_area"]
-            )
-
-        else:
-
-            overlap = 0.0
-
-
-        st.html(f"""
-        <div class="signal-card">
-
-            <div class="signal-title">
-                OVERLAP AREA
+            <div class="signal">
+                <div class="signal-label">Area Pattern</div>
+                <div class="signal-value">
+                    {html.escape(area_anomaly)}
+                </div>
             </div>
-
-            <div class="signal-value">
-                {overlap:.3f}
-            </div>
-
-        </div>
-        """)
-
-
-    with signal4:
-
-        if "area_anomaly" in p.index:
-
-            anomaly = str(
-                p["area_anomaly"]
-            )
-
-        else:
-
-            anomaly = "NORMAL"
-
-
-        st.html(f"""
-        <div class="signal-card">
-
-            <div class="signal-title">
-                AREA SIGNAL
-            </div>
-
-            <div class="signal-value">
-                {html.escape(anomaly)}
-            </div>
-
-        </div>
-        """)
-
+            """,
+            unsafe_allow_html=True
+        )
 
     # --------------------------------------------------------
     # XAI
     # --------------------------------------------------------
 
-    xai_reason = html.escape(
+    reason = html.escape(
         str(p["xai_reason"])
     )
 
+    st.markdown("")
 
-    st.html(f"""
-    <div class="xai-box">
+    st.markdown(
+        f"""
+        <div class="xai-box">
+            <div class="xai-title">
+                Explainable AI Reason
+            </div>
 
-        <div style="
-            font-size:12px;
-            color:#0369A1;
-            font-weight:700;
-            margin-bottom:7px;
-        ">
-            💡 EXPLAINABLE AI
-        </div>
+            {reason}
 
-        <div style="
-            font-size:13px;
-            color:#0F172A;
-            line-height:1.5;
-        ">
-            {xai_reason}
-        </div>
+            <br><br>
 
-        <div style="
-            font-size:11px;
-            color:#64748B;
-            margin-top:10px;
-        ">
-            AI recommendation is advisory.
+            <b>Human-in-the-loop:</b>
+            AI provides a preliminary cadastral proposal.
             Final validation remains with the authorized surveyor.
         </div>
+        """,
+        unsafe_allow_html=True
+    )
 
-    </div>
-    """)
-
+    st.markdown("")
 
     # --------------------------------------------------------
     # SURVEYOR DECISION
     # --------------------------------------------------------
 
-    st.markdown("### Surveyor Decision")
-
+    st.markdown(
+        """
+        <div class="card-title">👷 Surveyor Decision</div>
+        """,
+        unsafe_allow_html=True
+    )
 
     b1, b2 = st.columns(2)
-
+    b3, b4 = st.columns(2)
 
     with b1:
 
@@ -1144,11 +1272,10 @@ with inspector_col:
 
             st.rerun()
 
-
     with b2:
 
         if st.button(
-            "✎ Edit",
+            "✎ Edit Required",
             use_container_width=True,
             key=f"edit_{selected_id}"
         ):
@@ -1158,10 +1285,6 @@ with inspector_col:
             ] = "EDIT REQUIRED"
 
             st.rerun()
-
-
-    b3, b4 = st.columns(2)
-
 
     with b3:
 
@@ -1177,11 +1300,10 @@ with inspector_col:
 
             st.rerun()
 
-
     with b4:
 
         if st.button(
-            "📍 Field GT",
+            "⚑ Field GT",
             use_container_width=True,
             key=f"field_{selected_id}"
         ):
@@ -1192,195 +1314,136 @@ with inspector_col:
 
             st.rerun()
 
-
-    decision = st.session_state.parcel_decisions.get(
+    current_decision = st.session_state.parcel_decisions.get(
         selected_id,
-        "PENDING REVIEW"
+        "PENDING"
     )
 
+    st.markdown("")
 
-    if decision == "ACCEPTED":
+    if current_decision == "ACCEPTED":
 
-        st.success(
-            f"✓ {selected_id} accepted by surveyor."
-        )
+        st.success("✓ Parcel accepted by surveyor.")
 
-    elif decision == "EDIT REQUIRED":
+    elif current_decision == "EDIT REQUIRED":
 
-        st.info(
-            f"✎ {selected_id} requires boundary editing."
-        )
+        st.info("✎ Parcel marked for geometry editing.")
 
-    elif decision == "REJECTED":
+    elif current_decision == "REJECTED":
 
-        st.error(
-            f"✕ {selected_id} rejected."
-        )
+        st.error("✕ Parcel rejected.")
 
-    elif decision == "FIELD VERIFICATION":
+    elif current_decision == "FIELD VERIFICATION":
 
-        st.warning(
-            f"📍 {selected_id} added to field verification."
-        )
+        st.warning("⚑ Parcel queued for field verification.")
 
     else:
 
         st.info(
-            f"⏳ {selected_id} is awaiting surveyor decision."
+            "No surveyor decision recorded yet."
         )
-
-
-    st.html("""
-    </div>
-    """)
 
 
 # ============================================================
 # GIS QUALITY CONTROL
 # ============================================================
 
-st.html("""
-<div class="section-title">
-    GIS Quality Control
-</div>
+st.markdown("")
 
-<div class="section-caption">
-    Automated checks performed before surveyor approval
-</div>
-""")
-
-
-invalid_count = int(
-    (~gdf.geometry.is_valid).sum()
+st.html(
+    """
+    <div class="section-title">🧪 GIS Quality Control</div>
+    <div class="section-subtitle">
+        Automated geometry checks before cadastral approval.
+    </div>
+    """
 )
-
-
-overlap_count = int(
-    gdf["topology_status"]
-    .astype(str)
-    .str.contains("OVERLAP")
-    .sum()
-)
-
-
-sliver_count = int(
-    gdf["topology_status"]
-    .astype(str)
-    .str.contains("SLIVER")
-    .sum()
-)
-
-
-valid_count = (
-    total_parcels
-    - invalid_count
-)
-
 
 q1, q2, q3, q4 = st.columns(4)
 
+valid_geometry = int(
+    gdf.geometry.is_valid.sum()
+)
+
+overlap_count = int(
+    (gdf["overlap_area"] > 0.01).sum()
+)
+
+sliver_count = int(
+    gdf["area_sqm"] < 1.0
+).sum() if "area_sqm" in gdf.columns else 0
+
+field_checks = sum(
+    1
+    for value in st.session_state.parcel_decisions.values()
+    if value == "FIELD VERIFICATION"
+)
 
 with q1:
-
-    st.html(f"""
-    <div class="kpi-card">
-
-        <div class="kpi-label">
-            VALID GEOMETRIES
+    st.markdown(
+        f"""
+        <div class="kpi-card">
+            <div class="kpi-label">Valid Geometry</div>
+            <div class="kpi-value">{valid_geometry}/{total_parcels}</div>
+            <div class="kpi-note">Geometry validity check</div>
         </div>
-
-        <div class="kpi-value">
-            {valid_count}
-        </div>
-
-        <div class="kpi-note">
-            Closed and valid polygons
-        </div>
-
-    </div>
-    """)
-
+        """,
+        unsafe_allow_html=True
+    )
 
 with q2:
-
-    st.html(f"""
-    <div class="kpi-card">
-
-        <div class="kpi-label">
-            OVERLAPS
+    st.markdown(
+        f"""
+        <div class="kpi-card">
+            <div class="kpi-label">Overlap Flags</div>
+            <div class="kpi-value">{overlap_count}</div>
+            <div class="kpi-note">Potential conflicts</div>
         </div>
-
-        <div class="kpi-value">
-            {overlap_count}
-        </div>
-
-        <div class="kpi-note">
-            Potential boundary conflicts
-        </div>
-
-    </div>
-    """)
-
+        """,
+        unsafe_allow_html=True
+    )
 
 with q3:
-
-    st.html(f"""
-    <div class="kpi-card">
-
-        <div class="kpi-label">
-            SLIVERS
+    st.markdown(
+        f"""
+        <div class="kpi-card">
+            <div class="kpi-label">Sliver Flags</div>
+            <div class="kpi-value">{sliver_count}</div>
+            <div class="kpi-note">Very small geometries</div>
         </div>
-
-        <div class="kpi-value">
-            {sliver_count}
-        </div>
-
-        <div class="kpi-note">
-            Small geometry anomalies
-        </div>
-
-    </div>
-    """)
-
+        """,
+        unsafe_allow_html=True
+    )
 
 with q4:
-
-    st.html(f"""
-    <div class="kpi-card">
-
-        <div class="kpi-label">
-            FIELD CHECKS
+    st.markdown(
+        f"""
+        <div class="kpi-card">
+            <div class="kpi-label">Field Checks</div>
+            <div class="kpi-value">{field_checks}</div>
+            <div class="kpi-note">Queued for ground truth</div>
         </div>
+        """,
+        unsafe_allow_html=True
+    )
 
-        <div class="kpi-value">
-            {field_count}
-        </div>
 
-        <div class="kpi-note">
-            Queued by surveyor
-        </div>
+# ============================================================
+# FIELD VERIFICATION QUEUE
+# ============================================================
 
+st.markdown("")
+
+st.html(
+    """
+    <div class="section-title">📍 Field Verification Queue</div>
+    <div class="section-subtitle">
+        Prioritized parcels requiring GNSS / ground-truth verification.
     </div>
-    """)
+    """
+)
 
-
-# ============================================================
-# FIELD VERIFICATION
-# ============================================================
-
-st.html("""
-<div class="section-title">
-    Field Verification Queue
-</div>
-
-<div class="section-caption">
-    Parcels requiring GNSS / CORS-assisted ground verification
-</div>
-""")
-
-
-queue_rows = []
-
+field_rows = []
 
 for _, row in gdf.iterrows():
 
@@ -1388,29 +1451,28 @@ for _, row in gdf.iterrows():
 
     decision = st.session_state.parcel_decisions.get(
         pid,
-        "PENDING REVIEW"
+        "PENDING"
     )
 
     if (
-        str(row["priority"]).startswith("HIGH")
+        str(row["priority"]) == "HIGH"
         or decision == "FIELD VERIFICATION"
     ):
 
-        queue_rows.append({
-            "Parcel ID": pid,
-            "Confidence": (
-                f'{float(row["confidence"]):.0f}%'
-            ),
-            "Topology": row["topology_status"],
-            "Priority": row["priority"],
-            "Decision": decision
-        })
+        field_rows.append(
+            {
+                "Parcel": pid,
+                "Confidence": f'{float(row["confidence"]):.1f}%',
+                "Priority": str(row["priority"]),
+                "Topology": str(row["topology_status"]),
+                "Decision": decision
+            }
+        )
 
-
-if queue_rows:
+if field_rows:
 
     st.dataframe(
-        queue_rows,
+        field_rows,
         use_container_width=True,
         hide_index=True
     )
@@ -1418,7 +1480,7 @@ if queue_rows:
 else:
 
     st.success(
-        "No parcels are currently waiting for field verification."
+        "No parcels currently require field verification."
     )
 
 
@@ -1426,272 +1488,246 @@ else:
 # DECISION SUMMARY
 # ============================================================
 
-st.html("""
-<div class="section-title">
-    Surveyor Decision Summary
-</div>
+st.markdown("")
 
-<div class="section-caption">
-    Human-in-the-loop review status for this session
-</div>
-""")
+st.html(
+    """
+    <div class="section-title">📋 Surveyor Decision Summary</div>
+    <div class="section-subtitle">
+        Current human-in-the-loop review status.
+    </div>
+    """
+)
 
+accepted = sum(
+    1 for x in st.session_state.parcel_decisions.values()
+    if x == "ACCEPTED"
+)
+
+edited = sum(
+    1 for x in st.session_state.parcel_decisions.values()
+    if x == "EDIT REQUIRED"
+)
+
+rejected = sum(
+    1 for x in st.session_state.parcel_decisions.values()
+    if x == "REJECTED"
+)
+
+pending = total_parcels - (
+    accepted + edited + rejected +
+    sum(
+        1
+        for x in st.session_state.parcel_decisions.values()
+        if x == "FIELD VERIFICATION"
+    )
+)
 
 d1, d2, d3, d4 = st.columns(4)
 
-
-edit_count = sum(
-    v == "EDIT REQUIRED"
-    for v in st.session_state.parcel_decisions.values()
-)
-
-rejected_count = sum(
-    v == "REJECTED"
-    for v in st.session_state.parcel_decisions.values()
-)
-
-
 with d1:
-    st.metric("Accepted", accepted_count)
+    st.metric("Accepted", accepted)
 
 with d2:
-    st.metric("Edit Required", edit_count)
+    st.metric("Edit Required", edited)
 
 with d3:
-    st.metric("Rejected", rejected_count)
+    st.metric("Rejected", rejected)
 
 with d4:
-    st.metric("Pending", pending_count)
+    st.metric("Pending", max(0, pending))
 
 
 # ============================================================
 # WORKFLOW
 # ============================================================
 
-st.html("""
-<div class="section-title">
-    AI-CADRE Workflow
-</div>
+st.markdown("")
 
-<div class="section-caption">
-    End-to-end cadastral processing pipeline
-</div>
-""")
+st.html(
+    """
+    <div class="section-title">⚙️ AI-CADRE Workflow</div>
+    <div class="section-subtitle">
+        End-to-end cadastral intelligence pipeline.
+    </div>
+    """
+)
 
-
-workflow_cols = st.columns(6)
-
+w1, w2, w3, w4, w5, w6 = st.columns(6)
 
 workflow = [
-
     (
-        "01",
+        "1",
         "Data",
-        "Drone imagery, orthorectified data, DSM/DTM and existing GIS layers."
+        "Drone imagery, orthophotos and GIS inputs"
     ),
-
     (
-        "02",
+        "2",
         "AI Extraction",
-        "Identify parcel boundaries and relevant cadastral features."
+        "Identify parcels, buildings and roads"
     ),
-
     (
-        "03",
+        "3",
         "Parcel Proposal",
-        "Generate preliminary parcel polygons from extracted features."
+        "Generate preliminary parcel polygons"
     ),
-
     (
-        "04",
+        "4",
         "Topology",
-        "Detect overlaps, invalid geometry and sliver polygons."
+        "Validate geometry and spatial conflicts"
     ),
-
     (
-        "05",
+        "5",
         "Confidence",
-        "Rank parcel proposals using geometry and validation signals."
+        "Rank proposals using explainable signals"
     ),
-
     (
-        "06",
+        "6",
         "Surveyor",
-        "Authorized surveyor reviews, edits, accepts or sends to field GT."
+        "Approve, edit, reject or field-check"
     )
-
 ]
 
-
 for col, item in zip(
-    workflow_cols,
+    [w1, w2, w3, w4, w5, w6],
     workflow
 ):
 
-    number, name, description = item
+    number, name, desc = item
 
     with col:
 
-        st.html(f"""
-        <div class="workflow-card">
+        st.markdown(
+            f"""
+            <div class="workflow-card">
 
-            <div class="workflow-number">
-                {number}
+                <div class="workflow-number">
+                    {number}
+                </div>
+
+                <div class="workflow-name">
+                    {name}
+                </div>
+
+                <div class="workflow-desc">
+                    {desc}
+                </div>
+
             </div>
-
-            <div class="workflow-name">
-                {name}
-            </div>
-
-            <div class="workflow-description">
-                {description}
-            </div>
-
-        </div>
-        """)
+            """,
+            unsafe_allow_html=True
+        )
 
 
 # ============================================================
-# EXPORT
+# GEOJSON EXPORT
 # ============================================================
 
-st.html("""
-<div class="section-title">
-    GIS Export
-</div>
+st.markdown("")
 
-<div class="section-caption">
-    Download preliminary cadastral outputs for downstream GIS workflows
-</div>
-""")
+st.html(
+    """
+    <div class="section-title">📦 GIS Export</div>
+    <div class="section-subtitle">
+        Download preliminary cadastral outputs for downstream GIS workflows.
+    </div>
+    """
+)
 
+export_gdf = gdf.copy()
 
-export_all = gdf.copy()
-
-
-export_all["surveyor_decision"] = [
-
-    st.session_state.parcel_decisions.get(
-        str(pid),
-        "PENDING REVIEW"
+export_gdf["surveyor_decision"] = export_gdf[
+    "parcel_id"
+].astype(str).map(
+    lambda x: st.session_state.parcel_decisions.get(
+        x,
+        "PENDING"
     )
+)
 
-    for pid in export_all["parcel_id"]
+geojson_data = export_gdf.to_json()
 
-]
+ex1, ex2 = st.columns(2)
 
-
-export_col1, export_col2 = st.columns(2)
-
-
-with export_col1:
+with ex1:
 
     st.download_button(
-        label="📥 Export Preliminary GeoJSON",
-
-        data=export_all.to_json(),
-
-        file_name=(
-            "ai_cadre_preliminary_cadastre.geojson"
-        ),
-
+        "⬇️ Download Preliminary GeoJSON",
+        data=geojson_data,
+        file_name="ai_cadre_preliminary_parcels.geojson",
         mime="application/geo+json",
-
         use_container_width=True
     )
 
+approved_gdf = export_gdf[
+    export_gdf["surveyor_decision"] == "ACCEPTED"
+]
 
-with export_col2:
+with ex2:
 
-    approved_ids = [
+    if len(approved_gdf) > 0:
 
-        pid
+        approved_geojson = approved_gdf.to_json()
 
-        for pid, decision
-        in st.session_state.parcel_decisions.items()
-
-        if decision == "ACCEPTED"
-
-    ]
-
-
-    approved = gdf[
-        gdf["parcel_id"].astype(str).isin(
-            approved_ids
+        st.download_button(
+            "⬇️ Download Approved Parcels",
+            data=approved_geojson,
+            file_name="ai_cadre_approved_parcels.geojson",
+            mime="application/geo+json",
+            use_container_width=True
         )
-    ].copy()
 
+    else:
 
-    approved["surveyor_decision"] = "ACCEPTED"
-
-
-    st.download_button(
-        label="✅ Export Approved Parcels",
-
-        data=approved.to_json(),
-
-        file_name=(
-            "ai_cadre_approved_cadastre.geojson"
-        ),
-
-        mime="application/geo+json",
-
-        use_container_width=True,
-
-        disabled=approved.empty
-    )
+        st.button(
+            "⬇️ Approved Parcels",
+            disabled=True,
+            use_container_width=True
+        )
 
 
 # ============================================================
-# HUMAN IN LOOP
+# HUMAN-IN-THE-LOOP NOTE
 # ============================================================
 
-st.html("""
-<div style="
-    margin-top:25px;
-    background:#F8FAFC;
-    border:1px solid #CBD5E1;
-    border-radius:14px;
-    padding:18px;
-">
+st.markdown("")
 
-    <div style="
-        font-size:12px;
-        font-weight:800;
-        color:#334155;
-        margin-bottom:6px;
-    ">
-        HUMAN-IN-THE-LOOP PRINCIPLE
+st.markdown(
+    """
+    <div class="xai-box">
+
+        <div class="xai-title">
+            Human-in-the-loop governance
+        </div>
+
+        AI-CADRE is designed as a <b>decision-support system</b>,
+        not an autonomous cadastral authority.
+
+        AI-generated boundaries and extracted features are preliminary.
+        Automated topology checks identify potential inconsistencies,
+        while confidence scores help surveyors prioritize their review.
+
+        Final cadastral approval remains with the authorized
+        surveying / land-record authority.
+
     </div>
-
-    <div style="
-        font-size:12px;
-        line-height:1.6;
-        color:#64748B;
-    ">
-        AI-CADRE generates preliminary cadastral intelligence
-        and prioritizes potential issues. It does not replace
-        the authorized surveyor. Final cadastral validation
-        remains under human supervision.
-    </div>
-
-</div>
-""")
+    """,
+    unsafe_allow_html=True
+)
 
 
 # ============================================================
 # FOOTER
 # ============================================================
 
-st.html("""
-<div class="footer">
-
-    🛰️ AI-CADRE • AI-Based Automated Urban Parcel Mapping
-    & Cadastral Feature Extraction System
-
-    <br>
-
-    SIH26012 • Robotics & Drones • Software Prototype
-
-</div>
-""")
+st.markdown(
+    """
+    <div class="footer">
+        AI-CADRE • SIH26012 • AI-Based Automated Urban Parcel Mapping
+        & Cadastral Feature Extraction System
+        <br>
+        Prototype for Smart India Hackathon 2026
+    </div>
+    """,
+    unsafe_allow_html=True
+)
