@@ -874,7 +874,7 @@ with inspector_col:
     # BASIC INFORMATION
     # --------------------------------------------------------
 
-    area_value = float(p["area"])
+    area_value = float(p["area_sqm"])
 
     st.html(
         f"""
