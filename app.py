@@ -1,6 +1,6 @@
 import html
 import time
-
+import json
 import folium
 import geopandas as gpd
 import streamlit as st
@@ -25,6 +25,8 @@ st.set_page_config(
 # SESSION STATE
 # ============================================================
 
+if "map_focus_city" not in st.session_state:
+    st.session_state.map_focus_city = False
 if "parcel_decisions" not in st.session_state:
     st.session_state.parcel_decisions = {}
 
@@ -857,8 +859,6 @@ st.html(
 )
 
 map_col, inspector_col = st.columns([1.55, 1])
-
-
 # ============================================================
 # MAP
 # ============================================================
@@ -885,138 +885,269 @@ with map_col:
         center_geom.centroid.x,
     ]
 
+    # --------------------------------------------------------
+    # MAIN MAP
+    #
+    # Same map size as before.
+    # Initially shows all survey locations.
+    # Clicking a city marker focuses on that city's
+    # actual parcel boundary group.
+    # --------------------------------------------------------
+
     m = folium.Map(
-    location=[22.5, 79.0],
-    zoom_start=5,
-    tiles="OpenStreetMap",
-    control_scale=True,
-)
-    # National overview markers remain visible when the user zooms out.
-    # The selected city's parcel polygons remain the detailed survey layer.
-    overview_group = folium.FeatureGroup(name="Indian survey locations", show=True)
-for city_name, (city_lat, city_lon) in CITY_CENTERS.items():
-
-    active = city_name == str(selected_packet)
-
-    marker_color = (
-        "#2F6F4E"
-        if active
-        else "#3C7D78"
-    )
-
-    city_marker = folium.CircleMarker(
-        location=[
-            city_lat,
-            city_lon,
-        ],
-        radius=13 if active else 9,
-        color=marker_color,
-        fill=True,
-        fill_color=marker_color,
-        fill_opacity=0.95,
-        weight=3,
-        tooltip=folium.Tooltip(
-            f"<b>{html.escape(city_name)}</b><br>"
-            "Click to zoom into survey area"
-        ),
-        popup=folium.Popup(
-            f"""
-            <div style="
-                font-family:Arial;
-                min-width:180px;
-                text-align:center;
-            ">
-                <b style="font-size:15px;">
-                    {html.escape(city_name)}
-                </b>
-                <br><br>
-                <span style="color:#64748b;">
-                    25 sample parcel records
-                </span>
-                <br><br>
-                <span style="
-                    color:#2F6F4E;
-                    font-weight:700;
-                ">
-                    Click the marker to zoom
-                </span>
-            </div>
-            """,
-            max_width=250,
-        ),
-    )
-
-    city_marker.add_to(
-        overview_group
+        location=[22.5, 79.0],
+        zoom_start=5,
+        tiles="OpenStreetMap",
+        control_scale=True,
     )
 
     # --------------------------------------------------------
-    # CLICK CITY → ZOOM
+    # Calculate actual parcel bounds for every city
     # --------------------------------------------------------
 
-    city_marker.add_child(
-        folium.Element(
-            f"""
-            <script>
-            setTimeout(function() {{
-                var marker = {city_marker.get_name()};
-                var map = {m.get_name()};
+    city_bounds = {}
 
-                marker.on('click', function() {{
-                    map.setView(
-                        [{city_lat}, {city_lon}],
-                        16
-                    );
-                }});
-            }}, 100);
-            </script>
-            """
+    for city_name in CITY_CENTERS:
+
+        city_gdf = all_gdf[
+            all_gdf["region"].astype(str) == city_name
+        ].copy()
+
+        if city_gdf.empty:
+            continue
+
+        try:
+            if city_gdf.crs:
+                city_map_gdf = city_gdf.to_crs(
+                    epsg=4326
+                )
+            else:
+                city_map_gdf = city_gdf
+
+            bounds = city_map_gdf.total_bounds
+
+            city_bounds[city_name] = [
+                [bounds[1], bounds[0]],
+                [bounds[3], bounds[2]],
+            ]
+
+        except Exception:
+            pass
+
+    # --------------------------------------------------------
+    # ALL INDIAN SURVEY LOCATION MARKERS
+    # --------------------------------------------------------
+
+    overview_group = folium.FeatureGroup(
+        name="Indian survey locations",
+        show=True,
+    )
+
+    for city_name, (city_lat, city_lon) in CITY_CENTERS.items():
+
+        active = (
+            city_name == str(selected_packet)
         )
-    )
+
+        marker_color = (
+            "#2F6F4E"
+            if active
+            else "#3C7D78"
+        )
+
+        city_marker = folium.CircleMarker(
+            location=[
+                city_lat,
+                city_lon,
+            ],
+
+            radius=13 if active else 9,
+
+            color=marker_color,
+
+            fill=True,
+
+            fill_color=marker_color,
+
+            fill_opacity=0.95,
+
+            weight=3,
+
+            tooltip=folium.Tooltip(
+                f"<b>{html.escape(city_name)}</b><br>"
+                "Click to view parcel boundaries"
+            ),
+
+            popup=folium.Popup(
+                f"""
+                <div style="
+                    font-family:Arial;
+                    min-width:180px;
+                    text-align:center;
+                ">
+                    <b style="font-size:15px;">
+                        {html.escape(city_name)}
+                    </b>
+
+                    <br><br>
+
+                    <span style="color:#64748b;">
+                        25 sample parcel records
+                    </span>
+
+                    <br><br>
+
+                    <span style="
+                        color:#2F6F4E;
+                        font-weight:700;
+                    ">
+                        Click marker to zoom
+                    </span>
+                </div>
+                """,
+                max_width=250,
+            ),
+        )
+
+        city_marker.add_to(
+            overview_group
+        )
+
     overview_group.add_to(m)
 
-    for _, row in map_gdf.iterrows():
-        parcel_id = str(row["parcel_id"])
-        confidence_value = float(row["confidence"])
-        priority = str(row["priority"])
+    # --------------------------------------------------------
+    # INITIAL MAP VIEW
+    #
+    # First load:
+    #     Show all six cities.
+    #
+    # After clicking a city:
+    #     Zoom to that city's actual parcel group.
+    # --------------------------------------------------------
 
-        decision = st.session_state.parcel_decisions.get(
-            parcel_id,
-            "PENDING",
+    if st.session_state.map_focus_city:
+
+        selected_bounds = city_bounds.get(
+            str(selected_packet)
         )
 
-        if parcel_id == str(st.session_state.selected_parcel):
+        if selected_bounds:
+
+            m.fit_bounds(
+                selected_bounds,
+                padding=[25, 25],
+            )
+
+    else:
+
+        all_city_locations = [
+            [lat, lon]
+            for lat, lon in CITY_CENTERS.values()
+        ]
+
+        m.fit_bounds(
+            all_city_locations,
+            padding=[30, 30],
+        )
+
+    # --------------------------------------------------------
+    # PARCEL BOUNDARIES
+    # --------------------------------------------------------
+
+    for _, row in map_gdf.iterrows():
+
+        parcel_id = str(
+            row["parcel_id"]
+        )
+
+        confidence_value = float(
+            row["confidence"]
+        )
+
+        priority = str(
+            row["priority"]
+        )
+
+        decision = (
+            st.session_state.parcel_decisions.get(
+                parcel_id,
+                "PENDING",
+            )
+        )
+
+        # ----------------------------------------------------
+        # Parcel colour
+        # ----------------------------------------------------
+
+        if parcel_id == str(
+            st.session_state.selected_parcel
+        ):
             fill_color = "#3C7D78"
+
         elif decision == "ACCEPTED":
             fill_color = "#4F8A61"
+
         elif decision == "REJECTED":
             fill_color = "#B94A48"
+
         elif decision == "FIELD VERIFICATION":
             fill_color = "#C38A32"
+
         elif confidence_value < 70:
             fill_color = "#B94A48"
+
         elif confidence_value < 85:
             fill_color = "#C38A32"
+
         else:
             fill_color = "#4F8A61"
 
         popup_html = f"""
-        <div style="font-family:Arial;min-width:190px;">
-            <b>Parcel {html.escape(parcel_id)}</b><br><br>
-            Confidence: {confidence_value:.1f}%<br>
-            Geometry: {html.escape(str(row["topology_status"]))}<br>
-            Priority: {html.escape(priority)}<br>
-            Decision: {html.escape(decision)}
+        <div style="
+            font-family:Arial;
+            min-width:190px;
+        ">
+
+            <b>
+                Parcel {html.escape(parcel_id)}
+            </b>
+
+            <br><br>
+
+            Confidence:
+            {confidence_value:.1f}%
+
+            <br>
+
+            Geometry:
+            {html.escape(
+                str(row["topology_status"])
+            )}
+
+            <br>
+
+            Priority:
+            {html.escape(priority)}
+
+            <br>
+
+            Decision:
+            {html.escape(decision)}
+
         </div>
         """
 
         tooltip = folium.Tooltip(
-            f"Parcel {parcel_id} • {confidence_value:.1f}%"
+            f"Parcel {parcel_id} • "
+            f"{confidence_value:.1f}%"
         )
 
         feature = {
             "type": "Feature",
-            "geometry": row["geometry"].__geo_interface__,
+            "geometry": (
+                row["geometry"]
+                .__geo_interface__
+            ),
             "properties": {
                 "parcel_id": parcel_id,
             },
@@ -1024,22 +1155,31 @@ for city_name, (city_lat, city_lon) in CITY_CENTERS.items():
 
         folium.GeoJson(
             feature,
-            style_function=lambda feature, fc=fill_color: {
+
+            style_function=lambda feature,
+            fc=fill_color: {
                 "fillColor": fc,
                 "color": "#25483A",
                 "weight": 2,
                 "fillOpacity": 0.5,
             },
+
             highlight_function=lambda feature: {
                 "weight": 4,
                 "fillOpacity": 0.72,
             },
+
             tooltip=tooltip,
+
             popup=folium.Popup(
                 popup_html,
                 max_width=300,
             ),
         ).add_to(m)
+
+    # --------------------------------------------------------
+    # LEGEND
+    # --------------------------------------------------------
 
     legend_html = """
     <div style="
@@ -1054,11 +1194,21 @@ for city_name, (city_lat, city_lon) in CITY_CENTERS.items():
         font-size:13px;
         box-shadow:0 2px 8px rgba(0,0,0,.15);
     ">
+
         <b>Parcel status</b><br>
-        <span style="color:#22C55E;">●</span> Good<br>
-        <span style="color:#F59E0B;">●</span> Review<br>
-        <span style="color:#EF4444;">●</span> Issue<br>
-        <span style="color:#38BDF8;">●</span> Selected
+
+        <span style="color:#22C55E;">●</span>
+        Good<br>
+
+        <span style="color:#F59E0B;">●</span>
+        Review<br>
+
+        <span style="color:#EF4444;">●</span>
+        Issue<br>
+
+        <span style="color:#38BDF8;">●</span>
+        Selected
+
     </div>
     """
 
@@ -1066,29 +1216,129 @@ for city_name, (city_lat, city_lon) in CITY_CENTERS.items():
         folium.Element(legend_html)
     )
 
+    # --------------------------------------------------------
+    # DISPLAY MAP
+    # --------------------------------------------------------
+
     map_result = st_folium(
         m,
         use_container_width=True,
         height=620,
-        returned_objects=["last_active_drawing"],
+        returned_objects=[
+            "last_active_drawing",
+            "last_clicked",
+        ],
     )
 
-    clicked = map_result.get("last_active_drawing")
+    # --------------------------------------------------------
+    # PARCEL CLICK
+    # --------------------------------------------------------
 
-    if clicked:
-        properties = clicked.get("properties", {})
-        clicked_id = properties.get("parcel_id")
+    clicked_parcel = map_result.get(
+        "last_active_drawing"
+    )
+
+    if clicked_parcel:
+
+        properties = clicked_parcel.get(
+            "properties",
+            {}
+        )
+
+        clicked_id = properties.get(
+            "parcel_id"
+        )
 
         if clicked_id is not None:
-            clicked_id = str(clicked_id)
 
-            if clicked_id in gdf["parcel_id"].astype(str).tolist():
+            clicked_id = str(
+                clicked_id
+            )
+
+            if clicked_id in (
+                gdf["parcel_id"]
+                .astype(str)
+                .tolist()
+            ):
+
                 if clicked_id != str(
                     st.session_state.selected_parcel
                 ):
-                    st.session_state.selected_parcel = clicked_id
+
+                    st.session_state.selected_parcel = (
+                        clicked_id
+                    )
+
                     st.rerun()
 
+    # --------------------------------------------------------
+    # CITY MARKER CLICK
+    #
+    # A city marker click does not create an
+    # active drawing, so we can use last_clicked
+    # to detect it.
+    # --------------------------------------------------------
+
+    clicked_location = map_result.get(
+        "last_clicked"
+    )
+
+    if (
+        clicked_location
+        and not clicked_parcel
+    ):
+
+        click_lat = clicked_location.get(
+            "lat"
+        )
+
+        click_lon = clicked_location.get(
+            "lng"
+        )
+
+        if (
+            click_lat is not None
+            and click_lon is not None
+        ):
+
+            # Find nearest survey city
+            nearest_city = min(
+                CITY_CENTERS,
+                key=lambda city: (
+                    (click_lat - CITY_CENTERS[city][0]) ** 2
+                    +
+                    (click_lon - CITY_CENTERS[city][1]) ** 2
+                ),
+            )
+
+            nearest_lat, nearest_lon = (
+                CITY_CENTERS[nearest_city]
+            )
+
+            distance = math.sqrt(
+                (click_lat - nearest_lat) ** 2
+                +
+                (click_lon - nearest_lon) ** 2
+            )
+
+            # Only interpret a click as a city-marker
+            # click if it is close to the marker.
+            if distance <= 0.18:
+
+                if (
+                    str(selected_packet)
+                    != str(nearest_city)
+                ):
+
+                    st.session_state.selected_packet = (
+                        nearest_city
+                    )
+
+                st.session_state.map_focus_city = True
+
+                st.session_state.selected_parcel = None
+
+                st.rerun()
 
 # ============================================================
 # PARCEL INSPECTOR
