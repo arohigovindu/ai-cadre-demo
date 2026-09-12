@@ -900,7 +900,19 @@ with map_col:
         tiles="OpenStreetMap",
         control_scale=True,
     )
+if st.session_state.map_focus_city:
+    selected_bounds = city_bounds.get(selected_packet)
 
+    if selected_bounds:
+        m.fit_bounds(
+            selected_bounds,
+            padding=[25, 25]
+        )
+else:
+    m.fit_bounds(
+        [[lat, lon] for lat, lon in CITY_CENTERS.values()],
+        padding=[30, 30]
+    )
     # --------------------------------------------------------
     # Calculate actual parcel bounds for every city
     # --------------------------------------------------------
@@ -945,76 +957,29 @@ with map_col:
 
     for city_name, (city_lat, city_lon) in CITY_CENTERS.items():
 
-        active = (
-            city_name == str(selected_packet)
+    city_marker = folium.CircleMarker(
+        location=[city_lat, city_lon],
+        radius=9,
+        color="#2563EB",
+        fill=True,
+        fill_color="#2563EB",
+        fill_opacity=0.9,
+        tooltip=f"Open {city_name}",
+    )
+
+    city_marker.add_to(overview_group)
+
+    city_marker.add_child(
+        folium.Popup(
+            f"""
+            <div style="font-family:Arial; font-size:14px;">
+                <b>{city_name}</b><br>
+                Click this location to view parcel boundaries.
+            </div>
+            """,
+            max_width=250,
         )
-
-        marker_color = (
-            "#2F6F4E"
-            if active
-            else "#3C7D78"
-        )
-
-        city_marker = folium.CircleMarker(
-            location=[
-                city_lat,
-                city_lon,
-            ],
-
-            radius=13 if active else 9,
-
-            color=marker_color,
-
-            fill=True,
-
-            fill_color=marker_color,
-
-            fill_opacity=0.95,
-
-            weight=3,
-
-            tooltip=folium.Tooltip(
-                f"<b>{html.escape(city_name)}</b><br>"
-                "Click to view parcel boundaries"
-            ),
-
-            popup=folium.Popup(
-                f"""
-                <div style="
-                    font-family:Arial;
-                    min-width:180px;
-                    text-align:center;
-                ">
-                    <b style="font-size:15px;">
-                        {html.escape(city_name)}
-                    </b>
-
-                    <br><br>
-
-                    <span style="color:#64748b;">
-                        25 sample parcel records
-                    </span>
-
-                    <br><br>
-
-                    <span style="
-                        color:#2F6F4E;
-                        font-weight:700;
-                    ">
-                        Click marker to zoom
-                    </span>
-                </div>
-                """,
-                max_width=250,
-            ),
-        )
-
-        city_marker.add_to(
-            overview_group
-        )
-
-    overview_group.add_to(m)
-
+    )
     # --------------------------------------------------------
     # INITIAL MAP VIEW
     #
@@ -1221,15 +1186,60 @@ with map_col:
     # --------------------------------------------------------
 
     map_result = st_folium(
-        m,
-        use_container_width=True,
-        height=620,
-        returned_objects=[
-            "last_active_drawing",
-            "last_clicked",
-        ],
-    )
+    m,
+    use_container_width=True,
+    height=620,
+    returned_objects=["last_active_drawing", "last_clicked"],
+)
 
+clicked = map_result.get("last_active_drawing")
+
+# ---------------------------------------------------------
+# 1. PARCEL CLICK
+# ---------------------------------------------------------
+if clicked:
+    props = clicked.get("properties", {})
+
+    if props.get("parcel_id"):
+        st.session_state.selected_parcel = str(props["parcel_id"])
+        st.rerun()
+
+
+# ---------------------------------------------------------
+# 2. CITY MARKER CLICK
+# ---------------------------------------------------------
+last_clicked = map_result.get("last_clicked")
+
+if last_clicked and not clicked:
+
+    click_lat = last_clicked.get("lat")
+    click_lon = last_clicked.get("lng")
+
+    if click_lat is not None and click_lon is not None:
+
+        nearest_city = None
+        nearest_distance = float("inf")
+
+        for city_name, (city_lat, city_lon) in CITY_CENTERS.items():
+
+            distance = math.sqrt(
+                (click_lat - city_lat) ** 2
+                + (click_lon - city_lon) ** 2
+            )
+
+            if distance < nearest_distance:
+                nearest_distance = distance
+                nearest_city = city_name
+
+        # Only treat the click as a city click if it is
+        # actually close to one of the city markers.
+        if nearest_city and nearest_distance <= 0.18:
+
+            st.session_state.selected_packet = nearest_city
+            st.session_state.map_focus_city = True
+            st.session_state.selected_parcel = None
+
+            st.rerun()
     # --------------------------------------------------------
     # PARCEL CLICK
     # --------------------------------------------------------
