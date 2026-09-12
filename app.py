@@ -876,30 +876,34 @@ with inspector_col:
 
     area_value = float(p["area_sqm"])
 
-    st.html(
-        f"""
-        <div class="info-row">
-            <div class="info-label">PARCEL IDENTIFIER</div>
-            <div class="info-value">
-                {html.escape(str(p["parcel_id"]))}
-            </div>
-        </div>
+   area_value = float(
+    p.get("area_sqm", p.get("area", 0))
+)
 
-        <div class="info-row">
-            <div class="info-label">GEOMETRY AREA</div>
-            <div class="info-value">
-                {area_value:.2f}
-            </div>
+st.html(
+    f"""
+    <div class="info-row">
+        <div class="info-label">PARCEL IDENTIFIER</div>
+        <div class="info-value">
+            {html.escape(str(p["parcel_id"]))}
         </div>
+    </div>
 
-        <div class="info-row">
-            <div class="info-label">PRIORITY</div>
-            <div class="info-value">
-                {html.escape(str(p["priority"]))}
-            </div>
+    <div class="info-row">
+        <div class="info-label">GEOMETRY AREA</div>
+        <div class="info-value">
+            {area_value:.2f} sq. units
         </div>
-        """
-    )
+    </div>
+
+    <div class="info-row">
+        <div class="info-label">PRIORITY</div>
+        <div class="info-value">
+            {html.escape(str(p["priority"]))}
+        </div>
+    </div>
+    """
+)
 
     # --------------------------------------------------------
     # TOPOLOGY
