@@ -669,7 +669,7 @@ if st.session_state.extraction_run and uploaded_image is not None:
 
     with r1:
         st.html(
-            """
+            f"""
             <div class="kpi-card">
                 <div class="kpi-label">Parcels</div>
                 <div class="kpi-value">{total_parcels}</div>
@@ -680,7 +680,7 @@ if st.session_state.extraction_run and uploaded_image is not None:
 
     with r2:
         st.html(
-            """
+            f"""
             <div class="kpi-card">
                 <div class="kpi-label">Buildings</div>
                 <div class="kpi-value">{max(1, int(total_parcels * 0.72))}</div>
@@ -691,7 +691,7 @@ if st.session_state.extraction_run and uploaded_image is not None:
 
     with r3:
         st.html(
-            """
+            f"""
             <div class="kpi-card">
                 <div class="kpi-label">Roads / Paths</div>
                 <div class="kpi-value">{max(2, int(total_parcels * 0.28))}</div>
@@ -702,7 +702,7 @@ if st.session_state.extraction_run and uploaded_image is not None:
 
     with r4:
         st.html(
-            """
+            f"""
             <div class="kpi-card">
                 <div class="kpi-label">Mean confidence</div>
                 <div class="kpi-value">{avg_confidence:.1f}%</div>
